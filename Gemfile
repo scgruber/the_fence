@@ -10,7 +10,6 @@ gem "haml"
 gem "right-rails"
 
 group :test do
-	gem 'rspec', ">= 2.0.0.beta.8"
-	gem 'factory_girl'
+	gem 'rspec-rails', ">= 2.0.0.beta.8"
   gem 'webrat'
 end
