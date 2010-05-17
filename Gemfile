@@ -1,11 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta3'
+gem 'rails', :git => "http://github.com/rails/rails.git"
 
 gem "mongoid", "2.0.0.beta4"
 gem "bson_ext", "0.20.1"
 
 gem "haml"
+
+gem "devise", :git => "git://github.com/plataformatec/devise.git"
 
 gem "right-rails"
 
