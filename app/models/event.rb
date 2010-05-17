@@ -1,3 +1,5 @@
+require Rails.root + 'app/uploaders/image.rb'
+
 class Event
   include Mongoid::Document
 
@@ -6,9 +8,38 @@ class Event
   field :start, :type => Time
   field :finish, :type => Time
   field :featured, :type => Boolean
+  field :cost, :type => Float
   
   has_many_related :categories
-  has_many_related :locations
+  has_one_related :location
   
   mount_uploader :image, ImageUploader
+  
+  validate :start_before_finish
+  validates_presence_of :start, :name, :description, :location
+  validates_uniqueness_of :name
+
+  named_scope :happening_now, where(:start.lt => Time.now, :finish.gt => Time.now)
+  named_scope :featured, where(:featured => true)
+  
+  def to_param
+    "#{self.id}-#{self.name.parameterize}"
+  end
+  
+  def duration
+    finish ? finish - start : 0
+  end
+  
+  def free?
+    cost == 0
+  end
+  
+  def til_whenever?
+    finish.nil?
+  end
+  
+  private
+  def start_before_finish
+    errors.add(:finish, "should be after start time") if finish && start && finish <= start
+  end
 end
