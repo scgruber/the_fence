@@ -9,4 +9,6 @@ class Event
   
   has_many_related :categories
   has_many_related :locations
+  
+  mount_uploader :image, ImageUploader
 end

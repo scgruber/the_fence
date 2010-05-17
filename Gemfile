@@ -9,6 +9,8 @@ gem "haml"
 
 gem "devise", :git => "git://github.com/plataformatec/devise.git"
 
+gem "carrierwave", :git => 'http://github.com/jnicklas/carrierwave.git'
+
 gem "right-rails"
 
 group :test do
