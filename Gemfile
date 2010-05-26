@@ -18,4 +18,9 @@ gem "right-rails"
 group :test do
 	gem 'rspec-rails', ">= 2.0.0.beta.8"
   gem 'webrat'
+  
+  gem 'capybara'
+  gem 'cucumber-rails'
+  gem 'cucumber', '0.7.2'
+  gem 'spork'
 end
