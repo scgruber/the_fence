@@ -1,76 +1,60 @@
 require 'spec_helper'
 
-module EventSpecHelper
-  
-  def valid_event_attributes
-    {
-      :name => "Event",
-      :location => mock_model(Location, :name => 'place', :destroyed? => false).as_null_object,
-      :start => "9/9/09",
-      :finish => "10/10/10",
-      :image => Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/poster.gif', "image/gif"),
-      :description => "Description"
-    }
-  end
-end
-
 describe Event do
   
-  include EventSpecHelper
+  subject { Factory(:event) }
+  let(:event) { Factory(:event) }
   
-  let(:event) { Event.new }
-  
-  it "should be valid" do
-    event.attributes = valid_event_attributes
-    event.should be_valid
-  end
+  it { should be_valid }
 
   describe "validations" do
+    
     it 'should require a name' do
-      event.attributes = valid_event_attributes.except(:name)
+      event.name = ''
       event.should_not be_valid
-      event.name = valid_event_attributes[:name]
-      event.should be_valid
     end
 
     it 'should require a unique name' do
-      Event.create(valid_event_attributes)
-      event.attributes = valid_event_attributes
+      duplicate_name_event = Factory(:event)
+      
+      event.name = duplicate_name_event.name
       event.should_not be_valid
+      
       event.name = 'Other random name'
       event.should be_valid
     end
 
     it 'should require a start' do
-      event.attributes = valid_event_attributes.except(:start)
+      event.start = nil
+      event.should_not be_valid
+      
       event.save
       event.errors[:start].should include("can't be blank")
-      event.start = valid_event_attributes[:start]
-      event.should be_valid
     end
 
     it 'should require a location' do
-      event.attributes = valid_event_attributes.except(:location)
+      event = Factory.build(:event, :location => nil)
+      event.should_not be_valid
+      
       event.save
       event.errors[:location].should include("can't be blank")
-      # TODO: Why doesn't this work?
-      # event.location = valid_event_attributes[:location]
-      # event.should be_valid
     end
 
     it 'should require a description' do
-      event.attributes = valid_event_attributes.except(:description)
+      event.description = ""
+      event.should_not be_valid
+      
       event.save
       event.errors[:description].should include("can't be blank")
-      event.description = valid_event_attributes[:description]
-      event.should be_valid
     end
 
     it 'should require a finish time after the start time' do
-      event.attributes = valid_event_attributes
       event.finish = event.start - 1.year
+      event.should_not be_valid
+      
       event.save
       event.errors[:finish].should include("should be after start time")
+      
       event.finish = event.start + 1.hour
       event.should be_valid
     end
@@ -79,21 +63,24 @@ describe Event do
   describe "happening_now scope" do
     
     it "should include events happening now" do
-      event.attributes = valid_event_attributes.merge(:start => 1.year.ago, :finish => 1.year.from_now)
+      event.start = 1.year.ago
+      event.finish = 1.year.from_now
       event.save
       
       Event.happening_now.should include(event)
     end
     
     it "should not include future events" do
-      event.attributes = valid_event_attributes.merge(:start => 1.year.from_now, :finish => 2.years.from_now)
+      event.start = 1.year.from_now
+      event.finish = 2.years.from_now
       event.save
       
       Event.happening_now.should_not include(event)
     end
     
     it "should not include past events" do
-      event.attributes = valid_event_attributes.merge(:start => 2.years.ago, :finish => 1.year.ago)
+      event.start = 2.years.ago
+      event.finish = 1.year.ago
       event.save
       
       Event.happening_now.should_not include(event)
@@ -104,10 +91,6 @@ describe Event do
   describe "featured" do
     
     describe "scope" do
-    
-      before(:each) do
-        event.attributes = valid_event_attributes
-      end
     
       it "should contain featured events" do
         event.featured = true
@@ -122,16 +105,6 @@ describe Event do
       
         Event.featured.should_not include(event)
       end
-      
-    end
-    
-    describe "attribute" do
-
-      # TODO: Make sure this isn't necessary
-      # it "should not be accessible by mass assignment" do
-      #   event.attributes = valid_event_attributes.merge(:featured => true)
-      #   event.send(:featured).should_not == true
-      # end
       
     end
     
@@ -164,8 +137,8 @@ describe Event do
   describe "categories" do
     
     it "should be assignable" do
-      category1 = mock_model(Category, :name => 'party').as_null_object
-      category2 = mock_model(Category, :name => 'lecture').as_null_object
+      category1 = Factory(:category, :name => 'party')
+      category2 = Factory(:category, :name => 'lecture')
       
       event.categories << category1
       event.categories << category2
@@ -207,9 +180,7 @@ describe Event do
   describe "images" do
     
     # it "should not accept invalid attachment types" do
-    #   event.attributes = valid_event_attributes.merge!(:image => Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/not_an_image.txt', "text/plain"))
-    #   event.stub!(:save_attached_files).and_return true
-    #   event.save
+    #   event.update_attributes!(:image => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../fixtures/not_an_image.txt', 'text/plain'))
     #   
     #   event.errors[:image].should == "Image uploads must be a .jpg, .gif, or .png file."
     # end
@@ -220,6 +191,6 @@ describe Event do
     
   end
   
-  it "should habtm Users"
+  pending "habtm on users"
   
 end

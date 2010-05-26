@@ -23,4 +23,7 @@ group :test do
   gem 'cucumber-rails'
   gem 'cucumber', '0.7.2'
   gem 'spork'
+  
+  gem 'factory_girl', :git => "http://github.com/thoughtbot/factory_girl.git",
+                      :branch => "rails3"
 end
