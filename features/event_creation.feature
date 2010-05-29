@@ -15,7 +15,6 @@ Feature: Event creation
     And there is a location called "Doherty Hall 1212"
     When I fill in the following:
       | Name        | First Team Captain Meeting                                                  |
-      | Slogan      | Save these dates!                                                           |
       | Where?      | Doherty Hall 1212                                                           |
       | From        | 9/17/09 at 4:30 PM                                                          |
       | To          | 9/17/09 at 5:30 PM                                                          |
