@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe EventsController do
   
+  include Devise::TestHelpers # TODO remove when rspec wises up
+  
   before(:each) do
     @event = Factory.build(:event)
   end

@@ -3,12 +3,11 @@ Feature: Event creation
   As an event organizer
   I want to create an event listing
 
-  @allow-rescue
   Scenario: Not logged in
-    Given I am not logged in
+    Given I am logged out
     When I go to the new event page
     Then I should be on the login page
-    And I should see "Log in"
+    And I should see "Sign in"
 
   Scenario: Creating a valid event
     Given I am logged in

@@ -8,6 +8,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    authorize! :create, @event
     respond_with(@event)
   end
   
