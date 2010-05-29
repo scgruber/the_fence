@@ -30,10 +30,11 @@ describe EventsController do
   end
   
   it "should locate the related location on create" do
-    Location.stub!(:find)
-    Location.should_receive(:find).
+    pending("habtm support in mongoid")
+    Location.should_receive(:find_or_create_by).
              with(:name => "someplace")
-    post :create, :event => { "location_name" => "someplace" }
+    Location.stub!(:find)
+    post :create, :event => { "location" => "someplace" }
   end
   
   it "should assign related location on create"

@@ -192,5 +192,6 @@ describe Event do
   end
   
   pending "habtm on users"
+  pending "habtm on locations"
   
 end

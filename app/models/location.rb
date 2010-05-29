@@ -5,5 +5,7 @@ class Location
   field :address, :type => String
   field :description, :type => String
 
-  belongs_to_related :event
+  # Until HABTM support comes to Mongoid
+  # belongs_to_related :event
+  field :event, :type => String
 end
