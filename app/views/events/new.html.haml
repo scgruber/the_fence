@@ -1,0 +1,9 @@
+Flash error:
+= flash[:error]
+= notice
+= form_for @event do |f|
+  = f.label :start, 'From'
+  = f.text_field :start
+  = f.label :finish, 'To'
+  = f.text_field :finish
+  = f.submit 'Create Event'

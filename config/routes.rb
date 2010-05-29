@@ -1,5 +1,4 @@
 Fence::Application.routes.draw do |map|
-  devise_for :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -47,6 +46,10 @@ Fence::Application.routes.draw do |map|
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :events
+  
+  devise_for :users
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

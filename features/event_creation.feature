@@ -41,7 +41,6 @@ Feature: Event creation
     And I should see "Location can't be blank"
     And I should see "Start can't be blank"
 
-
   Scenario: Creating event with start time after end time
     Given I am logged in
     And I am on the new event page
