@@ -52,7 +52,10 @@ Fence::Application.routes.draw do |map|
   # just remember to delete public/index.html.
   root :to => "homepage#index"
   
-  devise_for :users
+  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
+  match 'login' => 'devise/sessions#new', :as => "new_user_session"
+  match 'logout' => 'devise/sessions#destroy', :as => "destroy_user_session"
+  match 'signup' => 'devise/registrations#new', :as => "new_user_registration"
 
   # See how all your routes lay out with "rake routes"
 

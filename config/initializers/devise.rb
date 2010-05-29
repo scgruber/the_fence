@@ -7,6 +7,9 @@ Devise.setup do |config|
   
   config.password_length = 6..20
   config.email_regexp = /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i
+
+  config.use_default_scope = true
+  config.default_scope = :user
   
   require 'devise/orm/mongoid'
 end
