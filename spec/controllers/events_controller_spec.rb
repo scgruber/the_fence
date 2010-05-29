@@ -50,7 +50,7 @@ describe EventsController do
       Event.should_receive(:new).
             and_return(@event)
       @event.should_receive(:save).and_return(true)
-      post :create
+      post :create, :event => {}
     end
     
     specify { flash[:notice].should == "The event was saved successfully" }
