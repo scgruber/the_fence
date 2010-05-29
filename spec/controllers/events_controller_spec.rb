@@ -14,6 +14,14 @@ describe EventsController do
     assigns[:event].should == @event
   end
   
+  it "should assign requested @event on show" do
+    Event.should_receive(:find).
+         with("my-event").
+         and_return(@event)
+    get :show, :event => { "id" => "my-event" }
+    assigns[:event].should == @event
+  end
+  
   it "should create a new event" do
     Event.should_receive(:new).
           with("name" => "event").

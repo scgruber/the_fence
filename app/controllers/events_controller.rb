@@ -21,5 +21,10 @@ class EventsController < ApplicationController
     end
     respond_with(@event, :location => events_url)
   end
+  
+  def show
+    @event = Event.find(params[:id])
+    respond_with(@event)
+  end
 
 end
