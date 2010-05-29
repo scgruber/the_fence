@@ -56,7 +56,7 @@ describe EventsController do
     
     specify { flash[:notice].should == "The event was saved successfully" }
     
-    it { should redirect_to(events_path) }
+    it { should redirect_to( event_path(@event) ) }
     
   end
 

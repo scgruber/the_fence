@@ -19,7 +19,7 @@ class EventsController < ApplicationController
     else
       flash[:alert] = @event.errors.full_messages
     end
-    respond_with(@event, :location => events_url)
+    respond_with(@event, :location => event_url(@event))
   end
   
   def show
