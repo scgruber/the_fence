@@ -9,8 +9,7 @@ gem "haml"
 
 gem "devise", :git => "git://github.com/plataformatec/devise.git"
 
-gem "RubyInline"
-gem "image_science"
+gem "rmagick"
 gem "carrierwave", :git => 'http://github.com/jnicklas/carrierwave.git'
 
 gem "right-rails"
