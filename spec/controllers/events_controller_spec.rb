@@ -18,7 +18,7 @@ describe EventsController do
     Event.should_receive(:find).
          with("my-event").
          and_return(@event)
-    get :show, :event => { "id" => "my-event" }
+    get :show, :id => "my-event"
     assigns[:event].should == @event
   end
   
