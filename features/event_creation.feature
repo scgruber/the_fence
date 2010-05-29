@@ -22,8 +22,7 @@ Feature: Event creation
       | Cost        | 5.00                                                                        |
     And I attach the file "spec/fixtures/poster.gif" to "Poster"
     And I press "Create Event"
-		Then show me the page
-    Then I should see "Event was successfully created."
+    Then I should see "The event was saved successfully"
     And I should see "First Team Captain Meeting"
     And I should see "Save these dates!"
     And I should see "Doherty Hall 1212"
