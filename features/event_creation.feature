@@ -24,7 +24,6 @@ Feature: Event creation
     And I press "Create Event"
     Then I should see "The event was saved successfully"
     And I should see "First Team Captain Meeting"
-    And I should see "Save these dates!"
     And I should see "Doherty Hall 1212"
     And I should see "4:30"
     And I should see "5:30"
