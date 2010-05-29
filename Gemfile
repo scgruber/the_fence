@@ -6,6 +6,7 @@ gem "mongoid", "2.0.0.beta4"
 gem "bson_ext", "0.20.1"
 
 gem "haml"
+gem "rails3-generators"
 
 gem "devise", :git => "git://github.com/plataformatec/devise.git"
 
