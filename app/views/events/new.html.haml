@@ -1,7 +1,7 @@
 Flash error:
 = flash[:error]
 = notice
-= form_for @event do |f|
+= form_for @event, :html => { :multipart => true } do |f|
   = f.label :name
   = f.text_field :name
   = f.label :description
@@ -14,4 +14,6 @@ Flash error:
   = f.text_field :start
   = f.label :finish, 'To'
   = f.text_field :finish
+  = f.label :poster
+  = f.file_field :poster
   = f.submit 'Create Event'
