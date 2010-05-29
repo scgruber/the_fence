@@ -51,7 +51,8 @@ Feature: Event creation
     And I am on the new event page
     When I attach the file "spec/fixtures/not_an_image.txt" to "Poster"
     And I press "Create Event"
-    Then I should see "Poster uploads must be a .jpg, .gif, or .png file."
+		Then show me the page
+    Then I should see "Image uploads must be a .jpg, .gif, or .png file."
   
   Scenario: Selecting categories
     Given I am logged in

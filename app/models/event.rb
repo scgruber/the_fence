@@ -35,6 +35,7 @@ class Event
   field :location, :type => String
   
   mount_uploader :image, ImageUploader
+  validate :image_upload
   
   validate :start_before_finish
   validates_presence_of :start, :name, :description, :location
@@ -62,5 +63,10 @@ class Event
   private
   def start_before_finish
     errors.add(:finish, "should be after start time") if finish && start && finish <= start
+  end
+  
+  def image_upload
+    errors.add(:image, "uploads must be a .jpg, .gif, or .png file.") if image_integrity_error
+    # errors.add(:image, "failed to be processed") if image_processing_error
   end
 end
