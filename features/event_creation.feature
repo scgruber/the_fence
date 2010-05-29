@@ -20,7 +20,7 @@ Feature: Event creation
       | To          | 9/17/09 at 5:30 PM                                                          |
       | Description | Come sign up for the limited tents and food tables! Snacks will be provided |
       | Cost        | 5.00                                                                        |
-    And I attach the "image/jpeg" file at "spec/fixtures/poster.gif" to "Poster"
+    And I attach the file "spec/fixtures/poster.gif" to "Poster"
     And I press "Create Event"
 		Then I should be on the show event page
     And I should see "Event was successfully created."
@@ -51,7 +51,7 @@ Feature: Event creation
   Scenario: Uploading a poster of an unsupported type
     Given I am logged in
     And I am on the new event page
-    When I attach the "text/plain" file at "spec/fixtures/not_an_image.txt" to "Poster"
+    When I attach the file "spec/fixtures/not_an_image.txt" to "Poster"
     And I press "Create Event"
     Then I should see "Poster uploads must be a .jpg, .gif, or .png file."
   
