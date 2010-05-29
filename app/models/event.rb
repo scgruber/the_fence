@@ -29,7 +29,10 @@ class Event
   field :cost, :type => Float
   
   has_many_related :categories
-  has_one_related :location
+  
+  # Until HABTM support comes to Mongoid
+  # has_one_related :location
+  field :location, :type => String
   
   mount_uploader :image, ImageUploader
   

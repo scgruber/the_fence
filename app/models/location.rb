@@ -7,5 +7,4 @@ class Location
 
   # Until HABTM support comes to Mongoid
   # belongs_to_related :event
-  field :event, :type => String
 end
