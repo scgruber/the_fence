@@ -44,7 +44,7 @@ class Event
   named_scope :featured, where(:featured => true)
   
   def to_param
-    "#{self.id}-#{self.name.parameterize}"
+    self.id
   end
   
   def duration

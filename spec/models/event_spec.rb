@@ -127,13 +127,6 @@ describe Event do
     
   end
   
-  it "should generate an SEO-friendly url parameter" do
-    event.name = "2010: The Big, Big Event"
-    event.id = 42
-    
-    event.to_param.should == "42-2010-the-big-big-event"
-  end
-  
   describe "categories" do
     
     it "should be assignable" do
