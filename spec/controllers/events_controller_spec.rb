@@ -21,6 +21,15 @@ describe EventsController do
     post :create, :event => { "name" => "event" }
   end
   
+  it "should locate the related location on create" do
+    Location.stub!(:find)
+    Location.should_receive(:find).
+             with(:name => "someplace")
+    post :create, :event => { "location_name" => "someplace" }
+  end
+  
+  it "should assign related location on create"
+  
   it "should assign @events on index" do
     Event.should_receive(:find).and_return([@event])
     get :index

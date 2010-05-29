@@ -38,6 +38,10 @@ class Event
     finish.nil?
   end
   
+  def location_name=(location_name)
+    location = Location.find(:name => location_name)
+  end
+  
   private
   def start_before_finish
     errors.add(:finish, "should be after start time") if finish && start && finish <= start

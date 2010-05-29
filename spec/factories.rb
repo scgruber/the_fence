@@ -13,5 +13,5 @@ Factory.define :category do |c|
 end
 
 Factory.define :location do |l|
-  l.name "Place"
+  l.name { |n| "Place#{n}" }
 end
