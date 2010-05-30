@@ -29,6 +29,7 @@ Feature: Event creation
     And I should see "5:30"
     And I should see "Come sign up for the limited tents and food tables! Snacks will be provided"
     And I should see "$5"
+		And I should see "poster.gif"
 
   Scenario: Creating a blank event
     Given I am logged in
@@ -51,8 +52,8 @@ Feature: Event creation
     And I am on the new event page
     When I attach the file "spec/fixtures/not_an_image.txt" to "Poster"
     And I press "Create Event"
-		Then show me the page
     Then I should see "Image uploads must be a .jpg, .gif, or .png file."
+		And I should not see "not_an_image.txt"
   
   Scenario: Selecting categories
     Given I am logged in
