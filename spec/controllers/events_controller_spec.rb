@@ -8,11 +8,13 @@ describe EventsController do
     @event = Factory.build(:event)
   end
 
-  it "should assign @event on new" do
-    Event.should_receive(:new).and_return(@event)
-    get :new
-    assigns[:event].should == @event
-  end
+  describe "new" do
+
+    it "should assign @event on new" do
+      Event.should_receive(:new).and_return(@event)
+      get :new
+      assigns[:event].should == @event
+    end
   
   it "should assign requested @event on show" do
     Event.should_receive(:find).
@@ -22,12 +24,7 @@ describe EventsController do
     assigns[:event].should == @event
   end
   
-  it "should create a new event" do
-    Event.should_receive(:new).
-          with("name" => "event").
-          and_return(@event)
-    post :create, :event => { "name" => "event" }
-  end
+  describe "show" do
   
   it "should locate the related location on create" do
     pending("habtm support in mongoid")
@@ -37,27 +34,53 @@ describe EventsController do
     post :create, :event => { "location" => "someplace" }
   end
   
-  it "should assign related location on create"
+  describe "create" do
   
-  it "should assign @events on index" do
-    Event.should_receive(:find).and_return([@event])
-    get :index
-    assigns[:events].should == [@event]
-  end
-  
-  context "on successful save" do
-    
-    before(:each) do
+    it "should create a new event with parameters" do
       Event.should_receive(:new).
             and_return(@event)
-      @event.should_receive(:save).and_return(true)
-      post :create, :event => {}
+      post :create, :event => { "name" => "event" }
     end
     
-    specify { flash[:notice].should == "The event was saved successfully" }
+    it "should blank out finish if til_whenever checked" do
+      Event.should_receive(:new).with(hash_including(:finish => nil))
     
-    it { should redirect_to( event_path(@event) ) }
+      post :create, :event => { :finish => "5:30", :til_whenever => true }
+    end
     
+    it "should locate the related location" do
+      pending("habtm support in mongoid")
+      Location.should_receive(:find_or_create_by).
+               with(:name => "someplace")
+      Location.stub!(:find)
+      post :create, :event => { "location" => "someplace" }
+    end
+    
+    context "when successful" do
+    
+      before(:each) do
+        Event.should_receive(:new).
+              and_return(@event)
+        @event.should_receive(:save).and_return(true)
+        post :create, :event => {}
+      end
+
+      specify { flash[:notice].should == "The event was saved successfully" }
+
+      it { should redirect_to( event_path(@event) ) }
+    
+    end
+    
+  end
+  
+  describe "index" do
+  
+    it "should assign @events on index" do
+      Event.should_receive(:find).and_return([@event])
+      get :index
+      assigns[:events].should == [@event]
+    end
+
   end
 
 end
