@@ -172,14 +172,10 @@ describe Event do
   
   describe "images" do
     
-    # it "should not accept invalid attachment types" do
-    #   event.update_attributes!(:image => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../fixtures/not_an_image.txt', 'text/plain'))
-    #   
-    #   event.errors[:image].should == "Image uploads must be a .jpg, .gif, or .png file."
-    # end
-    
-    it "should have a default image" do
-      event.image.url.should include("default.png")
+    it "should not accept invalid attachment types" do
+      event.update_attributes(:image => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../fixtures/not_an_image.txt', 'text/plain'))
+      
+      event.errors[:image].should include("uploads must be a .jpg, .gif, or .png file.")
     end
     
   end
