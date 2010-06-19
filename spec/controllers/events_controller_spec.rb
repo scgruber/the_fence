@@ -10,40 +10,59 @@ describe EventsController do
 
   describe "new" do
 
-    it "should assign @event on new" do
-      Event.should_receive(:new).and_return(@event)
+    it "create a new event" do
+      Event.should_receive(:new).
+            and_return(@event)
+      get :new
+    end
+    
+    it "should assign a new event to view" do
+      Event.stub!(:new).
+            and_return(@event)
       get :new
       assigns[:event].should == @event
     end
-  
-  it "should assign requested @event on show" do
-    Event.should_receive(:find).
-         with("my-event").
-         and_return(@event)
-    get :show, :id => "my-event"
-    assigns[:event].should == @event
+    
   end
   
   describe "show" do
-  
-  it "should locate the related location on create" do
-    pending("habtm support in mongoid")
-    Location.should_receive(:find_or_create_by).
-             with(:name => "someplace")
-    Location.stub!(:find)
-    post :create, :event => { "location" => "someplace" }
+    
+    it "should find the requested event" do
+      Event.should_receive(:find).
+           with("my-event")
+      get :show, :id => "my-event"
+    end
+    
+    it "should assign the requested event to view" do
+      Event.stub!(:find).
+           with("my-event").
+           and_return(@event)
+      get :show, :id => "my-event"
+      assigns[:event].should == @event
+    end
+    
   end
   
   describe "create" do
   
     it "should create a new event with parameters" do
       Event.should_receive(:new).
+            with("name" => "event").
             and_return(@event)
       post :create, :event => { "name" => "event" }
     end
     
+    it "should assign the created event to view" do
+      Event.stub!(:new).
+            and_return(@event)
+      post :create, :event => {}
+      assigns[:event].should == @event
+    end
+    
     it "should blank out finish if til_whenever checked" do
-      Event.should_receive(:new).with(hash_including(:finish => nil))
+      Event.should_receive(:new).
+            with(hash_not_including(:finish)).
+            and_return(@event)
     
       post :create, :event => { :finish => "5:30", :til_whenever => true }
     end
@@ -59,24 +78,34 @@ describe EventsController do
     context "when successful" do
     
       before(:each) do
-        Event.should_receive(:new).
+        Event.stub!(:new).
               and_return(@event)
-        @event.should_receive(:save).and_return(true)
+        @event.should_receive(:save).
+              and_return(true)
         post :create, :event => {}
       end
 
       specify { flash[:notice].should == "The event was saved successfully" }
 
-      it { should redirect_to( event_path(@event) ) }
+      it "should redirect to the event" do
+        response.should redirect_to( event_path(@event) )
+      end
     
     end
     
   end
   
   describe "index" do
-  
-    it "should assign @events on index" do
-      Event.should_receive(:find).and_return([@event])
+    
+    it "should find all events" do
+      Event.should_receive(:find).
+            and_return([@event])
+      get :index
+    end
+    
+    it "should assign found events to view" do
+      Event.stub!(:find).
+            and_return([@event])
       get :index
       assigns[:events].should == [@event]
     end

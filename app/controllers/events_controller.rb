@@ -13,13 +13,20 @@ class EventsController < ApplicationController
   end
   
   def create
+    til_whenever = params[:event].delete(:til_whenever)
+    params[:event].delete(:finish) if til_whenever == true
+    
     @event = Event.new(params[:event])
+    
     if @event.save
       flash[:notice] = "The event was saved successfully"
     else
       flash[:alert] = @event.errors.full_messages
     end
-    respond_with(@event, :location => event_url(@event))
+    
+    respond_with(@event) do |format|
+      format.html { redirect_to event_url(@event) }
+    end
   end
   
   def show
