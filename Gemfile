@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', :git => "http://github.com/rails/rails.git"
+gem 'rails', "3.0.0.beta4"
 
-gem "mongoid", "2.0.0.beta4"
-gem "bson_ext", "0.20.1"
+gem "mongoid", :git => "http://github.com/durran/mongoid.git"
+gem "bson_ext"
 
 gem "haml"
 gem "rails3-generators"
@@ -18,13 +18,13 @@ gem "cancan"
 gem "right-rails"
 
 group :test do
-  gem 'rspec', "2.0.0.beta.8"
-	gem 'rspec-rails', "2.0.0.beta.8"
-  gem 'webrat'
+  gem 'rspec', "2.0.0.beta.11"
+	gem 'rspec-rails', "2.0.0.beta.11"
+	gem 'webrat'
   
   gem 'capybara'
   gem 'cucumber-rails'
-  gem 'cucumber', '0.7.2'
+  gem 'cucumber', '0.8.0'
   gem 'spork'
   gem 'launchy'
   

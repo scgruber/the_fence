@@ -11,5 +11,7 @@ Devise.setup do |config|
   config.use_default_scope = true
   config.default_scope = :user
   
+  config.encryptor = :bcrypt
+  
   require 'devise/orm/mongoid'
 end

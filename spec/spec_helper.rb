@@ -18,9 +18,8 @@ Rspec.configure do |config|
   # config.mock_with :rr
   config.mock_with :rspec
 
-
   config.before(:each) do
-      Mongoid.database.collections.each(&:drop)
+      Mongoid.master.collections.reject { |c| c.name == 'system.indexes' }.each(&:drop)
   end
   
   # If you'd prefer not to run each of your examples within a transaction,
