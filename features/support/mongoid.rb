@@ -1,3 +1,3 @@
 Before do
-  Mongoid.master.collections.each(&:drop)
+  Mongoid.master.collections.reject { |c| c.name == 'system.indexes' }.each(&:drop)
 end

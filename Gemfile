@@ -18,13 +18,13 @@ gem "cancan"
 gem "right-rails"
 
 group :test do
-  gem 'rspec', "2.0.0.beta.11"
-	gem 'rspec-rails', "2.0.0.beta.11"
+  gem 'rspec', "2.0.0.beta.12"
+	gem 'rspec-rails', "2.0.0.beta.12"
 	gem 'webrat'
   
   gem 'capybara'
   gem 'cucumber-rails'
-  gem 'cucumber', '0.8.0'
+  gem 'cucumber', '0.8.3'
   gem 'spork'
   gem 'launchy'
   
