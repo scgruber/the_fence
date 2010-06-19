@@ -74,11 +74,3 @@ Feature: Event creation
     When I check "'Til Whenever"
     And I press "Create Event"
     Then I should see "Whenever"
-    
-  Scenario: Free Events
-    Given I am logged in
-    And I am on the new event page
-    And I enter valid event input
-    When I check "Free"
-    And I press "Create Event"
-    Then I should see "Free"
