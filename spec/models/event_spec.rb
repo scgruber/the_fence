@@ -6,15 +6,20 @@ describe Event do
   let(:event) { Factory(:event) }
   
   it { should be_valid }
-
-  describe "validations" do
-    
-    it 'should require a name' do
+  
+  describe "name" do
+    it "should be invalid if blank" do
       event.name = ''
       event.should_not be_valid
     end
-
-    it 'should require a unique name' do
+    
+    it "should add error if blank" do
+      event.name = ''
+      event.save
+      event.errors[:name].should include("can't be blank")
+    end
+    
+    it "should be invalid if already taken" do
       duplicate_name_event = Factory(:event)
       
       event.name = duplicate_name_event.name
@@ -23,40 +28,68 @@ describe Event do
       event.name = 'Other random name'
       event.should be_valid
     end
-
-    it 'should require a start' do
+    
+    it "should add error if already taken" do
+      duplicate_name_event = Factory(:event)
+      duplicate_name_event.save
+      event.name = duplicate_name_event.name
+      event.save
+      event.errors[:name].should include("is already taken")
+    end
+  end
+  
+  describe "start" do
+    it "should be invalid if blank" do
       event.start = nil
       event.should_not be_valid
-      
+    end
+    
+    it "should add error if blank" do
+      event.start = nil
       event.save
       event.errors[:start].should include("can't be blank")
     end
-
-    it 'should require a location' do
+  end
+  
+  describe "location" do
+    it "should be invalid if blank" do
       event = Factory.build(:event, :location => nil)
       event.should_not be_valid
-      
+    end
+    
+    it "should add error if blank" do
+      event = Factory.build(:event, :location => nil)
       event.save
       event.errors[:location].should include("can't be blank")
     end
-
-    it 'should require a description' do
+  end
+  
+  describe "description" do
+    it "should be invalid if blank" do
       event.description = ""
       event.should_not be_valid
-      
+    end
+    
+    it "should add error if blank" do
+      event.description = "" 
       event.save
       event.errors[:description].should include("can't be blank")
     end
-
-    it 'should require a finish time after the start time' do
+  end
+  
+  describe "finish time" do
+    it "should be invalid if after start time" do
       event.finish = event.start - 1.year
       event.should_not be_valid
       
-      event.save
-      event.errors[:finish].should include("should be after start time")
-      
       event.finish = event.start + 1.hour
       event.should be_valid
+    end
+    it "should add error if after start time" do
+      event.finish = event.start - 1.year
+            
+      event.save
+      event.errors[:finish].should include("should be after start time")
     end
   end
   
@@ -88,24 +121,20 @@ describe Event do
     
   end
   
-  describe "featured" do
+  describe "featured scope" do
     
-    describe "scope" do
+    it "should contain featured events" do
+      event.featured = true
+      event.save
     
-      it "should contain featured events" do
-        event.featured = true
-        event.save
-      
-        Event.featured.should include(event)
-      end
+      Event.featured.should include(event)
+    end
+  
+    it "should not contain unfeatured events" do
+      event.featured = false
+      event.save
     
-      it "should not contain unfeatured events" do
-        event.featured = false
-        event.save
-      
-        Event.featured.should_not include(event)
-      end
-      
+      Event.featured.should_not include(event)
     end
     
   end
@@ -118,7 +147,7 @@ describe Event do
       event.duration.should == 0
     end
     
-    it "should calculate correctly" do
+    it "should calculate the minutes from start to finish" do
       event.start = Time.parse("4:30")
       event.finish = Time.parse("4:31")
       
