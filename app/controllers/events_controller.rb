@@ -24,9 +24,7 @@ class EventsController < ApplicationController
       flash[:alert] = @event.errors.full_messages
     end
     
-    respond_with(@event) do |format|
-      format.html { redirect_to event_url(@event) }
-    end
+    respond_with(@event)
   end
   
   def show

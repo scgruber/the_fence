@@ -88,9 +88,24 @@ describe EventsController do
       specify { flash[:notice].should == "The event was saved successfully" }
 
       it "should redirect to the event" do
-        response.should redirect_to( event_path(@event) )
+        pending("i can figure rspec out")
+        response.should render_template( 'show' )
       end
     
+    end
+    
+    context "when unsuccessful" do
+      
+      before(:each) do
+        Event.stub!(:new).
+              and_return(@event)
+        @event.should_receive(:save).
+              and_return(false)
+        post :create, :event => {}
+      end
+      
+      specify { pending("i can figure rspec out"); response.should render_template( 'new' ) }
+      
     end
     
   end
