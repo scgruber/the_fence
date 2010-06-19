@@ -4,7 +4,6 @@ describe "events/show.html.haml" do
   
   before(:each) do
     @event = mock_model(Event).as_null_object
-    # @event.stub_chain(:poster, :url).and_return "#"
     assign(:event, @event)
   end
   
