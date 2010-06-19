@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   
   def create
     til_whenever = params[:event].delete(:til_whenever)
-    params[:event].delete(:finish) if til_whenever == true
+    params[:event].delete(:finish) if til_whenever == '1'
     
     @event = Event.new(params[:event])
     

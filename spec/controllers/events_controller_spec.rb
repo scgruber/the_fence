@@ -64,7 +64,7 @@ describe EventsController do
             with(hash_not_including(:finish)).
             and_return(@event)
     
-      post :create, :event => { :finish => "5:30", :til_whenever => true }
+      post :create, :event => { :finish => "5:30", :til_whenever => "1" }
     end
     
     it "should locate the related location" do
