@@ -13,6 +13,9 @@ gem "devise", :git => "git://github.com/plataformatec/devise.git"
 gem "rmagick"
 gem "carrierwave", :git => 'http://github.com/jnicklas/carrierwave.git'
 
+gem "formtastic", :git => 'http://github.com/justinfrench/formtastic.git',
+                  :branch => 'rails3'
+
 gem "cancan"
 
 gem "right-rails"

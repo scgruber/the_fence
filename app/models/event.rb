@@ -57,7 +57,7 @@ class Event
   end
   
   def til_whenever?
-    finish.nil?
+    !new_record? && finish.nil?
   end
   
   private

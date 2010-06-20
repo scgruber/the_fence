@@ -2,16 +2,14 @@
   %span{:class => "summary"}=  @event.name
   %span{:class => "location"}= @event.location
   %span{:class => "dtstart", :title => @event.start.to_formatted_s(:iso8601)}= @event.start
-  -if @event.finish
+  - if @event.finish
     %span{:class => "dtend", :title => @event.finish.to_formatted_s(:iso8601)}=  @event.finish
-  -else
+  - else
     %span Til' Whenever
   %span{:class => "description"}
     = @event.description
-    Just for kicks
-    = @event.free?
-    -if @event.free?
+    - if @event.free?
       Free
-    -else
+    - else
       = number_to_currency(@event.cost)
   %a{:class => "attach", :href => @event.image.url}= @event.image.url

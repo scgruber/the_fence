@@ -1,21 +1,15 @@
-= flash[:error]
-= form_for @event, :html => { :multipart => true } do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :description
-  = f.text_area :description
-  = f.label :cost
-  = f.text_field :cost
-  = f.label :location, 'Where?'
-  = f.text_field :location
-  = f.label :start, 'From'
-  = f.text_field :start
-  = f.label :finish, 'To'
-  = f.text_field :finish
-  = label_tag "event[til_whenever]", "'Til Whenever"
-  = check_box_tag "event[til_whenever]", 1, false
-  - @categories.each do |category|
-    = check_box_tag "categories[]", 1, false, :name => category.name
-  = f.label :image, 'Poster'
-  = f.file_field :image
-  = f.submit 'Create Event'
+= semantic_form_for @event, :html => {:multipart => true} do |f|
+  = f.semantic_errors :state
+  = f.inputs do
+    = f.input :name
+    = f.input :description, :as => :text
+    = f.input :cost
+    = f.input :location, :label => "Where?"
+    = f.inputs :name => "Time" do
+      = f.input :start, :label => "From"
+      = f.input :finish, :label => "To"
+      or
+      = f.input :til_whenever?, :as => :boolean, :label => "'Til Whenever"
+    = f.input :image, :label => "Poster"
+    / = f.input :categories, :as => :check_boxes, :collection => Category.all
+  = f.buttons
