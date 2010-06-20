@@ -159,6 +159,7 @@ describe Event do
   describe "categories" do
     
     it "should be assignable" do
+      pending("this would be nice...")
       category1 = Factory(:category, :name => 'party')
       category2 = Factory(:category, :name => 'lecture')
       
@@ -168,6 +169,19 @@ describe Event do
       event.categories.should include(category1)
       event.categories.should include(category2)
     end
+    
+    it "should be assignable by id" do
+      category1 = Factory(:category, :name => 'party')
+      category2 = Factory(:category, :name => 'lecture')
+      
+      event.category_ids << category1.id
+      event.category_ids << category2.id
+      
+      event.categories.should include(category1)
+      event.categories.should include(category2)
+    end
+    
+    # TODO: look into possible security issue where users can send arbitrary categories
     
   end
   

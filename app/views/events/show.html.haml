@@ -12,4 +12,5 @@
       Free
     - else
       = number_to_currency(@event.cost)
+  = @event.categories.map(&:name).join(" ")
   %a{:class => "attach", :href => @event.image.url}= @event.image.url

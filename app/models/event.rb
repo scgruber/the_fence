@@ -28,7 +28,7 @@ class Event
   field :featured, :type => Boolean
   field :cost, :type => Float
   
-  has_many_related :categories
+  references_many :categories, :stored_as => :array
   
   # Until HABTM support comes to Mongoid
   # has_one_related :location
