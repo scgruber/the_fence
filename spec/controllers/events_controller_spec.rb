@@ -73,6 +73,8 @@ describe EventsController do
       assigns[:event].should == @event
     end
     
+    it "should run validation when til_whenever unchecked"
+    
     it "should blank out finish if til_whenever checked" do
       Event.should_receive(:new).
             with(hash_not_including(:finish)).
