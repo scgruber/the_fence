@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    @categories = Category.find(:all)
     @event = Event.new
     authorize! :create, @event
     respond_with(@event)
@@ -16,6 +17,7 @@ class EventsController < ApplicationController
     til_whenever = params[:event].delete(:til_whenever)
     params[:event].delete(:finish) if til_whenever == '1'
     
+    @categories = Category.find(:all)
     @event = Event.new(params[:event])
     
     if @event.save

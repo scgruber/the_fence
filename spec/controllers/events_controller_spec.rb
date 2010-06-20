@@ -6,6 +6,7 @@ describe EventsController do
   
   before(:each) do
     @event = Factory.build(:event)
+    @category = Factory(:category)
   end
 
   describe "new" do
@@ -21,6 +22,19 @@ describe EventsController do
             and_return(@event)
       get :new
       assigns[:event].should == @event
+    end
+    
+    it "should retrieve all categories to select from" do
+      Category.should_receive(:find).
+               and_return([@category])
+      get :new
+    end
+    
+    it "should assign all categories to the view" do
+      Category.stub!(:find).
+               and_return([@category])
+      get :new
+      assigns[:categories].should include(@category)
     end
     
   end

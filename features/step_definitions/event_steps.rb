@@ -6,3 +6,7 @@ Given /^I enter valid event input$/ do
   Given %{I fill in "Description" with "Come sign up for the limited tents and food tables! Snacks will be provided"}
   Given %{I fill in "Cost" with "5.00"}
 end
+
+Given /^there is a category called "([^"]*)"$/ do |name|
+  Factory(:category, :name => name)
+end
