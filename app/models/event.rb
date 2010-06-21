@@ -30,6 +30,8 @@ class Event
   
   references_many :categories, :stored_as => :array
   
+  belongs_to_related :creator, :class_name => "User"
+  
   # Until HABTM support comes to Mongoid
   # has_one_related :location
   field :location, :type => String

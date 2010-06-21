@@ -3,5 +3,7 @@ class User
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+  has_many_related :events, :foreign_key => :creator_id
 
 end

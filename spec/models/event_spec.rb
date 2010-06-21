@@ -185,6 +185,16 @@ describe Event do
     
   end
   
+  describe "creator" do
+    
+    it "should be assignable" do
+      user = Factory(:user)
+      event.creator = user
+      event.creator.should == user
+    end
+    
+  end
+  
   describe "free?" do
     
     it "should be true when the cost is zero" do

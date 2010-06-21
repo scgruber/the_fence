@@ -15,3 +15,9 @@ end
 Factory.define :location do |l|
   l.name { |n| "Place#{n}" }
 end
+
+Factory.define :user do |u|
+  u.email "email@email.com"
+  u.password "password"
+  u.password_confirmation "password"
+end
