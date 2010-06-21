@@ -17,6 +17,9 @@ class EventsController < ApplicationController
     til_whenever = params[:event].delete(:til_whenever)
     params[:event].delete(:finish) if til_whenever == '1'
     
+    # TODO replace this with .build statement when mongoid gets better
+    params[:event][:creator_id] = current_user.id
+    
     @categories = Category.find(:all)
     @event = Event.new(params[:event])
     

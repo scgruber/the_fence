@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe EventsController do
   
-  include Devise::TestHelpers # TODO remove when rspec wises up
-  
   before(:each) do
+    @current_user = mock_model(User)
+    controller.stub!(:current_user).and_return(@current_user)
     @event = Factory.build(:event)
     @category = Factory(:category)
   end
@@ -79,7 +79,7 @@ describe EventsController do
   
     it "should create a new event with parameters" do
       Event.should_receive(:new).
-            with("name" => "event").
+            with(hash_including("name" => "event")).
             and_return(@event)
       post :create, :event => { "name" => "event" }
     end
@@ -107,6 +107,13 @@ describe EventsController do
                with(:name => "someplace")
       Location.stub!(:find)
       post :create, :event => { "location" => "someplace" }
+    end
+    
+    it "should assign the current user to creator" do
+      Event.should_receive(:new).
+            with(hash_including(:creator_id => @current_user.id)).
+            and_return(@event)
+      post :create, :event => {}
     end
     
     context "when successful" do

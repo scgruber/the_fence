@@ -13,12 +13,12 @@ Feature: Event editing
     
   Scenario: Edit event
     Given I am logged in
-    And an existing event owned by me
+    And an existing event created by me
     And there is a location called "Porter Hall 100"
     When I go to the event's edit page
-    And I fill in the following:
+		Then I should be on the event's edit page
+    When I fill in the following:
       | Name        | Second Team Captain Meeting                                                     |
-      | Slogan      | Now revised!                                                                    |
       | Where?      | Porter Hall 100                                                                 |
       | From        | 9/20/09 at 5:30 PM                                                              |
       | To          | 9/20/09 at 6:30 PM                                                              |
@@ -37,7 +37,7 @@ Feature: Event editing
     
   Scenario: Creating event with start time after end time
     Given I am logged in
-    And an existing event owned by me
+    And an existing event created by me
     When I go to the event's edit page
     And I fill in "12/12/12" for "From"
     And I fill in "10/10/10" for "To"
@@ -46,7 +46,7 @@ Feature: Event editing
 
   Scenario: Uploading a poster of an unsupported type
     Given I am logged in
-    And an existing event owned by me
+    And an existing event created by me
     When I go to the event's edit page
     And I attach the "text/plain" file at "spec/fixtures/not_an_image.txt" to "Poster"
     And I press "Update Event"
@@ -56,7 +56,7 @@ Feature: Event editing
     Given I am logged in
     And there is a category called "Lecture"
     And there is a category called "Panel"
-    And an existing event owned by me
+    And an existing event created by me
     And I am on the event's edit page
     When I check "Lecture"
     And I check "Panel"
@@ -69,7 +69,7 @@ Feature: Event editing
 
   Scenario: Til whenever events
     Given I am logged in
-    And an existing event owned by me
+    And an existing event created by me
     And I am on the event's edit page
     When I check "'Til Whenever"
     And I press "Update Event"

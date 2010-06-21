@@ -17,10 +17,10 @@ end
 
 Given /^an existing event not created by me$/ do
   Given %{an existing event}
-  @event.creator = nil
+  @event.update_attributes!(:creator => nil)
 end
 
 Given /^an existing event created by me$/ do
   Given %{an existing event}
-  @event.creator = @user
+  @event.update_attributes!(:creator => @current_user)
 end

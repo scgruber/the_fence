@@ -1,5 +1,5 @@
 Factory.define :event do |e|
-  e.name { |n| "Event#{n}" }
+  e.sequence(:name) { |n| "Event#{n}" }
   e.description "Description"
   e.association :location
   e.start "9/9/09"
@@ -13,11 +13,11 @@ Factory.define :category do |c|
 end
 
 Factory.define :location do |l|
-  l.name { |n| "Place#{n}" }
+  l.sequence(:name) { |n| "Place#{n}" }
 end
 
 Factory.define :user do |u|
-  u.email "email@email.com"
+  u.sequence(:email) { |n| "email#{n}@email.com" }
   u.password "password"
   u.password_confirmation "password"
 end
