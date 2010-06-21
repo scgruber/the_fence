@@ -6,10 +6,13 @@ Feature: Event editing
 	@allow-rescue
   Scenario: Not logged in
     Given I am logged out
-    And an existing event not created by me
+    And an existing event created by me
     When I go to the event's edit page
     Then I should be on the login page
     And I should see "Sign in"
+		When I fill out the login form
+		And I press "Sign in"
+		Then I should be on the event's edit page
     
   Scenario: Edit event
     Given I am logged in

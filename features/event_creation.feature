@@ -8,6 +8,9 @@ Feature: Event creation
     When I go to the new event page
     Then I should be on the login page
     And I should see "Sign in"
+		When I fill out the login form
+		And I press "Sign in"
+		Then I should be on the new event page
 
   Scenario: Creating a valid event
     Given I am logged in

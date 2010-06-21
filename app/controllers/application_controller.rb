@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   layout 'application'
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to new_user_session_url
+    authenticate_user!
   end
 end
