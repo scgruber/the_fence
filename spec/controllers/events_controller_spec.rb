@@ -57,6 +57,24 @@ describe EventsController do
     
   end
   
+  describe "edit" do
+    
+    it "should find the requested event" do
+      Event.should_receive(:find).
+           with("my-event")
+      get :edit, :id => "my-event"
+    end
+    
+    it "should assign the requested event to view" do
+      Event.stub!(:find).
+           with("my-event").
+           and_return(@event)
+      get :edit, :id => "my-event"
+      assigns[:event].should == @event
+    end
+    
+  end
+  
   describe "create" do
   
     it "should create a new event with parameters" do

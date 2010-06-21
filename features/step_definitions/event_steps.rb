@@ -7,6 +7,20 @@ Given /^I enter valid event input$/ do
   Given %{I fill in "Cost" with "5.00"}
 end
 
-Given /^there is a category called "([^"]*)"$/ do |name|
+Given /^there is a category called "([^\"]*)"$/ do |name|
   Factory(:category, :name => name)
+end
+
+Given /^an existing event$/ do
+	@event = Factory(:event)
+end
+
+Given /^an existing event not created by me$/ do
+  Given %{an existing event}
+  @event.creator = nil
+end
+
+Given /^an existing event created by me$/ do
+  Given %{an existing event}
+  @event.creator = @user
 end

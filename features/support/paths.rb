@@ -14,6 +14,8 @@ module NavigationHelpers
       '/login'
     when /signup/
       '/signup'
+		when /the event\'s edit page/
+			edit_event_path(@event)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
