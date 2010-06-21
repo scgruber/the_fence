@@ -20,6 +20,8 @@ class EventsController < ApplicationController
     @categories = Category.find(:all)
     @event = Event.new(params[:event])
     
+    # authorize! :create, @event
+    
     if @event.save
       flash[:notice] = "The event was saved successfully"
     else
