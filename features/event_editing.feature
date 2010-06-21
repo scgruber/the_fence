@@ -24,11 +24,11 @@ Feature: Event editing
       | To          | 9/20/09 at 6:30 PM                                                              |
       | Description | Come sign up for the limited tents and food tables! Snacks will not be provided |
       | Cost        | 10.00                                                                           |
-    And I attach the "image/jpeg" file at "spec/fixtures/poster.gif" to "Poster"
+		
+    And I attach the file "spec/fixtures/poster.gif" to "Poster"
     And I press "Update Event"
-    Then I should see "Event was successfully updated."
-    And I should see "Second Team Captain Meeting"
-    And I should see "Now revised!"                                                   
+    Then I should see "The event was successfully updated."
+    And I should see "Second Team Captain Meeting"                                              
     And I should see "Porter Hall 100"                                                                
     And I should see "5:30"                                                             
     And I should see "6:30"                                                            
@@ -40,6 +40,7 @@ Feature: Event editing
     And an existing event created by me
     When I go to the event's edit page
     And I fill in "12/12/12" for "From"
+		And I uncheck "'Til Whenever"
     And I fill in "10/10/10" for "To"
     And I press "Update Event"
     Then I should see "Finish should be after start time"
@@ -48,9 +49,9 @@ Feature: Event editing
     Given I am logged in
     And an existing event created by me
     When I go to the event's edit page
-    And I attach the "text/plain" file at "spec/fixtures/not_an_image.txt" to "Poster"
+    And I attach the file "spec/fixtures/not_an_image.txt" to "Poster"
     And I press "Update Event"
-    Then I should see "Poster uploads must be a .jpg, .gif, or .png file."
+    Then I should see "Image uploads must be a .jpg, .gif, or .png file."
 
   Scenario: Selecting categories
     Given I am logged in

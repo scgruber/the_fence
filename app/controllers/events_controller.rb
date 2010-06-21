@@ -15,7 +15,7 @@ class EventsController < ApplicationController
   
   def create
     til_whenever = params[:event].delete(:til_whenever)
-    params[:event].delete(:finish) if til_whenever == '1'
+    params[:event][:finish] = nil if til_whenever == '1'
     
     # TODO replace this with .build statement when mongoid gets better
     params[:event][:creator_id] = current_user.id
@@ -26,8 +26,25 @@ class EventsController < ApplicationController
     # authorize! :create, @event
     
     if @event.save
-      flash[:notice] = "The event was saved successfully"
+      flash[:notice] = "The event was saved successfully."
     else
+      flash[:alert] = @event.errors.full_messages
+    end
+    
+    respond_with(@event)
+  end
+  
+  def update
+    # TODO we best refactor this duplication
+    til_whenever = params[:event].delete(:til_whenever)
+    params[:event][:finish] = nil if til_whenever == '1'
+    
+    @event = Event.find(params[:id])
+    
+    if @event.update_attributes(params[:event])
+      flash[:notice] = "The event was successfully updated."
+    else
+      # TODO this should be replaced with formtastic methods but I need to Cucumber it
       flash[:alert] = @event.errors.full_messages
     end
     
