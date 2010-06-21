@@ -33,4 +33,8 @@ group :test do
   
   gem 'factory_girl', :git => "http://github.com/thoughtbot/factory_girl.git",
                       :branch => "rails3"
+                      
+	gem 'autotest'
+	gem 'autotest-fsevent'
+	gem 'autotest-growl'
 end
