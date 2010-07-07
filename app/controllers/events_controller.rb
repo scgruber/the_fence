@@ -13,10 +13,7 @@ class EventsController < ApplicationController
     respond_with(@event)
   end
   
-  def create
-    til_whenever = params[:event].delete(:til_whenever)
-    params[:event][:finish] = nil if til_whenever == '1'
-    
+  def create    
     # TODO replace this with .build statement when mongoid gets better
     params[:event][:creator_id] = current_user.id
     
@@ -35,10 +32,6 @@ class EventsController < ApplicationController
   end
   
   def update
-    # TODO we best refactor this duplication
-    til_whenever = params[:event].delete(:til_whenever)
-    params[:event][:finish] = nil if til_whenever == '1'
-    
     @event = Event.find(params[:id])
     
     if @event.update_attributes(params[:event])

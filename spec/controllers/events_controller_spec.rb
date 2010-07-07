@@ -100,15 +100,6 @@ describe EventsController do
       assigns[:event].should == @event
     end
     
-    it "should blank out finish if til_whenever checked" do
-      Event.stub!(:find).
-            and_return(@event)
-      @event.should_receive(:update_attributes).
-             with(hash_including(:finish => nil))
-    
-      post :update, :id => 1, :event => { :finish => "5:30", :til_whenever => "1" }
-    end
-    
     it "should locate the related location" do
       pending("habtm support in mongoid")
       Location.should_receive(:find_or_create_by).
@@ -167,16 +158,6 @@ describe EventsController do
             and_return(@event)
       post :create, :event => {}
       assigns[:event].should == @event
-    end
-    
-    it "should run validation when til_whenever unchecked"
-    
-    it "should blank out finish if til_whenever checked" do
-      Event.should_receive(:new).
-            with(hash_including(:finish => nil)).
-            and_return(@event)
-    
-      post :create, :event => { :finish => "5:30", :til_whenever => "1" }
     end
     
     it "should locate the related location" do

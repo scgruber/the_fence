@@ -85,11 +85,30 @@ describe Event do
       event.finish = event.start + 1.hour
       event.should be_valid
     end
+    
     it "should add error if after start time" do
       event.finish = event.start - 1.year
             
       event.save
       event.errors[:finish].should include("should be after start time")
+    end
+    
+    it "should add error if blank and til_whenever not checked" do
+      event.finish = nil
+      event.til_whenever = false
+      event.should_not be_valid
+    end
+    
+    it "shouldn't add error if blank and til_whenever checked" do
+      event.finish = nil
+      event.til_whenever = true
+      event.should be_valid
+    end
+    
+    it "should blank out if til_whenever checked" do
+      event.til_whenever = true
+      event.save
+      event.finish.should be_nil
     end
   end
   
