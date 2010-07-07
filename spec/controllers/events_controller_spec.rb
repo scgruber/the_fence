@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe EventsController do
   
+  include Devise::TestHelpers
+  
   before(:each) do
     @current_user = mock_model(User)
     controller.stub!(:current_user).and_return(@current_user)

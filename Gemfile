@@ -2,13 +2,13 @@ source 'http://rubygems.org'
 
 gem 'rails', "3.0.0.beta4"
 
-gem "mongoid", :git => "http://github.com/durran/mongoid.git"
+gem "mongoid", "2.0.0.beta9"
 gem "bson_ext"
 
 gem "haml"
 gem "rails3-generators"
 
-gem "devise", :git => "git://github.com/plataformatec/devise.git"
+gem "devise", "1.1.rc2"
 
 gem "rmagick"
 gem "carrierwave", :git => 'http://github.com/jnicklas/carrierwave.git'
@@ -21,8 +21,8 @@ gem "cancan"
 gem "right-rails"
 
 group :test do
-  gem 'rspec', "2.0.0.beta.12"
-	gem 'rspec-rails', "2.0.0.beta.12"
+  gem 'rspec', "2.0.0.beta.15"
+	gem 'rspec-rails', "2.0.0.beta.15"
 	gem 'webrat'
   
   gem 'capybara'

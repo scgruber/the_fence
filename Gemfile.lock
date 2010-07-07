@@ -1,0 +1,246 @@
+--- 
+dependencies: 
+  bson_ext: 
+    group: 
+    - :default
+    version: ">= 0"
+  spork: 
+    group: 
+    - :test
+    version: ">= 0"
+  rails: 
+    group: 
+    - :default
+    version: = 3.0.0.beta4
+  haml: 
+    group: 
+    - :default
+    version: ">= 0"
+  autotest: 
+    group: 
+    - :test
+    version: ">= 0"
+  autotest-fsevent: 
+    group: 
+    - :test
+    version: ">= 0"
+  autotest-growl: 
+    group: 
+    - :test
+    version: ">= 0"
+  rspec: 
+    group: 
+    - :test
+    version: = 2.0.0.beta.15
+  rspec-rails: 
+    group: 
+    - :test
+    version: = 2.0.0.beta.15
+  formtastic: 
+    group: 
+    - :default
+    version: ">= 0"
+  rails3-generators: 
+    group: 
+    - :default
+    version: ">= 0"
+  devise: 
+    group: 
+    - :default
+    version: = 1.1.rc2
+  carrierwave: 
+    group: 
+    - :default
+    version: ">= 0"
+  webrat: 
+    group: 
+    - :test
+    version: ">= 0"
+  cucumber-rails: 
+    group: 
+    - :test
+    version: ">= 0"
+  factory_girl: 
+    group: 
+    - :test
+    version: ">= 0"
+  right-rails: 
+    group: 
+    - :default
+    version: ">= 0"
+  rmagick: 
+    group: 
+    - :default
+    version: ">= 0"
+  cucumber: 
+    group: 
+    - :test
+    version: = 0.8.3
+  mongoid: 
+    group: 
+    - :default
+    version: = 2.0.0.beta9
+  cancan: 
+    group: 
+    - :default
+    version: ">= 0"
+  launchy: 
+    group: 
+    - :test
+    version: ">= 0"
+  capybara: 
+    group: 
+    - :test
+    version: ">= 0"
+specs: 
+- rake: 
+    version: 0.8.7
+- abstract: 
+    version: 1.0.0
+- activesupport: 
+    version: 3.0.0.beta4
+- builder: 
+    version: 2.1.2
+- i18n: 
+    version: 0.4.1
+- activemodel: 
+    version: 3.0.0.beta4
+- erubis: 
+    version: 2.6.6
+- rack: 
+    version: 1.1.0
+- rack-mount: 
+    version: 0.6.6
+- rack-test: 
+    version: 0.5.4
+- tzinfo: 
+    version: 0.3.22
+- actionpack: 
+    version: 3.0.0.beta4
+- mime-types: 
+    version: "1.16"
+- polyglot: 
+    version: 0.3.1
+- treetop: 
+    version: 1.4.8
+- mail: 
+    version: 2.2.5
+- actionmailer: 
+    version: 3.0.0.beta4
+- arel: 
+    version: 0.4.0
+- activerecord: 
+    version: 3.0.0.beta4
+- activeresource: 
+    version: 3.0.0.beta4
+- autotest: 
+    version: 4.3.2
+- sys-uname: 
+    version: 0.8.4
+- autotest-fsevent: 
+    version: 0.2.2
+- autotest-growl: 
+    version: 0.2.4
+- bcrypt-ruby: 
+    version: 2.1.2
+- bson: 
+    version: 1.0.3
+- bson_ext: 
+    version: 1.0.1
+- bundler: 
+    version: 0.9.26
+- cancan: 
+    version: 1.1.1
+- culerity: 
+    version: 0.2.10
+- nokogiri: 
+    version: 1.4.2
+- ffi: 
+    version: 0.6.3
+- json_pure: 
+    version: 1.4.3
+- selenium-webdriver: 
+    version: 0.0.24
+- capybara: 
+    version: 0.3.9
+- carrierwave: 
+    version: 0.4.4
+    source: 2
+- configuration: 
+    version: 1.1.0
+- diff-lcs: 
+    version: 1.1.2
+- trollop: 
+    version: 1.16.2
+- gherkin: 
+    version: 2.0.2
+- term-ansicolor: 
+    version: 1.0.5
+- cucumber: 
+    version: 0.8.3
+- cucumber-rails: 
+    version: 0.3.2
+- warden: 
+    version: 0.10.7
+- devise: 
+    version: 1.1.rc2
+- factory_girl: 
+    version: 1.2.3
+    source: 0
+- formtastic: 
+    version: 1.0.0.beta
+    source: 1
+- haml: 
+    version: 3.0.13
+- launchy: 
+    version: 0.3.5
+- mongo: 
+    version: 1.0.3
+- will_paginate: 
+    version: 3.0.pre
+- mongoid: 
+    version: 2.0.0.beta9
+- thor: 
+    version: 0.13.7
+- railties: 
+    version: 3.0.0.beta4
+- rails: 
+    version: 3.0.0.beta4
+- rails3-generators: 
+    version: 0.10.1
+- right-rails: 
+    version: 0.6.0
+- rmagick: 
+    version: 2.13.1
+- rspec-core: 
+    version: 2.0.0.beta.15
+- rspec-expectations: 
+    version: 2.0.0.beta.15
+- rspec-mocks: 
+    version: 2.0.0.beta.15
+- rspec: 
+    version: 2.0.0.beta.15
+- webrat: 
+    version: 0.7.1
+- rspec-rails: 
+    version: 2.0.0.beta.15
+- spork: 
+    version: 0.8.4
+hash: b6c87cbb4a045fd97923ad79fe89a2a62e3a8b92
+sources: 
+- Git: 
+    uri: http://github.com/thoughtbot/factory_girl.git
+    branch: rails3
+    git: http://github.com/thoughtbot/factory_girl.git
+    ref: feac7298352a83fef0717d8beadd2eda9aabfe56
+- Git: 
+    uri: http://github.com/justinfrench/formtastic.git
+    branch: rails3
+    git: http://github.com/justinfrench/formtastic.git
+    ref: f763772f1287760b160b2a971be8d67e6553a9fe
+- Git: 
+    uri: http://github.com/jnicklas/carrierwave.git
+    git: http://github.com/jnicklas/carrierwave.git
+    ref: d5a4088ea7e4de8892e91bb405488108df2dc052
+- Rubygems: 
+    uri: http://rubygems.org
