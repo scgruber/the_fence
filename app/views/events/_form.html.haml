@@ -2,6 +2,7 @@
   = f.semantic_errors
   = f.inputs do
     = f.input :name
+    = f.input :categories, :as => :check_boxes, :label => "Categories", :collection => Category.all
     = f.input :description, :as => :text
     = f.input :cost
     = f.input :location, :label => "Where?"
@@ -11,5 +12,4 @@
       or
       = f.input :til_whenever?, :as => :boolean, :label => "'Til Whenever"
     = f.input :image, :label => "Poster"
-    = f.input :categories, :as => :check_boxes, :collection => Category.all
   = f.buttons

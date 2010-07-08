@@ -2,17 +2,68 @@
 %html
   %head
     %title Fence
-    / = stylesheet_link_tag :all
-    / = javascript_include_tag :defaults
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
+    #container
     
-    %header
-      .logo
-        %a{:href => root_path} The Fence
-      .presented-by{:href => "http://www.thetartan.org"} By The Tartan
+      #login-links
+        - if current_user
+          Welcome, #{current_user.email} | #{link_to "Log Out", destroy_user_session_path}
+        - else
+          #{link_to "Log in", new_user_session_path} | #{link_to "Sign Up", new_user_registration_path}
     
-    %p.notice= notice
-    %p.alert= alert
+      #header
+        #logo
+          %a{:href => root_path} The Fence
+        #presented-by{:href => "http://www.thetartan.org"} By The Tartan
 
-    = yield
+      #scream
+        = link_to 'Plan Your Escape', events_path, :id => 'escape-button'
+        %h2#tagline Leave Your Room, get on The Fence
+        %p
+          The Fence is the event guide for 
+          %a{:href=>"http://www.cmu.edu/"} Carnegie Mellon University
+          in Pittsburgh, PA.
+
+      #content
+      
+        #subnav
+          / %ul#quick-links
+          /   %li.upcoming-events
+          /     %a{:href=>"#"} View upcoming events
+          /   %li.tartan-faves
+          /     %a{:href=>"#"} See Tartan picks
+          /   %li
+          /     %a{:href=>"#"} Plan a night out
+          /         
+          / - form_tag events_path, :method => :get do
+          /   %h4.left-section Find an event to suit your mood
+          /   %dl.mood-select
+          /     %dt Nouns
+          /     %dd
+          /       %ul
+          /         - Category.all.each do |category|
+          /           %li
+          /             = check_box_tag "category_ids[]", category.id, false
+          /             %label= category.name
+          /     %dt Adjectives
+          /     %dd
+          /       %ul
+          /         - Category.all.each do |category|
+          /           %li
+          /             = check_box_tag "category_ids[]", category.id, false
+          /             %label= category.name
+          /   = submit_tag "Find events"
+      
+        #main
+          %p.notice= notice
+          %p.alert= alert
+        
+          = yield
+        
+        #aside
+          - form_tag events_path, :method => :get do
+            = text_field_tag :q, "", {:type=>"search", :placeholder => "Search"}
+      #footer &copy; 2010 The Tartan
