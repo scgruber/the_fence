@@ -250,17 +250,67 @@ h3
       color: white
       border: solid red 2px
       border-left: 0
-  label
+  label, .label
     display: block
     float: left
     width: 120px
     line-height: 32px
     padding: 6px
+  .label label
+    padding: 0
+    line-height: normal
+    width: auto
   input, textarea
     float: left
     width: 300px
     padding: 6px
     font-size: 18px
+  textarea
+    height: 200px
   input
     height: 32px
     margin: 0
+  .inline-hints
+    width: 250px
+    font-size: 14px
+    float: left
+    padding: 6px
+    padding-left: 12px
+    color: #479
+  .category-select
+    ol
+      float: left
+      display: block
+      width: 300px
+      padding: 6px
+    fieldset
+      display: inline
+      float: left
+    legend
+      display: block
+    li
+      overflow: visible
+      display: block
+      label
+        float: left
+        width: auto
+        -webkit-user-select: none
+        margin-right: 5px
+        border: solid #DDD 1px
+        padding: 0 6px
+        height: 32px
+        font-size: 18px
+        input
+          margin-right: 5px
+    input, li
+      display: inline
+      width: auto
+      
+// Default font sizes
+
+h1
+  font-size: 2em
+h2
+  font-size: 1.5em
+h3
+  font-size: 1.17em

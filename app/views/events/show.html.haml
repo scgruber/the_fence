@@ -13,4 +13,4 @@
     - else
       = number_to_currency(@event.cost)
   = @event.categories.map(&:name).join(" ")
-  %a.attach{:href => @event.image.url}= @event.image.url
+  %a.attach{:href => @event.image.url}= image_tag(@event.image.thumb.url)

@@ -237,17 +237,66 @@ h3 {
   color: white;
   border: solid red 2px;
   border-left: 0; }
-.inputs label {
+.inputs label, .inputs .label {
   display: block;
   float: left;
   width: 120px;
   line-height: 32px;
   padding: 6px; }
+.inputs .label label {
+  padding: 0;
+  line-height: normal;
+  width: auto; }
 .inputs input, .inputs textarea {
   float: left;
   width: 300px;
   padding: 6px;
   font-size: 18px; }
+.inputs textarea {
+  height: 200px; }
 .inputs input {
   height: 32px;
   margin: 0; }
+.inputs .inline-hints {
+  width: 250px;
+  font-size: 14px;
+  float: left;
+  padding: 6px;
+  padding-left: 12px;
+  color: #447799; }
+.inputs .category-select ol {
+  float: left;
+  display: block;
+  width: 300px;
+  padding: 6px; }
+.inputs .category-select fieldset {
+  display: inline;
+  float: left; }
+.inputs .category-select legend {
+  display: block; }
+.inputs .category-select li {
+  overflow: visible;
+  display: block; }
+  .inputs .category-select li label {
+    float: left;
+    width: auto;
+    -webkit-user-select: none;
+    margin-right: 5px;
+    border: solid #dddddd 1px;
+    padding: 0 6px;
+    height: 32px;
+    font-size: 18px; }
+    .inputs .category-select li label input {
+      margin-right: 5px; }
+.inputs .category-select input, .inputs .category-select li {
+  display: inline;
+  width: auto; }
+
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.5em; }
+
+h3 {
+  font-size: 1.17em; }
