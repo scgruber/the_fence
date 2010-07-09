@@ -3,13 +3,12 @@
   = f.inputs do
     = f.input :name, :hint => "Choose something distinctive. This is how people will find your event."
     = f.input :categories, :as => :check_boxes, :label => "Categories", :wrapper_html => {:class => "category-select"}, :collection => Category.all
-    = f.input :description, :hint => "Tell us what to expect, what to bring, and where to go for more information.", :as => :text
+    = f.input :description, :hint => "Tell us what to expect, what to bring, and where to go for more information.<ul><li>Where</li><li>Special Instructions</li><li>Why</li></ul>", :as => :text
     = f.input :cost, :hint => "e.g. $5, a dozen donuts, 1 CulinArt meal. Be sure to mention if it's free."
     = f.input :location, :label => "Where?", :hint => "e.g. Wean 7500, The Fence, 1000 Morewood Ave."
     = f.inputs :name => "Time" do
       = f.input :start, :label => "From"
       = f.input :finish, :label => "To"
-      or
       = f.input :til_whenever?, :as => :boolean, :label => "'Til Whenever"
-    = f.input :image, :label => "Poster"
+    = f.input :image, :label => "Poster", :hint => "This will show up in the events search page"
   = f.buttons
