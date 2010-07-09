@@ -49,6 +49,8 @@ Fence::Application.routes.draw do |map|
 
   resources :events
 
+  match "/images/uploads/*path" => "gridfs#serve"
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => "homepage#index"
