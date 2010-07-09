@@ -32,7 +32,7 @@ Feature: Event creation
     And I should see "5:30"
     And I should see "Come sign up for the limited tents and food tables! Snacks will be provided"
     And I should see "$5"
-		And I should see "poster.gif"
+		And I should see an image with value /poster.gif/
 
   Scenario: Creating a blank event
     Given I am logged in

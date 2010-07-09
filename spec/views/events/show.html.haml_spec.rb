@@ -68,10 +68,13 @@ describe "events/show.html.haml" do
   end
   
   it "should display a poster" do
-   @event.stub_chain(:image, :url).and_return "poster/url"
-   
-   render
-   rendered.should have_selector(".vevent .attach", :href => "poster/url")
+    mock_image = mock("Image") # FIXME: necessary because stub_chain won't work when called twice. File bug.
+    mock_image.stub!(:url => "poster/url")
+    mock_image.stub_chain(:thumb, :url => "poster/url")
+    @event.stub!(:image).and_return(mock_image)
+
+    render
+    rendered.should have_selector(".vevent .attach", :href => "poster/url")
   end
   
   it "should display a cost if one exists" do
