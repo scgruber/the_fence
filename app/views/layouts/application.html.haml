@@ -64,6 +64,6 @@
           = yield
         
         #aside
-          - form_tag events_path, :method => :get do
+          = form_tag events_path, :method => :get do
             = text_field_tag :q, "", {:type=>"search", :placeholder => "Search"}
       #footer &copy; 2010 The Tartan
