@@ -60,15 +60,22 @@ Feature: Event creation
   
   Scenario: Selecting categories
     Given I am logged in
-    And there is a category called "Fiesta"
-    And there is a category called "Potluck"
+    And there is a noun category called "Fiesta"
+    And there is a noun category called "Potluck"
+		And there is an adjective category called "Casual"
+		And there is an adjective category called "Crunk"
     And I am on the new event page
     And I enter valid event input
     When I check "Fiesta"
-    When I check "Potluck"
+    And I check "Potluck"
+		And I check "Casual"
+		And I check "Crunk"
     And I press "Create Event"
-    Then I should see "Fiesta"
-    And I should see "Potluck"
+    Then I should see "fiesta"
+    And I should see "potluck"
+		And I should see "casual"
+		And I should see "crunk"
+		And I should see "A casual, crunk fiesta/potluck"
 
 	Scenario: Adding a textual cost
 		Given I am logged in

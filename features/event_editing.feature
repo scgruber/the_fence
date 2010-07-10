@@ -58,18 +58,27 @@ Feature: Event editing
 
   Scenario: Selecting categories
     Given I am logged in
-    And there is a category called "Lecture"
-    And there is a category called "Panel"
+    And there is a noun category called "Cookout"
+    And there is a noun category called "Luau"
+		And there is an adjective category called "Formal"
+		And there is an adjective category called "Educational"
     And an existing event created by me
     And I am on the event's edit page
-    When I check "Lecture"
-    And I check "Panel"
+    When I check "Cookout"
+    And I check "Luau"
+		And I check "Formal"
+		And I check "Educational"
     And I press "Update Event"
-    Then I should see "Lecture"
-    And I should see "Panel"
+    Then I should see "cookout"
+    And I should see "luau"
+		And I should see "formal"
+		And I should see "educational"
+		And I should see "An educational, formal cookout/luau"
 		When I go to the event's edit page
-		Then the "Lecture" checkbox should be checked
-		And the "Panel" checkbox should be checked
+		Then the "Cookout" checkbox should be checked
+		And the "Luau" checkbox should be checked
+		And the "Formal" checkbox should be checked
+		And the "Educational" checkbox should be checked
 
 	Scenario: Adding a textual cost
 		Given I am logged in

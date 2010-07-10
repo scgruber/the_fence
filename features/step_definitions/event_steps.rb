@@ -7,8 +7,8 @@ Given /^I enter valid event input$/ do
   Given %{I fill in "Cost" with "5.00"}
 end
 
-Given /^there is a category called "([^\"]*)"$/ do |name|
-  Factory(:category, :name => name)
+Given /^there is (?:a|an) (\w+) category called "([^\"]*)"$/ do |kind, name|
+  Factory(:category, :name => name, :kind => kind.downcase)
 end
 
 Given /^an existing event$/ do

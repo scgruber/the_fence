@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "events/show.html.haml" do
   
+  helper(EventsHelper)
+  
   before(:each) do
     @event = mock_model(Event).as_null_object
     assign(:event, @event)
