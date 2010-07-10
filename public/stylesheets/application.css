@@ -221,6 +221,7 @@ h3 {
 .mood-select dd {
   overflow: auto; }
 .mood-select label {
+  -webkit-user-select: none;
   float: left;
   padding: 5px 0;
   width: 100px; }
@@ -384,6 +385,10 @@ h3 {
 .notice {
   margin-bottom: 1em;
   color: #8ade5d; }
+
+.alert {
+  margin-bottom: 1em;
+  color: red; }
 
 .short-description {
   padding: 5px;
