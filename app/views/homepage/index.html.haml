@@ -4,11 +4,11 @@
       %a{:href=>"#"} View upcoming events
     %li.tartan-faves
       %a{:href=>"#"} See Tartan picks
-    %li
+    %li.night-out
       %a{:href=>"#"} Plan a night out
         
-  - form_tag events_path, :method => :get, :class => "mood-select" do
-    %h4.left-section Find an event to suit your mood
+  = form_tag events_path, :method => :get, :class => "mood-select" do
+    %h4.section-header Find an event to suit your mood
     %dl
       %dt Nouns
       %dd

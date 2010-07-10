@@ -1,5 +1,5 @@
 body {
-  background: #27698b;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#27698b), to(#07496b));
   font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
   color: #3d3d3d; }
 
@@ -50,25 +50,26 @@ a {
   color: #eeeeee;
   font-size: 12px;
   text-align: center;
-  font-weight: normal; }
+  font-weight: normal;
+  display: none; }
 
 #content {
   clear: left;
   background: white;
   overflow: auto;
-  padding: 20px;
+  padding: 25px;
   -webkit-border-top-left-radius: 20px;
   -webkit-border-top-right-radius: 20px; }
 
 #footer {
   padding: 10px 0;
-  background-color: #f9f9f9;
+  background-color: #f9f9f7;
   margin-bottom: 40px;
   text-align: center;
   font-size: 80%;
   -webkit-border-bottom-left-radius: 20px;
   -webkit-border-bottom-right-radius: 20px;
-  border-top: solid #f3f3f3 4px; }
+  border-top: solid #f3f3f1 4px; }
 
 #subnav {
   width: 215px;
@@ -78,7 +79,7 @@ a {
 #main {
   width: 725px;
   float: left;
-  margin: 0 10px; }
+  margin-right: 10px; }
 
 #aside {
   float: right;
@@ -97,12 +98,14 @@ a {
     display: block;
     margin: 10px 0; }
 
+.featured h3 {
+  font-size: 1.5em; }
 .featured .description .location {
   display: block;
   margin-left: 0; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", helvetica, arial, sans-serif; }
+  font-family: "Helvetica", helvetica, arial, sans-serif; }
 
 h1, h2, h3 {
   font-weight: bold; }
@@ -114,11 +117,12 @@ h3 {
   margin: 15px; }
 
 #logo a {
-  font-family: "Neuzeit S LT Std";
+  font-family: "Mercurius CT Std";
+  font-weight: bold;
   font-size: 72px;
   color: white;
   text-decoration: none;
-  text-shadow: #33667f 3px 3px 0;
+  text-shadow: #00395b 0 0 10px;
   float: left; }
 
 #quick-links {
@@ -127,8 +131,10 @@ h3 {
     background: url(/images/calendar.png) no-repeat 10px 50%; }
   #quick-links li.tartan-faves {
     background: url(/images/tartan-faves.png) no-repeat 10px 50%; }
+  #quick-links li.night-out {
+    background: url(/images/night-out.png) no-repeat 10px 50%; }
   #quick-links li {
-    border-bottom: solid #eeeeee 1px; }
+    border-bottom: solid #eeeeec 1px; }
     #quick-links li a {
       display: block;
       padding: 20px 0;
@@ -136,11 +142,14 @@ h3 {
     #quick-links li:last-child {
       border-bottom: 0; }
 
+.ad {
+  margin: 10px 0; }
+
 .read-more {
   display: block; }
 
 .list {
-  width: 47%;
+  width: 225px;
   margin-right: 3%;
   float: left;
   margin-bottom: 15px; }
@@ -149,8 +158,7 @@ h3 {
     font-weight: normal;
     padding-bottom: 5px;
     margin-bottom: 5px;
-    border-bottom: solid #929292 1px;
-    color: #666666; }
+    border-bottom: solid #929292 1px; }
 
 .article {
   margin-bottom: 15px; }
@@ -159,8 +167,9 @@ h3 {
   margin: 1em 0;
   width: 100%; }
 
-.left-section {
-  background: #f4f7f7;
+.section-header {
+  background: #f9f9f7;
+  border-bottom: solid #f3f3f1 4px;
   padding: 10px; }
 
 .featured {
@@ -169,7 +178,8 @@ h3 {
 
 .featured img {
   float: left;
-  margin-right: 1em; }
+  margin-right: 1em;
+  width: 250px; }
 
 #login-links {
   -webkit-border-bottom-left-radius: 10px;
@@ -183,20 +193,27 @@ h3 {
   #login-links a {
     color: #5bb4e1; }
 
+.search-field {
+  background: #fffffd;
+  padding: 0 10px; }
+
 #header {
   clear: right; }
 
 #scream {
-  background: #f9f9f9;
+  background: #f9f9f7;
   -webkit-border-top-left-radius: 20px;
   -webkit-border-top-right-radius: 20px;
-  border-bottom: solid #f3f3f3 4px;
+  border-bottom: solid #f3f3f1 4px;
   padding: 25px;
   padding-top: 35px;
   clear: left; }
   #scream p {
     color: #777777; }
 
+.mood-select dl {
+  padding: 5px;
+  background: #fffffd; }
 .mood-select dt {
   clear: left;
   font-weight: bold;
@@ -281,9 +298,11 @@ h3 {
     width: auto;
     -webkit-user-select: none;
     margin-right: 5px;
-    border: solid #dddddd 1px;
+    border: solid #dddddb 1px;
+    -webkit-border-radius: 3px;
+    width: 125px;
+    margin: 0 7px 7px 0;
     padding: 0 6px;
-    height: 32px;
     line-height: 32px;
     font-size: 18px; }
     .inputs .category-select li label input {

@@ -31,16 +31,20 @@
       
         #main
         
+          - if notice
+            %p.notice= notice
+          - if alert
+            %p.alert= alert
+        
           #subnav
             = yield(:subnav)
-        
-          %p.notice= notice
-          %p.alert= alert
         
           = yield
         
         #aside
-          = form_tag events_path, :method => :get do
+          %h4.section-header Search for an event
+          = form_tag events_path, :method => :get, :class => "search-field" do
             = text_field_tag :q, "", {:type=>"search", :placeholder => "Search", :class => "search"}
-          = image_tag("ad.gif")
+          %h4.section-header Happening now
+          .ad= image_tag("ad.gif")
       #footer &copy; 2010 The Tartan
