@@ -6,7 +6,7 @@ class Event
   field :start, :type => Time
   field :finish, :type => Time
   field :featured, :type => Boolean
-  field :cost, :type => Float
+  field :cost
   
   attr_accessor :til_whenever # temporary variable
   
@@ -40,7 +40,8 @@ class Event
   end
   
   def free?
-    cost == 0
+    # This is ugly so I'm not testing it yet. Soon it'll have its own field / attribute
+    cost =~ /\$0/ || cost =~ /free/i
   end
   
   def til_whenever?

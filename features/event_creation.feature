@@ -22,7 +22,7 @@ Feature: Event creation
       | From        | 9/17/09 at 4:30 PM                                                          |
       | To          | 9/17/09 at 5:30 PM                                                          |
       | Description | Come sign up for the limited tents and food tables! Snacks will be provided |
-      | Cost        | 5.00                                                                        |
+      | Cost        | $5                                                                          |
     And I attach the file "spec/fixtures/poster.gif" to "Poster"
     And I press "Create Event"
     Then I should see "The event was saved successfully"
@@ -69,6 +69,14 @@ Feature: Event creation
     And I press "Create Event"
     Then I should see "Fiesta"
     And I should see "Potluck"
+
+	Scenario: Adding a textual cost
+		Given I am logged in
+    And I am on the new event page
+    And I enter valid event input
+		And I fill in "an arm and a leg" for "Cost"
+		When I press "Create Event"
+		Then I should see "an arm and a leg"
   
   Scenario: Til whenever events
     Given I am logged in

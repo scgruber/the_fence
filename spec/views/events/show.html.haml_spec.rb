@@ -81,7 +81,7 @@ describe "events/show.html.haml" do
   
   it "should display a cost if one exists" do
     @event.stub!(:free?).and_return false
-    @event.stub!(:cost).and_return 5
+    @event.stub!(:cost).and_return "$5"
     
     render
     rendered.should contain("$5")

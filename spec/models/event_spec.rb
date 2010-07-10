@@ -216,14 +216,8 @@ describe Event do
   
   describe "free?" do
     
-    it "should be true when the cost is zero" do
-      event.cost = 0
-      event.free?.should == true
-    end
-    
-    it "should not be free when the cost is nonzero" do
-      event.cost = 99
-      event.free?.should == false
+    it "should be true when free is checked" do
+      pending "I add a free field to the form"
     end
     
   end

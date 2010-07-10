@@ -26,7 +26,7 @@ Feature: Event editing
       | From        | 9/20/09 at 5:30 PM                                                              |
       | To          | 9/20/09 at 6:30 PM                                                              |
       | Description | Come sign up for the limited tents and food tables! Snacks will not be provided |
-      | Cost        | 10.00                                                                           |
+      | Cost        | $10                                                                             |
 		
     And I attach the file "spec/fixtures/poster.gif" to "Poster"
     And I press "Update Event"
@@ -70,6 +70,14 @@ Feature: Event editing
 		When I go to the event's edit page
 		Then the "Lecture" checkbox should be checked
 		And the "Panel" checkbox should be checked
+
+	Scenario: Adding a textual cost
+		Given I am logged in
+		And an existing event created by me
+		And I am on the event's edit page
+		And I fill in "an arm and a leg" for "Cost"
+		When I press "Update Event"
+		Then I should see "an arm and a leg"
 
   Scenario: Til whenever events
     Given I am logged in
