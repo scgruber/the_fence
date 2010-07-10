@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     @categories = Category.find(:all)
     @event = Event.new(params[:event])
     
-    # authorize! :create, @event
+    authorize! :create, @event # TODO: test me
     
     if @event.save
       flash[:notice] = "The event was saved successfully."
@@ -33,6 +33,8 @@ class EventsController < ApplicationController
   
   def update
     @event = Event.find(params[:id])
+    
+    authorize! :edit, @event
     
     if @event.update_attributes(params[:event])
       flash[:notice] = "The event was successfully updated."

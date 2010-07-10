@@ -97,3 +97,11 @@ Feature: Event editing
     Then I should see "Whenever"
 		When I go to the the event's edit page
 		Then the "'Til Whenever" checkbox should be checked
+	
+	@allow-rescue
+	Scenario: Editing someone else's event
+		Given I am logged in
+		And an existing event not created by me
+		When I go to the event's edit page
+		Then I should be on the home page
+		And I should see "You don't have permission to do that."

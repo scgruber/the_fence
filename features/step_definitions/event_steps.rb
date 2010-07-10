@@ -22,5 +22,5 @@ end
 
 Given /^an existing event created by me$/ do
   Given %{an existing event}
-  @event.update_attributes!(:creator => @user)
+  @event.update_attributes!(:creator => user)
 end

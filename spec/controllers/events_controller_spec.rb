@@ -6,7 +6,9 @@ describe EventsController do
   
   before(:each) do
     @current_user = mock_model(User)
-    controller.stub!(:current_user).and_return(@current_user)
+    # sign_in :user, @current_user # TODO figure out why this doesn't work
+    controller.stub!(:current_user => @current_user)
+    controller.stub!(:user_signed_in? => true)
     @event = Factory.build(:event)
     @category = Factory(:category)
   end
@@ -61,6 +63,10 @@ describe EventsController do
   
   describe "edit" do
     
+    before do
+      @event.stub!(:creator_id => @current_user.id)
+    end
+    
     it "should find the requested event" do
       Event.should_receive(:find).
            with("my-event")
@@ -74,9 +80,37 @@ describe EventsController do
       assigns[:event].should == @event
     end
     
+    it "should render the edit template" do
+      Event.stub!(:find).
+           and_return(@event)
+      get :edit, :id => "my-event"
+      response.should render_template("edit")
+    end
+    
+    context "when not creator" do
+      
+      before(:each) do
+        Event.stub!(:find).
+              and_return(@event)
+        @event.stub!(:creator_id => nil)
+        get :edit, :id => "my-event"
+      end
+      
+      it "should redirect to homepage" do
+        response.should redirect_to(root_path)
+      end
+      
+      specify { flash[:alert].should == "You don't have permission to do that." }
+      
+    end
+    
   end
   
   describe "update" do
+
+    before do
+      @event.stub!(:creator_id => @current_user.id)
+    end
     
     it "should find the requested event" do
       Event.should_receive(:find).
@@ -106,6 +140,23 @@ describe EventsController do
                with(:name => "someplace")
       Location.stub!(:find)
       post :update, :id => 1, :event => { "location" => "someplace" }
+    end
+    
+    context "when not creator" do
+      
+      before(:each) do
+        Event.stub!(:find).
+              and_return(@event)
+        @event.stub!(:creator_id => nil)
+        post :update, :id => 1, :event => {}
+      end
+      
+      it "should redirect to homepage" do
+        response.should redirect_to(root_path)
+      end
+      
+      specify { flash[:alert].should == "You don't have permission to do that." }
+      
     end
     
     context "when successful" do

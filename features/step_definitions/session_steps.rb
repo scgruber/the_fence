@@ -1,3 +1,7 @@
+def user
+  @user ||= Factory(:user)
+end
+
 Given /^I sign up as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
   Given %{I go to signup}
   And %{I fill in "user_email" with "#{email}"}
@@ -12,11 +16,8 @@ When /^I fill out the login form with email "([^"]*)" and password "([^"]*)"$/ d
 end
 
 When /^I fill out the login form$/ do
-  unless @user
-    @user = Factory(:user)
-  end
-  When %{I fill out the login form with email "#{@user.email}" and password "#{@user.password}"}
-  @current_user = @user
+  When %{I fill out the login form with email "#{user.email}" and password "#{user.password}"}
+  @current_user = user
 end
 
 Given /^I log in$/ do
