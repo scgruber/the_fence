@@ -1,0 +1,29 @@
+= content_for :subnav do
+  %ul#quick-links
+    %li.upcoming-events
+      %a{:href=>"#"} View upcoming events
+    %li.tartan-faves
+      %a{:href=>"#"} See Tartan picks
+    %li
+      %a{:href=>"#"} Plan a night out
+        
+  - form_tag events_path, :method => :get, :class => "mood-select" do
+    %h4.left-section Find an event to suit your mood
+    %dl
+      %dt Nouns
+      %dd
+        %ul
+          - Category.noun.each do |category|
+            %li
+              %label<
+                = check_box_tag "category_ids[]", category.id, false
+                = category.name
+      %dt Adjectives
+      %dd
+        %ul
+          - Category.adjective.each do |category|
+            %li
+              %label<
+                = check_box_tag "category_ids[]", category.id, false
+                = category.name
+    = submit_tag "Find events", :class => "find"

@@ -136,25 +136,6 @@ h3 {
     #quick-links li:last-child {
       border-bottom: 0; }
 
-.mood-select dd {
-  overflow: auto; }
-  .mood-select dd .mood-select-selected {
-    font-weight: normal;
-    background: #dddddd;
-    border: inset #eeeeee 1px;
-    text-shadow: white 1px 1px 2px; }
-  .mood-select dd li {
-    color: #444444;
-    text-transform: lowercase;
-    float: left;
-    border: 1px;
-    width: 93px;
-    font-size: 12px;
-    border: solid white 1px;
-    padding: 5px; }
-    .mood-select dd li input {
-      margin-right: 25px; }
-
 .read-more {
   display: block; }
 
@@ -215,6 +196,22 @@ h3 {
   clear: left; }
   #scream p {
     color: #777777; }
+
+.mood-select dt {
+  clear: left;
+  font-weight: bold;
+  padding: 10px 0; }
+.mood-select dd {
+  overflow: auto; }
+.mood-select label {
+  float: left;
+  padding: 5px 0;
+  width: 100px; }
+  .mood-select label input {
+    margin-right: 5px; }
+.mood-select input.find {
+  clear: left;
+  margin-top: 10px; }
 
 #content {
   -webkit-border-top-left-radius: 0;
@@ -295,7 +292,7 @@ h3 {
   display: inline;
   width: auto; }
 
-.button, input[type=button], input[type=submit], button {
+input.create {
   text-decoration: none;
   border-color: #888888;
   border-color: rgba(0, 0, 0, 0.56);
@@ -334,7 +331,7 @@ h3 {
   background-repeat: repeat-x;
   font-size: 18px; }
 
-.button, .button:after, button, button:after, input[type=submit], input[type=button] {
+input.create {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;

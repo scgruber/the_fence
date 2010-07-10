@@ -29,35 +29,11 @@
 
       #content
       
-        #subnav
-          / %ul#quick-links
-          /   %li.upcoming-events
-          /     %a{:href=>"#"} View upcoming events
-          /   %li.tartan-faves
-          /     %a{:href=>"#"} See Tartan picks
-          /   %li
-          /     %a{:href=>"#"} Plan a night out
-          /         
-          / - form_tag events_path, :method => :get do
-          /   %h4.left-section Find an event to suit your mood
-          /   %dl.mood-select
-          /     %dt Nouns
-          /     %dd
-          /       %ul
-          /         - Category.all.each do |category|
-          /           %li
-          /             = check_box_tag "category_ids[]", category.id, false
-          /             %label= category.name
-          /     %dt Adjectives
-          /     %dd
-          /       %ul
-          /         - Category.all.each do |category|
-          /           %li
-          /             = check_box_tag "category_ids[]", category.id, false
-          /             %label= category.name
-          /   = submit_tag "Find events"
-      
         #main
+        
+          #subnav
+            = yield(:subnav)
+        
           %p.notice= notice
           %p.alert= alert
         
