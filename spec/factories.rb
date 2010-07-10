@@ -8,7 +8,7 @@ Factory.define :event do |e|
 end
 
 Factory.define :category do |c|
-  c.name "Category"
+  c.sequence(:name) { |n| "Category#{n}" }
   c.kind "Noun"
 end
 

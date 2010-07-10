@@ -5,5 +5,8 @@ class Category
 
   field :name, :type => String
   field :kind, :type => String
+  
+  scope :noun, where(:kind => 'noun')
+  scope :adjective, where(:kind => 'adjective')
 
 end
