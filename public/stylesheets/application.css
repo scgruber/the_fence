@@ -348,3 +348,9 @@ h2 {
 
 h3 {
   font-size: 1.17em; }
+
+.vevent .description {
+  margin: 1em 0;
+  white-space: pre-wrap; }
+.vevent .attach {
+  float: right; }

@@ -56,6 +56,8 @@ describe "events/show.html.haml" do
     rendered.should have_selector(".vevent .description", :content => "Description")
   end
   
+  it "should preserve whitespace on the description"
+  
   it "should list categories" do
     pending("when we implement categories")
     @category = mock_model(Category)
