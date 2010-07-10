@@ -23,22 +23,22 @@ describe EventsHelper do
   describe "#short_description" do
     
     it "should include the nouns separated by a slash" do
-      helper.short_description.should include("lecture/party")
+      helper.short_description.should contain("lecture/party")
     end
     
     it "should include the adjectives separated by a comma" do
-      helper.short_description.should include("crunk, serious")
+      helper.short_description.should contain("crunk, serious")
     end
     
     it "should begin with indefinite article 'a' when called for by adjective" do
-      helper.short_description.should match(/^A crunk/)
+      helper.short_description.should contain(/^A crunk/)
     end
     
     it "should begin with indefinite article 'an' when called for by adjective" do
       @awesome = mock_model(Category, :name => "Awesome", :kind => "adjective")
       @mock_categories.stub!(:adjective => [@awesome])
       
-      helper.short_description.should match(/^An awesome/)
+      helper.short_description.should contain(/^An awesome/)
     end
     
     context "when do nouns are given" do
@@ -48,7 +48,7 @@ describe EventsHelper do
       end
     
       it "should use 'event' for the noun" do
-        helper.short_description.should include("event")
+        helper.short_description.should contain("event")
       end
       
     end
@@ -60,14 +60,14 @@ describe EventsHelper do
       end
       
       it "should begin with indefinite article 'a' when called for by noun" do
-        helper.short_description.should match(/^A lecture/)
+        helper.short_description.should contain(/^A lecture/)
       end
       
       it "should begin with indefinite article 'an' when called for by noun" do
         @lecture = mock_model(Category, :name => "Event", :kind => "noun")
         @mock_categories.stub!(:noun => [])
         
-        helper.short_description.should match(/^An event/)
+        helper.short_description.should contain(/^An event/)
       end
       
     end

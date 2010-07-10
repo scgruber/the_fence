@@ -8,7 +8,7 @@ module EventsHelper
       
       first_word = adjectives.empty? ? nouns.first : adjectives.first
       
-      "#{ indefinite_article_for(first_word).capitalize } #{ adjectives.join(", ") } #{ nouns.join("/") }".squish
+      content_tag :span, "#{ indefinite_article_for(first_word).capitalize } #{ adjectives.map{|a| content_tag(:span, a, :class => 'adjective') }.join(", ") } #{ nouns.map{|a| content_tag(:span, a, :class => 'noun') }.join("/") }".squish.html_safe, :class => "short-description"
   end
   
   private
