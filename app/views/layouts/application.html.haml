@@ -65,5 +65,6 @@
         
         #aside
           = form_tag events_path, :method => :get do
-            = text_field_tag :q, "", {:type=>"search", :placeholder => "Search"}
+            = text_field_tag :q, "", {:type=>"search", :placeholder => "Search", :class => "search"}
+          = image_tag("ad.gif")
       #footer &copy; 2010 The Tartan
