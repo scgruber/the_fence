@@ -3,7 +3,7 @@
   %a.attach{:href => @event.image.url}= image_tag(@event.image.medium.url)
   .categories= short_description
   %p.description= preserve @event.description
-  %dl
+  %dl.info
     %dt Location
     %dd.location= @event.location
     %dt Start Time
@@ -15,6 +15,6 @@
       %dd Til' Whenever
     %dt Cost
     - if @event.free?
-      %dt Free
+      %dd Free
     - else
-      %dt= @event.cost
+      %dd= @event.cost

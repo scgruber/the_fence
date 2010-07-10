@@ -354,3 +354,11 @@ h3 {
   white-space: pre-wrap; }
 .vevent .attach {
   float: right; }
+.vevent dl.info dt {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  clear: left;
+  float: left;
+  width: 100px; }
+.vevent dl.info dd {
+  float: left; }
