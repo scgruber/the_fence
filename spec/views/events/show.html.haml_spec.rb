@@ -70,7 +70,7 @@ describe "events/show.html.haml" do
   it "should display a poster" do
     mock_image = mock("Image") # FIXME: necessary because stub_chain won't work when called twice. File bug.
     mock_image.stub!(:url => "poster/url")
-    mock_image.stub_chain(:thumb, :url => "poster/url")
+    mock_image.stub_chain(:medium, :url => "poster/url")
     @event.stub!(:image).and_return(mock_image)
 
     render
