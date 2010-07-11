@@ -8,15 +8,14 @@
   %body
     #container
     
-      #login-links
+      %span#login-links
         - if current_user
           Welcome, #{current_user.email} | #{link_to "Log Out", destroy_user_session_path}
         - else
           #{link_to "Log in", new_user_session_path} | #{link_to "Sign Up", new_user_registration_path}
     
       #header
-        #logo
-          %a{:href => root_path} The Fence
+        = link_to image_tag("logo.png", :alt => "The Fence (beta)"), root_path, :id => 'logo'
         #presented-by{:href => "http://www.thetartan.org"} By The Tartan
 
       = yield(:above)
