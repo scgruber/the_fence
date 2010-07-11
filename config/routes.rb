@@ -55,6 +55,8 @@ Fence::Application.routes.draw do |map|
   # just remember to delete public/index.html.
   root :to => "homepage#index"
   
+  get 'beta' => "beta#info"
+  
   devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
   get 'login' => 'devise/sessions#new', :as => "new_user_session"
   get 'logout' => 'devise/sessions#destroy', :as => "destroy_user_session"

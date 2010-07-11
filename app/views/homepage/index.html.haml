@@ -1,11 +1,11 @@
 = content_for :subnav do
   %ul#quick-links
     %li.upcoming-events
-      %a{:href=>"#"} View upcoming events
+      = link_to "View upcoming events", beta_path, :class => "quick-link"
     %li.tartan-faves
-      %a{:href=>"#"} See Tartan picks
+      = link_to "See Tartan picks", beta_path, :class => "quick-link"
     %li.night-out
-      %a{:href=>"#"} Plan a night out
+      = link_to "Plan a night out", beta_path, :class => "quick-link"
         
   = form_tag events_path, :method => :get, :class => "mood-select" do
     %h4.section-header Find an event to suit your mood
