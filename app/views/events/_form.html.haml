@@ -13,4 +13,6 @@
         %span.or or
         = f.input :til_whenever?, :as => :boolean, :label => "'Til Whenever"
     = f.input :image, :label => "Poster", :hint => "This will show up in the events search page"
+    .underneath-input
+      = image_tag @event.image.medium.url
   = f.buttons
