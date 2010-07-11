@@ -1,5 +1,8 @@
 document.onReady(function(){
   
+  $$('input.datetime').each(function(datetime){
+    new Calendar({format: "%l:%M%p %m/%d/%Y"}).assignTo(datetime);
+  });
   
   $$('.formtastic .inputs input,textarea').each(function(input) {
     function showHint() { this.next('.inline-hints').show('fade'); };
