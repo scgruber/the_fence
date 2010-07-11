@@ -17,12 +17,16 @@ document.onReady(function(){
   });
   
   $$('.formtastic .inputs input,textarea').each(function(input) {
-    function showHint() { this.next('.inline-hints').show('fade'); };
-    function hideHint() { this.next('.inline-hints').hide('fade'); };
+    // TODO de-dupe me
+    function showHint() { var hint = this.next('.inline-hints'); if(hint) hint.show('fade'); };
+    function hideHint() { var hint = this.next('.inline-hints'); if(hint) hint.hide('fade'); };
     
     var hint;
     if(hint = input.next('.inline-hints')) {
-      hint.hide(); // Hide existing hints
+      // Don't hide file inputs, they're hard to focus on
+      if(input.type === "textarea" || input.type === "text") {
+        hint.hide();
+      }
     }
     
     input.on({
