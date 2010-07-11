@@ -19,13 +19,7 @@
           %a{:href => root_path} The Fence
         #presented-by{:href => "http://www.thetartan.org"} By The Tartan
 
-      #scream
-        = link_to 'Plan Your Escape', events_path, :id => 'escape-button'
-        %h2#tagline Leave Your Room, get on The Fence
-        %p
-          The Fence is the event guide for 
-          %a{:href=>"http://www.cmu.edu/"} Carnegie Mellon University
-          in Pittsburgh, PA.
+      = yield(:above)
 
       #content
       
