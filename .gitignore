@@ -4,3 +4,4 @@ log/*.log
 tmp/**/*
 .DS_Store
 public/uploads
+public/stylesheets/application.css
