@@ -9,6 +9,8 @@
     = f.inputs :name => "Time" do
       = f.input :start, :label => "From", :input_html => {:class => "datetime"}
       = f.input :finish, :label => "To", :input_html => {:class => "datetime"}
-      = f.input :til_whenever?, :as => :boolean, :label => "'Til Whenever"
+      .underneath-input
+        %span.or or
+        = f.input :til_whenever?, :as => :boolean, :label => "'Til Whenever"
     = f.input :image, :label => "Poster", :hint => "This will show up in the events search page"
   = f.buttons
