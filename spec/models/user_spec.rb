@@ -9,5 +9,14 @@ describe User do
     event = user.events.build(valid_event_attributes)
     event.creator.should == user
   end
+  
+  describe "admin?" do
+    
+    it "should default to false" do
+      user = Factory(:user)
+      user.admin?.should == false
+    end
+    
+  end
 
 end

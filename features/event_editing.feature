@@ -105,3 +105,10 @@ Feature: Event editing
 		When I go to the event's edit page
 		Then I should be on the home page
 		And I should see "You don't have permission to do that."
+	
+	Scenario: Editing someone else's event as an admin
+		Given I am logged in as an admin
+		And an existing event not created by me
+		When I go to the event's edit page
+		Then I should be on the event's edit page
+		

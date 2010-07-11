@@ -5,7 +5,7 @@ describe EventsController do
   include Devise::TestHelpers
   
   before(:each) do
-    @current_user = mock_model(User)
+    @current_user = mock_model(User, :admin? => false)
     # sign_in :user, @current_user # TODO figure out why this doesn't work
     controller.stub!(:current_user => @current_user)
     controller.stub!(:user_signed_in? => true)

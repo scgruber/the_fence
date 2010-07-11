@@ -1,5 +1,5 @@
 def user
-  @user ||= Factory(:user)
+  @current_user ||= Factory(:user)
 end
 
 Given /^I sign up as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
@@ -17,10 +17,9 @@ end
 
 When /^I fill out the login form$/ do
   When %{I fill out the login form with email "#{user.email}" and password "#{user.password}"}
-  @current_user = user
 end
 
-Given /^I log in$/ do
+When /^I log in$/ do
   Given %{I am logged out}
   And %{I go to login}
   And %{I fill out the login form}
@@ -28,12 +27,23 @@ Given /^I log in$/ do
 end
 
 Given /^I am logged in$/ do
-  unless @current_user
-    Given %{I log in}
-  end
+  Given %{I am logged in as a user}
+end
+
+Given /^I am logged in as a user$/ do
+  When %{I log in}
+end
+
+Given /^I am logged in as an admin$/ do
+  When %{I log in}
+  @current_user.update_attributes!(:admin => true)
 end
 
 Given /^I am logged out$/ do
+  When %{I log out}
+end
+
+When /^I log out$/ do
   visit('/users/sign_out')
   @current_user = nil
 end
