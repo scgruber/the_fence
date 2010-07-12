@@ -1,3 +1,5 @@
+// TODO: Test dis shit
+
 document.onReady(function(){
   
   if($('event_til_whenever')) {
