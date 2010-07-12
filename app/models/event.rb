@@ -5,8 +5,10 @@ class Event
   field :description, :type => String
   field :start, :type => Time
   field :finish, :type => Time
-  field :featured, :type => Boolean
   field :cost
+  
+  field :featured, :type => Boolean
+  field :page_rank, :type => Integer, :default => 0
   
   attr_accessor :til_whenever # temporary variable
   

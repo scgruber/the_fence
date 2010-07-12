@@ -204,6 +204,14 @@ describe Event do
     
   end
   
+  describe "page_rank" do
+    
+    it "should default to zero" do
+      event.page_rank.should == 0
+    end
+    
+  end
+  
   describe "creator" do
     
     it "should be assignable" do

@@ -12,7 +12,7 @@ Given /^there is (?:a|an) (\w+) category called "([^\"]*)"$/ do |kind, name|
 end
 
 Given /^an existing event$/ do
-	@event = Factory(:event)
+  Given %{an existing event created by me}
 end
 
 Given /^an existing event not created by me$/ do
@@ -21,6 +21,11 @@ Given /^an existing event not created by me$/ do
 end
 
 Given /^an existing event created by me$/ do
-  Given %{an existing event}
+  @event = Factory(:event)
   @event.update_attributes!(:creator => user)
+end
+
+When /^I submit the event creation form$/ do
+  When %{I press "Create Event"}
+  @event = Event.last
 end
