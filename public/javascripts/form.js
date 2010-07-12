@@ -18,24 +18,20 @@ document.onReady(function(){
     new Calendar({format: "%l:%M%p %m/%d/%Y"}).assignTo(datetime);
   });
   
-  $$('.formtastic .inputs input,textarea').each(function(input) {
-    // TODO de-dupe me
-    function showHint() { var hint = this.next('.inline-hints'); if(hint) hint.show('fade'); };
-    function hideHint() { var hint = this.next('.inline-hints'); if(hint) hint.hide('fade'); };
-    
+  function isHideableInput(input) {
+    return $w('textarea text number').includes(input.type);
+  }
+  
+  $$('.formtastic .inputs input,textarea').filter(isHideableInput).each(function(input) {
     var hint;
     if(hint = input.next('.inline-hints')) {
-      // Don't hide file inputs, they're hard to focus on
-      if(input.type === "textarea" || input.type === "text") {
         hint.hide();
-      }
+        
+        input.on({
+          focus: hint.show.bind(hint, 'fade'),
+          blur: hint.hide.bind(hint, 'fade')
+        });
     }
-    
-    input.on({
-      focus: showHint,
-      blur: hideHint
-    });
   });
-  
   
 });
