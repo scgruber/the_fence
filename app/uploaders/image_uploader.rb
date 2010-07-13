@@ -18,5 +18,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+  
+  # For heroku
+  def cache_dir
+    "#{Rails.root}/tmp/uploads"
+  end
 
 end

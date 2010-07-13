@@ -12,6 +12,9 @@ test:
 
 # set these environment variables on your prod server
 production:
-  <<: *defaults
-  host: <%= ENV['MONGOHQ_URL'] %>
-  database: fence_production
+  host: flame.mongohq.com
+  port: 27084
+  username: fence
+  password: 85DM!bE;o?7d
+  database: fence
+  
