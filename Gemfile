@@ -31,8 +31,7 @@ group :test do
   gem 'spork'
   gem 'launchy'
 
-  gem 'factory_girl', :git => "http://github.com/thoughtbot/factory_girl.git",
-                      :branch => "rails3"
+  gem 'factory_girl_rails', "1.0.0"
                     
 	gem 'autotest'
 	gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
