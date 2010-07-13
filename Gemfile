@@ -20,23 +20,21 @@ gem "cancan"
 
 gem "right-rails"
 
-if RUBY_PLATFORM =~ /darwin/
-  group :test do
-    gem 'rspec', "2.0.0.beta.15"
-  	gem 'rspec-rails', "2.0.0.beta.15"
-  	gem 'webrat'
-  
-    gem 'capybara'
-    gem 'cucumber-rails'
-    gem 'cucumber', '0.8.3'
-    gem 'spork'
-    gem 'launchy'
-  
-    gem 'factory_girl', :git => "http://github.com/thoughtbot/factory_girl.git",
-                        :branch => "rails3"
-                      
-  	gem 'autotest'
-  	gem 'autotest-fsevent'
-  	gem 'autotest-growl'
-  end
+group :test do
+  gem 'rspec', "2.0.0.beta.15"
+	gem 'rspec-rails', "2.0.0.beta.15"
+	gem 'webrat'
+
+  gem 'capybara'
+  gem 'cucumber-rails'
+  gem 'cucumber', '0.8.3'
+  gem 'spork'
+  gem 'launchy'
+
+  gem 'factory_girl', :git => "http://github.com/thoughtbot/factory_girl.git",
+                      :branch => "rails3"
+                    
+	gem 'autotest'
+	gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/
+	gem 'autotest-growl' if RUBY_PLATFORM =~ /darwin/
 end

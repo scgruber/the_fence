@@ -226,7 +226,7 @@ specs:
     version: 2.0.0.beta.15
 - spork: 
     version: 0.8.4
-hash: b6c87cbb4a045fd97923ad79fe89a2a62e3a8b92
+hash: 97b05c6e21e32017d1af7a864c22b4271af0b305
 sources: 
 - Git: 
     uri: http://github.com/thoughtbot/factory_girl.git
