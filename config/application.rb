@@ -40,6 +40,7 @@ module Fence
       g.orm             :mongoid
       g.template_engine :haml
       g.test_framework  :rspec, :fixture => true
+      g.integration_tool :rspec
     end
 
     # Configure the default encoding used in templates for Ruby 1.9.
