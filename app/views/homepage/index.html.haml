@@ -50,7 +50,7 @@
 %ul.list
   %h3 More Events
   - # this will be better when mongoid's shift doesn't suck
-  - @featured.skip(1).each do |event|
+  - @featured.each do |event|
     %li
       %h4= event.name
       .description
