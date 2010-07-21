@@ -11,6 +11,7 @@ Feature: Event editing
     Then I should be on the login page
     And I should see "Sign in"
 		When I fill out the login form
+		And I should see "You must be logged in as the event's owner to edit it."
 		And I press "Sign in"
 		Then I should be on the event's edit page
     
@@ -104,7 +105,7 @@ Feature: Event editing
 		And an existing event not created by me
 		When I go to the event's edit page
 		Then I should be on the home page
-		And I should see "You don't have permission to do that."
+		And I should see "You must be logged in as the event's owner to edit it."
 	
 	Scenario: Editing someone else's event as an admin
 		Given I am logged in as an admin

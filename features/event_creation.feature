@@ -9,6 +9,7 @@ Feature: Event creation
     Then I should be on the login page
     And I should see "Sign in"
 		When I fill out the login form
+		And I should see "You must be logged in to create a new event."
 		And I press "Sign in"
 		Then I should be on the new event page
 

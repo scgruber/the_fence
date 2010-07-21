@@ -100,7 +100,7 @@ describe EventsController do
         response.should redirect_to(root_path)
       end
       
-      specify { flash[:alert].should == "You don't have permission to do that." }
+      specify { flash[:alert].should == "You must be logged in as the event's owner to edit it." }
       
     end
     
@@ -155,7 +155,7 @@ describe EventsController do
         response.should redirect_to(root_path)
       end
       
-      specify { flash[:alert].should == "You don't have permission to do that." }
+      specify { flash[:alert].should == "You must be logged in as the event's owner to edit it." }
       
     end
     

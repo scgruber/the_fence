@@ -2,4 +2,8 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  events:
+    edit:
+      authorize_message: "You must be logged in as the event's owner to edit it."
+    create:
+      authorize_message: "You must be logged in to create a new event."

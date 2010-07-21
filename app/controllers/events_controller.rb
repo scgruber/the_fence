@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   def new
     @categories = Category.find(:all)
     @event = Event.new
-    authorize! :create, @event
+    authorize! :create, @event, :message => I18n.t('events.create.authorize_message')
     respond_with(@event)
   end
   
@@ -17,7 +17,7 @@ class EventsController < ApplicationController
     @categories = Category.find(:all)
     @event = current_user.events.build(params[:event])
     
-    authorize! :create, @event # TODO: test me
+    authorize! :create, @event, :message => I18n.t('events.create.authorize_message') # TODO: test me
     
     if @event.save
       flash[:notice] = "The event was saved successfully."
@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     
-    authorize! :edit, @event
+    authorize! :edit, @event, :message => I18n.t('events.edit.authorize_message')
     
     if @event.update_attributes(params[:event])
       flash[:notice] = "The event was successfully updated."
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
   
   def edit
     @event = Event.find(params[:id])
-    authorize! :edit, @event
+    authorize! :edit, @event, :message => I18n.t('events.edit.authorize_message')
     respond_with(@event)
   end
   

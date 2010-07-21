@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   layout 'application'
   
   rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = exception.message
     if user_signed_in?
-      flash[:alert] = "You don't have permission to do that." # TODO make customizable based on violation
       redirect_to(root_path)
     else
       authenticate_user!
