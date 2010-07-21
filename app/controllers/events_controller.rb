@@ -14,11 +14,8 @@ class EventsController < ApplicationController
   end
   
   def create    
-    # TODO replace this with .build statement when mongoid gets better
-    params[:event][:creator_id] = current_user.id
-    
     @categories = Category.find(:all)
-    @event = Event.new(params[:event])
+    @event = current_user.events.build(params[:event])
     
     authorize! :create, @event # TODO: test me
     

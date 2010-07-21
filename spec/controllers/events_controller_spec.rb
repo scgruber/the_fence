@@ -5,7 +5,7 @@ describe EventsController do
   include Devise::TestHelpers
   
   before(:each) do
-    @current_user = mock_model(User, :admin? => false)
+    @current_user = Factory(:user)     # TODO: Factory for now, but it might be really slow
     # sign_in :user, @current_user # TODO figure out why this doesn't work
     controller.stub!(:current_user => @current_user)
     controller.stub!(:user_signed_in? => true)
@@ -221,7 +221,7 @@ describe EventsController do
     
     it "should assign the current user to creator" do
       Event.should_receive(:new).
-            with(hash_including(:creator_id => @current_user.id)).
+            with(hash_including(:creator => @current_user)).
             and_return(@event)
       post :create, :event => {}
     end
