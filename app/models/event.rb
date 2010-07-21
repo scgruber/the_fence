@@ -5,12 +5,12 @@ class Event
   field :description, :type => String
   field :start, :type => Time
   field :finish, :type => Time
+  field :til_whenever, :type => Boolean
+  alias :til_whenever :til_whenever?
   field :cost
   
   field :featured, :type => Boolean
   field :page_rank, :type => Integer, :default => 0
-  
-  attr_accessor :til_whenever # temporary variable
   
   before_validation :blank_out_finish, :if => :til_whenever
   
@@ -46,16 +46,7 @@ class Event
     cost =~ /\$0/ || cost =~ /free/i
   end
   
-  def til_whenever?
-    !new_record? && finish.nil?
-  end
-  
   private
-  def til_whenever
-    # FIXME: A little nasty, can't typecasting fix this?
-    @til_whenever == true || @til_whenever == '1'
-  end
-  
   def start_before_finish
     errors.add(:finish, "should be after start time") if finish && start && finish <= start
   end

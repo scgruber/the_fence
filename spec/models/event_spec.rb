@@ -232,13 +232,13 @@ describe Event do
   
   describe "til_whenever?" do
     
-    it "should be true if there's no end time" do
-      event.finish = nil
+    it "should be true if til_whenever is checked" do
+      event.til_whenever = true
       event.til_whenever?.should == true
     end
     
-    it "should be false if there's an end time" do
-      event.finish = 1.year.from_now
+    it "should be false if til_whenever is not checkd" do
+      event.til_whenever = false
       event.til_whenever?.should == false
     end
     
