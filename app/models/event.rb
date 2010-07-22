@@ -18,7 +18,7 @@ class Event
   
   belongs_to_related :creator, :class_name => "User"
   
-  # Until HABTM support comes to Mongoid
+  # FIXME: replace with mongoid HABTM support
   # has_one_related :location
   field :location, :type => String
   
@@ -42,7 +42,7 @@ class Event
   end
   
   def free?
-    # This is ugly so I'm not testing it yet. Soon it'll have its own field / attribute
+    # TODO: This is ugly so I'm not testing it yet. Soon it'll have its own field / attribute
     cost =~ /\$0/ || cost =~ /free/i
   end
   
@@ -53,6 +53,7 @@ class Event
   
   def image_upload
     errors.add(:image, "uploads must be a .jpg, .gif, or .png file.") if image_integrity_error
+    # TODO: test and add processing errors
     # errors.add(:image, "failed to be processed") if image_processing_error
   end
   

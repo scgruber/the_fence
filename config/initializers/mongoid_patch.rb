@@ -1,4 +1,4 @@
-# Forked, waiting for pull
+# TODO: Forked, remove when changes are pulled
 module Mongoid
   class Criteria
     def shift

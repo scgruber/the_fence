@@ -13,7 +13,7 @@ module EventsHelper
   
   private
   
-  # Primitive, but is it good enough for our purposes?
+  # TODO: replace with something that deals wih exceptions
   def indefinite_article_for(word, consonant = 'a', vowel = 'an')
     result = word.to_s.dup
     result.match(/^([aeiou])/i) ? vowel : consonant
