@@ -4,8 +4,6 @@
   .categories= short_description
   %p.description= preserve @event.description
   %dl.info
-    %dt Location
-    %dd.location= @event.location
     %dt Start Time
     %dd.dtstart{:title => @event.start.to_formatted_s(:iso8601)}= @event.start
     %dt End Time
@@ -19,3 +17,8 @@
         %dd Free
       - else
         %dd= @event.cost
+    %dt Location
+    %dd.location
+      = @event.location
+      / %div= %{<iframe width="350" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/?ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=43.25835,72.509766&amp;z=4&amp;output=embed"></iframe><br /><small><a href="http://maps.google.com/?ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=43.25835,72.509766&amp;z=4&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>}.html_safe
+      %div= %{<div class="mapviewer"><iframe id="map" Name="mapFrame" scrolling="no" frameborder="0" src="http://www.bing.com/maps/embed/?lvl=16&amp;cp=40.444627075866606~-79.94295779587998&amp;sty=r&amp;draggable=true&amp;v=2&amp;where1=5000+Forbes+Ave%2C+Pittsburgh%2C+PA+15213&amp;pp=40.44462707586659~-79.9429792535521&amp;emid=1616a213-1c50-6dd1-3442-f109680bd25c&amp;w=350&amp;h=280"></iframe><div id="LME_maplinks" style="line-height:20px;"><a id="LME_largerMap" href="http://www.bing.com/maps/?mm_embed=map&amp;cp=40.444627075866606~-79.94295779587998&amp;lvl=16&amp;sty=r&amp;where1=5000+Forbes+Ave%2C+Pittsburgh%2C+PA+15213" target="_blank">View Larger Map</a>&nbsp;<a id="LME_directions" href="http://www.bing.com/maps/?mm_embed=dir&amp;cp=40.444627075866606~-79.94295779587998&amp;rtp=~pos.40.44462707586659_-79.9429792535521_5000+Forbes+Ave%2C+Pittsburgh%2C+PA+15213&amp;lvl=16&amp;sty=r" target="_blank">Get Directions</a>&nbsp;<a id="LME_birdsEye" href="http://www.bing.com/maps/?mm_embed=be&amp;cp=40.444627075866606~-79.94295779587998&amp;lvl=1&amp;sty=b&amp;where1=5000+Forbes+Ave%2C+Pittsburgh%2C+PA+15213" target="_blank">View Bird's Eye</a></div></div>}.html_safe

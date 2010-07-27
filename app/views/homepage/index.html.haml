@@ -39,7 +39,7 @@
 
 - if(event = @featured.shift)
   .article.featured
-    = image_tag event.image.medium.url
+    = image_tag event.image.frontpage.url
     .description
       %h3= event.name
       %time= event.start
@@ -54,6 +54,5 @@
       %h4= event.name
       .description
         %time= event.start
-        = link_to event.location event.location
         %details= event.description
   

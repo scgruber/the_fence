@@ -7,6 +7,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [50, 50]
   end
   
+  version :frontpage do
+    process :resize_to_fill => [200,200]
+  end
+  
   version :medium do
     process :resize_to_fit => [300, nil]
   end
