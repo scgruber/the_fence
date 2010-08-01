@@ -28,7 +28,7 @@ Element.include({
 document.onReady(function(){
   
   
-  $$('a[href$="beta"], form.search-field, form.mood-select, #escape-button').each(function(beta_link) {
+  $$('a[href$="beta"], form.search-field, #escape-button').each(function(beta_link) {
     
     beta_link.onClick(function(click){
 

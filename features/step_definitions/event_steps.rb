@@ -11,6 +11,12 @@ Given /^there is (?:a|an) (\w+) category called "([^\"]*)"$/ do |kind, name|
   Factory(:category, :name => name, :kind => kind.downcase)
 end
 
+Given /^an existing event named "([^\"]*)" with category "([^\"]*)"$/ do |name, category|
+  Given %{an existing event created by me}
+  @event.update_attributes!(:name => name)
+  @event.categories << Category.where(:name => category)
+end
+
 Given /^an existing event$/ do
   Given %{an existing event created by me}
 end
