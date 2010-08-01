@@ -220,10 +220,11 @@ describe EventsController do
     end
     
     it "should assign the current user to creator" do
-      Event.should_receive(:new).
-            with(hash_including(:creator => @current_user)).
+      Event.stub(:new).
             and_return(@event)
       post :create, :event => {}
+      
+      @event.creator.should == @current_user
     end
     
     context "when successful" do

@@ -1,8 +1,8 @@
 module EventsHelper
   
-  def short_description
-      nouns = @event.categories.noun.map(&:name).map(&:downcase).sort # TODO: cleverly de-dupe, please
-      adjectives = @event.categories.adjective.map(&:name).map(&:downcase).sort
+  def short_description(event)
+      nouns = event.categories.noun.map(&:name).map(&:downcase).sort # TODO: cleverly de-dupe, please
+      adjectives = event.categories.adjective.map(&:name).map(&:downcase).sort
       
       nouns = ["event"] if nouns.empty?
       

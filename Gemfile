@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', "3.0.0.beta4"
+gem 'rails', '3.0.0.rc'
 
-gem "mongoid", :git => 'http://github.com/durran/mongoid.git'
+gem "mongoid", "2.0.0.beta.15"
 
 gem "bson_ext"
 
@@ -22,8 +22,10 @@ gem "cancan"
 gem "right-rails"
 
 group :test do
-  gem 'rspec', "2.0.0.beta.17"
-	gem 'rspec-rails', "2.0.0.beta.17" 
+  gem 'ruby-debug'
+  
+  gem 'rspec', "2.0.0.beta.19"
+	gem 'rspec-rails', "2.0.0.beta.19" 
 	gem 'webrat'
 
   gem 'capybara'

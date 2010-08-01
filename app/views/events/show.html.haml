@@ -1,7 +1,7 @@
 .vevent
   %h1.summary=  @event.name
   %a.attach{:href => @event.image.url}= image_tag(@event.image.medium.url)
-  .categories= short_description
+  .categories= short_description(@event)
   %p.description= preserve @event.description
   %dl.info
     %dt Start Time
