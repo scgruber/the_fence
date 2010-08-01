@@ -13,8 +13,9 @@ end
 
 Given /^an existing event named "([^\"]*)" with category "([^\"]*)"$/ do |name, category|
   Given %{an existing event created by me}
-  @event.update_attributes!(:name => name)
+  @event.name = name
   @event.categories << Category.where(:name => category)
+  @event.save
 end
 
 Given /^an existing event$/ do

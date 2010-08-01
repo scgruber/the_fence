@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   respond_to :html
 
   def index
-    @events = Event.find(:all)
+    if params[:category_ids]
+      @events = Event.any_in(:category_ids => params[:category_ids])
+    else
+      @events = Event.all
+    end
     respond_with(@events)
   end
 
