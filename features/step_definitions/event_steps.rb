@@ -12,9 +12,20 @@ Given /^there is (?:a|an) (\w+) category called "([^\"]*)"$/ do |kind, name|
 end
 
 Given /^an existing event named "([^\"]*)" with category "([^\"]*)"$/ do |name, category|
+  Given %{an existing event named "#{name}"}
+  @event.categories << Category.where(:name => category)
+  @event.save
+end
+
+Given /^an existing event named "([^\"]*)" with description "([^\"]*)"$/ do |name, description|
+  Given %{an existing event named "#{name}"}
+  @event.description = description
+  @event.save
+end
+
+Given /^an existing event named "([^\"]*)"$/ do |name|
   Given %{an existing event created by me}
   @event.name = name
-  @event.categories << Category.where(:name => category)
   @event.save
 end
 

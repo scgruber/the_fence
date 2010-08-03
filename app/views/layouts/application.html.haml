@@ -38,6 +38,7 @@
           = link_to "Add an event", new_event_path, :class => 'add-event'
           %h4.section-header Search for an event
           = form_tag events_path, :method => :get, :class => "search-field" do
-            = text_field_tag :q, "", {:type=>"search", :placeholder => "Search", :class => "search"}
+            = text_field_tag :query, "", {:type=>"search", :placeholder => "Search", :class => "search"}
+            = submit_tag "Search"
           .ad= image_tag("ad.gif")
       #footer &copy; 2010 The Tartan
