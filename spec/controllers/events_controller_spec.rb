@@ -280,15 +280,17 @@ describe EventsController do
     context "when category ids are provided" do
       
       it "should filter by the provided category ids" do
-        Event.should_receive(:any_in).
-              with(:category_ids => ["party", "lecture"]).
-              and_return([@event])
+        Event.stub!(:all).and_return(@event)
+        @event.should_receive(:any_in).
+               with(:category_ids => ["party", "lecture"]).
+               and_return([@event])
         get :index, :category_ids => ["party", "lecture"]
       end
       
       it "should assign filtered contents to view" do
-        Event.should_receive(:any_in).
-              and_return([@event, @event]) # To differentiate it from the above, return two
+        Event.stub!(:all).and_return(@event) # TODO: this is awkward. fix it up
+        @event.should_receive(:any_in).
+               and_return([@event, @event]) # To differentiate it from the above, return two
         get :index, :category_ids => []
         assigns[:events].should == [@event, @event]
       end
