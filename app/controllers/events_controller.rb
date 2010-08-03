@@ -9,7 +9,8 @@ class EventsController < ApplicationController
     end
     
     if params[:query]
-      @events = @events.where(:name => /#{params[:query]}/i) # TODO: could this be dangerous? 
+      @events = @events.where(:name => /#{params[:query]}/i) # TODO: could this be dangerous?
+      @events = @events + Event.where(:description => /#{params[:query]}/i) # TODO: hack hack hack
     end
 
     respond_with(@events)
