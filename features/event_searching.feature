@@ -18,10 +18,17 @@ Feature: Event searching
 		And I check "Lecture" within ".mood-select"
 		And I press "Find events"
 		Then I should not see "Some Party"
-	
-	Scenario: Full text search
-		Given an existing event named "My Event" with description "Wow, it's great."
+
+	Scenario: Title search
+		Given an existing event named "Event Extravaganza"
 		When I go to the home page
-		And I fill in "Wow" for "query" within ".search-field"
+		And I fill in "Extravaganza" for "query" within ".search-field"
 		And I press "Search"
-		Then I should see "My Event"
+		Then I should see "Event Extravaganza"
+
+	Scenario: Title search with no matching events
+		Given an existing event named "Event Extravaganza"
+		When I go to the home page
+		And I fill in "Not My Event" for "query" within ".search-field"
+		And I press "Search"
+		Then I should not see "Event Extravaganza"

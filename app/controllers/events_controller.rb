@@ -7,6 +7,10 @@ class EventsController < ApplicationController
     if params[:category_ids]
       @events = @events.any_in(:category_ids => params[:category_ids])
     end
+    
+    if params[:query]
+      @events = @events.where(:name => /#{params[:query]}/i) # TODO: could this be dangerous? 
+    end
 
     respond_with(@events)
   end

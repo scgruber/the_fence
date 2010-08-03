@@ -277,6 +277,18 @@ describe EventsController do
       assigns[:events].should == [@event]
     end
     
+    context "when a search query is provided" do
+      
+      it "should filter by name" do
+        Event.stub!(:all).and_return(@event)
+        @event.should_receive(:where).
+               with(:name => /Fiesta/i).
+               and_return([@event])
+        get :index, :query => "Fiesta"
+      end
+      
+    end
+    
     context "when category ids are provided" do
       
       it "should filter by the provided category ids" do
