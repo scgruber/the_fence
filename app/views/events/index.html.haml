@@ -1,1 +1,5 @@
-= @events.map{|e|e.name}
+#events-list
+  %h1 Listing Events
+  
+  %ul
+    = render :partial => 'event', :collection => @events

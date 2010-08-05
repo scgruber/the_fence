@@ -138,10 +138,15 @@ h3 {
   display: block; }
 
 .list {
-  width: 225px;
-  margin-right: 3%;
+  width: 490px;
   float: left;
   margin-bottom: 15px; }
+  .list li {
+    width: 235px;
+    margin-right: 10px;
+    float: left; }
+  .list h4 a {
+    color: #333333; }
   .list h3 {
     font-size: 18px;
     font-weight: normal;
@@ -219,6 +224,7 @@ h3 {
 .mood-select label {
   -webkit-user-select: none;
   float: left;
+  font-size: 0.8em;
   padding: 5px 0;
   width: 100px; }
   .mood-select label input {
@@ -286,11 +292,15 @@ h3 {
   height: 200px;
   resize: vertical; }
 .inputs input {
+  overflow: hidden;
   height: 32px;
-  margin: 0; }
+  margin: 0;
+  position: relative; }
 .inputs .inline-hints {
+  position: absolute;
+  left: 510px;
+  margin-top: -10px;
   width: 250px;
-  float: left;
   padding: 6px;
   padding-left: 12px;
   color: #447799; }
@@ -318,7 +328,7 @@ h3 {
     margin: 0 7px 7px 0;
     padding: 0 6px;
     line-height: 32px;
-    font-size: 18px; }
+    font-size: 16px; }
     .inputs .category-select li label input {
       margin-right: 5px; }
 .inputs .category-select input, .inputs .category-select li {
@@ -391,3 +401,28 @@ h3 {
   .beta-fly-in h5 {
     color: #6b4900;
     font-weight: bold; }
+
+.search-field input[type=submit] {
+  display: none; }
+
+.mapviewer {
+  width: 200px;
+  margin: 10px 0; }
+
+#events-list h1 {
+  margin-bottom: 1em; }
+#events-list .search-result {
+  height: 150px;
+  overflow-y: hidden;
+  clear: left;
+  margin: 1em 0; }
+  #events-list .search-result .location {
+    margin: 0; }
+  #events-list .search-result img {
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin-right: 1em; }
+
+.vevent .description {
+  width: 400px; }

@@ -1,0 +1,9 @@
+%li.search-result
+  = link_to image_tag(event.image.search.url), event_path(event)
+  .description
+    %h3= link_to event.name, event_path(event)
+    %time= event.start
+    at
+    = link_to event.location, "#TODO", :class=>"location"
+    %details= h truncate(event.description, :length => 250)
+    = link_to "Read More", event, :class=>"read-more"

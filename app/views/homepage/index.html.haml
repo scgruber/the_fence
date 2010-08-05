@@ -10,7 +10,8 @@
 = content_for :subnav do
   %ul#quick-links
     %li.upcoming-events
-      = link_to "View upcoming events", beta_path, :class => "quick-link"
+      / TODO: Replace with more rails-y path soon
+      = link_to "View upcoming events", "/events?sort=upcoming", :class => "quick-link"
     %li.tartan-faves
       = link_to "See Tartan picks", beta_path, :class => "quick-link"
     %li.night-out
@@ -39,20 +40,23 @@
 
 - if(event = @featured.shift)
   .article.featured
-    = image_tag event.image.frontpage.url
+    = link_to image_tag(event.image.frontpage.url), event_path(event)
     .description
-      %h3= event.name
+      %h3= link_to event.name, event_path(event)
       %time= event.start
-      = link_to event.location, event.location, :class=>"location"
-      %details= h event.description
+      = link_to event.location, "#TODO", :class=>"location"
+      %details= h truncate(event.description, :length => 200)
       = link_to "Read More", event, :class=>"read-more"
       
 %ul.list
   %h3 More Events
   - @featured.each do |event|
     %li
-      %h4= event.name
+      %h4= link_to event.name, event_path(event)
       .description
         %time= event.start
-        %details= event.description
+        %details
+          = truncate(event.description, :length => 150)
+          = link_to "Read More", event
+          
   

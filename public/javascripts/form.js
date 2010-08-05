@@ -15,7 +15,14 @@ document.onReady(function(){
   }
     
   $$('input.datetime').each(function(datetime){
-    new Calendar({format: "%l:%M%p %m/%d/%Y"}).assignTo(datetime);
+    var calendar = new Calendar({
+      format: "%l:%M%p %m/%d/%Y",
+      minDate: new Date(),
+      showTime: true,
+      twentyFourHour: false,
+      hideOnPick: true
+    });
+    calendar.assignTo(datetime);
   });
   
   function isHideableInput(input) {

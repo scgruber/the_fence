@@ -12,6 +12,10 @@ class EventsController < ApplicationController
       @events = @events.where(:name => /#{params[:query]}/i) # TODO: could this be dangerous?
       @events = @events + Event.where(:description => /#{params[:query]}/i) # TODO: hack hack hack
     end
+    
+    if params[:sort] == "upcoming" # TODO: test me
+      @events.where(:start.gt => Time.now).asc(:start)
+    end
 
     respond_with(@events)
   end

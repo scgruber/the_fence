@@ -15,6 +15,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :resize_to_fit => [300, nil]
   end
   
+  version :search do
+    process :resize_to_fill => [150, 150]
+  end
+  
   def default_url
     "default.png"
   end
