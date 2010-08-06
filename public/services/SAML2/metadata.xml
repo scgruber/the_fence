@@ -50,7 +50,7 @@ zNY8ukAkLOqSyxNi2iNzWrZuHHt2Ag7ITrvcbxgS2wcNKj863S394CXebA==
 
 	 <md:AttributeConsumingService isDefault="true" index="1">
 		 <md:ServiceName xml:lang="en">The Fence</md:ServiceName>
-		 <md:ServiceDescription xml:lang="en">Campus events calendar that identifies users via email address.</md:ServiceName>
+		 <md:ServiceDescription xml:lang="en">Campus events calendar that identifies users via email address.</md:ServiceDescription>
 		 <md:RequestedAttribute FriendlyName="mail"
 														Name="urn:mace:dir:attribute-def:mail"
 														NameFormat="urn:mace:shibboleth:1.0:attributeNamespace:uri"/>
