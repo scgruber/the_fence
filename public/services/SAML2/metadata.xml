@@ -1,0 +1,73 @@
+<md:EntityDescriptor
+	xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+	xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	validUntil="2010-08-25T23:00:00Z"
+	entityID="https://www.takethefence.com/services/SAML2">
+	
+	<md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+	
+	 <md:KeyDescriptor>
+		 <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+			 <ds:X509Data>
+				 <ds:X509Certificate>
+MIIEpzCCA4+gAwIBAgIJAK4dNItbk/VbMA0GCSqGSIb3DQEBBQUAMIGTMQswCQYD
+VQQGEwJVUzEVMBMGA1UECBMMUGVubnN5bHZhbmlhMRMwEQYDVQQHEwpQaXR0c2J1
+cmdoMRIwEAYDVQQKEwlUaGUgRmVuY2UxHTAbBgNVBAMTFHd3dy50YWtldGhlZmVu
+Y2UuY29tMSUwIwYJKoZIhvcNAQkBFhZhZG1pbkB0YWtldGhlZmVuY2UuY29tMB4X
+DTEwMDgwNjA2NTczMFoXDTE1MDgwNTA2NTczMFowgZMxCzAJBgNVBAYTAlVTMRUw
+EwYDVQQIEwxQZW5uc3lsdmFuaWExEzARBgNVBAcTClBpdHRzYnVyZ2gxEjAQBgNV
+BAoTCVRoZSBGZW5jZTEdMBsGA1UEAxMUd3d3LnRha2V0aGVmZW5jZS5jb20xJTAj
+BgkqhkiG9w0BCQEWFmFkbWluQHRha2V0aGVmZW5jZS5jb20wggEiMA0GCSqGSIb3
+DQEBAQUAA4IBDwAwggEKAoIBAQCjEVwE7LAXj8Kpvpm/oDupBfq2m/X4DkKrg2DO
+Dsi25Bq77zwJnDT3KcYuUD4BrNKx3eJLNWaRzZhNNMU/Rwl9ICsCoPAptiFjmBnM
++2FZds0tCi/XS9f3OertAPCHvrJVjP2K2rYMWtcgOKZM4GWaclzOF/chKDgUzITA
+4LxzyGGWCl0FZ4leOhaFK7cf21EgSfB8JVcf196LxuVURLAivh4ThFAjqixo9jkl
+9tWqrCFisAXB6t6ezmdZidP0yOeetA4mdB8/BNWzAAv3mnPHTo5+5N6EMi6XjCIX
+QifQ59OIGPfXthM67k0rN15bgC/N2BHHFjCaGja5bQt2zbaJAgMBAAGjgfswgfgw
+HQYDVR0OBBYEFCKeGXo/UqZNndaUYxEfgMje91HNMIHIBgNVHSMEgcAwgb2AFCKe
+GXo/UqZNndaUYxEfgMje91HNoYGZpIGWMIGTMQswCQYDVQQGEwJVUzEVMBMGA1UE
+CBMMUGVubnN5bHZhbmlhMRMwEQYDVQQHEwpQaXR0c2J1cmdoMRIwEAYDVQQKEwlU
+aGUgRmVuY2UxHTAbBgNVBAMTFHd3dy50YWtldGhlZmVuY2UuY29tMSUwIwYJKoZI
+hvcNAQkBFhZhZG1pbkB0YWtldGhlZmVuY2UuY29tggkArh00i1uT9VswDAYDVR0T
+BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAFLmRELmZ+7iCVRBTruhFR9Oe3PWU
+yzFK1s3B14Vogf959aCzBK3ODMljSQgIK3evbAyVXxRHW7areNEKpU2dOVZRpbPX
+PtgbABuCdD+vir7LNTsxBwGOnpKPNVNOawCCkq5PP2vBpsJDX2Ds0lQDaEmdsQfo
+xs6BAP+2gdthskUp+B0eSH1omGjANIjTbWa5OvRFnmfdpWf3/0UWikdNYc8f37Uy
+AEQAnrJ2Ub4klvbxJ2Z9hg8epaGsZFBDch+X16KouBmhOOfYM0lp2nmsttZDjVky
+zNY8ukAkLOqSyxNi2iNzWrZuHHt2Ag7ITrvcbxgS2wcNKj863S394CXebA==
+				 </ds:X509Certificate>
+			 </ds:X509Data>				
+		 </ds:KeyInfo>
+	 </md:KeyDescriptor>
+	
+	 <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+	 <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+	
+	 <md:AssertionConsumerService isDefault="true" index="0"
+		 Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+		 Location="https://www.takethefence.com/services/SAML2/POST"/>
+
+	 <md:AttributeConsumingService isDefault="true" index="1">
+		 <md:ServiceName xml:lang="en">The Fence</md:ServiceName>
+		 <md:ServiceDescription xml:lang="en">Campus events calendar that identifies users via email address.</md:ServiceName>
+		 <md:RequestedAttribute FriendlyName="mail"
+														Name="urn:mace:dir:attribute-def:mail"
+														NameFormat="urn:mace:shibboleth:1.0:attributeNamespace:uri"/>
+	 </md:AttributeConsumingService>
+	
+ </md:SPSSODescriptor>
+
+	<md:Organization>
+		<md:OrganizationName xml:lang="en">The Fence</md:OrganizationName>
+		<md:OrganizationDisplayName xml:lang="en">The Fence</md:OrganizationDisplayName>
+		<md:OrganizationURL xml:lang="en">http://www.takethefence.com/</md:OrganizationURL>
+	</md:Organization>
+	
+	<md:ContactPerson contactType="technical">
+		<md:GivenName>Max</md:GivenName>
+		<md:SurName>Hawkins</md:SurName>
+		<md:EmailAddress>admin@takethefence.com</md:EmailAddress>
+	</md:ContactPerson>
+	
+</md:EntityDescriptor>
