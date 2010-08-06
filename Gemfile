@@ -14,8 +14,7 @@ gem "devise", "1.1.rc2"
 gem "rmagick"
 gem "carrierwave", '0.5.0.beta2'
 
-gem "formtastic", :git => 'http://github.com/justinfrench/formtastic.git',
-                  :branch => 'rails3'
+gem 'formtastic',    :path => File.join(File.dirname(__FILE__), '/vendor/gems/formtastic')
 
 gem "cancan"
 

@@ -1,7 +1,5 @@
-GIT
-  remote: http://github.com/justinfrench/formtastic.git
-  revision: a35c7a5
-  branch: rails3
+PATH
+  remote: vendor/gems/formtastic
   specs:
     formtastic (1.0.0.rc)
       actionpack (>= 2.3.0)
