@@ -7,7 +7,7 @@ describe "events/show.html.haml" do
   before(:each) do
     @event = mock_model(Event).as_null_object
     assign(:event, @event)
-    template.stub!(:can?).with(:edit, @event).and_return(false)
+    view.stub!(:can?).with(:edit, @event).and_return(false)
   end
   
   it "should put events in an hEvent tag" do
@@ -59,15 +59,34 @@ describe "events/show.html.haml" do
     rendered.should have_selector(".vevent .description", :content => "Description")
   end
   
-  it "should list categories" do
-    pending("when we implement categories")
+  it "should list noun categories" do
     @category = mock_model(Category)
     @category.should_receive(:name).and_return "My Category"
     
-    @event.stub!(:categories).and_return [@category]
+    @categories = mock
+    @categories.stub(:adjective).and_return([])
+    @categories.stub(:noun).and_return([@category])
+    
+    # FIXME: why can't I stub_chain both of these?
+    @event.stub(:categories).and_return(@categories)
     
     render
-    rendered.should have_selector(".vevent .category", :content => "My Category")
+    rendered.should have_selector(".vevent .category.noun", :content => "my category")
+  end
+  
+  it "should list adjective categories" do
+    @category = mock_model(Category)
+    @category.should_receive(:name).and_return "My Category"
+    
+    @categories = mock
+    @categories.stub(:adjective).and_return([@category])
+    @categories.stub(:noun).and_return([])
+    
+    # FIXME: why can't I stub_chain both of these?
+    @event.stub(:categories).and_return(@categories)
+    
+    render
+    rendered.should have_selector(".vevent .category.adjective", :content => "my category")
   end
   
   it "should display a poster" do
@@ -108,7 +127,7 @@ describe "events/show.html.haml" do
     context "when user has edit privileges" do
       
       before(:each) do
-        template.should_receive(:can?).with(:edit, @event).and_return(true)
+        view.should_receive(:can?).with(:edit, @event).and_return(true)
       end
       
       it "should include edit" do
