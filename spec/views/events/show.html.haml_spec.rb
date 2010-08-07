@@ -59,8 +59,6 @@ describe "events/show.html.haml" do
     rendered.should have_selector(".vevent .description", :content => "Description")
   end
   
-  it "should preserve whitespace on the description"
-  
   it "should list categories" do
     pending("when we implement categories")
     @category = mock_model(Category)
@@ -99,13 +97,6 @@ describe "events/show.html.haml" do
   end
   
    describe 'links' do
-     
-     it "should include events index" do
-       pending("we add links to event pages")
-       render
-       
-       rendered.should have_selector("a", :href => events_path)
-     end
     
     it "should include iCal export" do
       pending("we add iCal export")
@@ -139,16 +130,5 @@ describe "events/show.html.haml" do
     end
     
   end
-  
-  # # Now listed on subpage
-  # # it "should list attendees" do
-  # #   @user = mock_model(User)
-  # #   @user.should_receive(:name).and_return "Can Duruk"
-  # #   
-  # #   @event.stub!(:users).and_return [@user]
-  # #   
-  # #   render
-  # #   rendered.should have_selector(".vevent .attendee", :content => "Can Duruk")
-  # # end
   
 end
