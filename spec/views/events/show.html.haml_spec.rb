@@ -7,6 +7,7 @@ describe "events/show.html.haml" do
   before(:each) do
     @event = mock_model(Event).as_null_object
     assign(:event, @event)
+    template.stub!(:can?).with(:edit, @event).and_return(false)
   end
   
   it "should put events in an hEvent tag" do
@@ -115,8 +116,11 @@ describe "events/show.html.haml" do
     
     context "when user has edit privileges" do
       
+      before(:each) do
+        template.should_receive(:can?).with(:edit, @event).and_return(true)
+      end
+      
       it "should include edit" do
-        pending("we add links to event pages")
         render
   
         rendered.should have_selector("a", :href => edit_event_path(@event))
@@ -126,12 +130,7 @@ describe "events/show.html.haml" do
     
     context "when user doesn't have edit privileges" do
       
-      # before(:each) do
-      #   template.should_receive(:can?).with(:edit, @event).and_return(false)
-      # end
-      
       it "shouldn't include edit" do
-        pending("we add permissions")
         render
   
         rendered.should_not have_selector("a", :href => edit_event_path(@event))

@@ -358,7 +358,7 @@ h3 {
 .vevent .description {
   margin: 1em 0;
   white-space: pre-wrap; }
-.vevent .attach {
+.vevent aside {
   float: right;
   margin-left: 1em; }
 .vevent dl.info dt {
