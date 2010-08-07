@@ -17,12 +17,6 @@ Rspec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
   config.mock_with :rspec
-
-  config.before(:each) do
-      Mongoid.master.collections.reject { |c| c.name == 'system.indexes' }.each(&:drop)
-  end
-  
-  config.include CarrierWave::Test::Matchers
   
   # If you'd prefer not to run each of your examples within a transaction,
   # uncomment the following line.
