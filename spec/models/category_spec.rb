@@ -14,34 +14,44 @@ describe Category do
   
   describe "noun scope" do
     
+    subject { Category.noun }
+    
     before do
-      @noun = Factory(:category, :kind => "noun")
+      @noun = Factory(:category, :kind => "noun", :name => "bbb")
       @adjective = Factory(:category, :kind => "adjective")
     end
     
-    it "should contain nouns" do
-      Category.noun.should include(@noun)
-    end
+    it { should include(@noun) }
     
-    it "shouldn't contain adjectives" do
-      Category.noun.should_not include(@adjective)
+    it { should_not include(@adjective) }
+    
+    it "should be sorted by name ascending" do
+      lower_noun = Factory(:category, :kind => "noun", :name => "aaa")
+      
+      nouns = subject.to_a
+      nouns.index(@noun).should be > nouns.index(lower_noun)
     end
     
   end
   
   describe "adjective scope" do
     
+    subject { Category.adjective }
+    
     before do
       @noun = Factory(:category, :kind => "noun")
-      @adjective = Factory(:category, :kind => "adjective")
+      @adjective = Factory(:category, :kind => "adjective", :name => "bbb")
     end
     
-    it "shouldn't contain nouns" do
-      Category.adjective.should_not include(@noun)
-    end
+    it { should_not include(@noun) }
     
-    it "should contain adjectives" do
-      Category.adjective.should include(@adjective)
+    it { should include(@adjective) }
+    
+    it "should be sorted by name ascending" do
+      lower_adjective = Factory(:category, :kind => "adjective", :name => "aaa")
+      
+      adjectives = subject.to_a
+      adjectives.index(@adjective).should be > adjectives.index(lower_adjective)
     end
     
   end

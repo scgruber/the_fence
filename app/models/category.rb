@@ -6,7 +6,9 @@ class Category
   field :name, :type => String
   field :kind, :type => String
   
-  scope :noun, where(:kind => 'noun')
-  scope :adjective, where(:kind => 'adjective')
+  index :name
+  
+  scope :noun, where(:kind => 'noun').ascending(:name)
+  scope :adjective, where(:kind => 'adjective').ascending(:name)
 
 end
