@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe EventsController do
   
-  include Devise::TestHelpers
   
   before(:each) do
     @current_user = Factory(:user)     # TODO: Factory for now, but it might be really slow
