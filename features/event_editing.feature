@@ -93,7 +93,8 @@ Feature: Event editing
     Given I am logged in
     And an existing event created by me
     And I am on the event's edit page
-    When I check "'Til Whenever"
+		When I fill in "10/10/10" for "To"
+    And I check "'Til Whenever"
     And I press "Update Event"
     Then I should see "Whenever"
 		When I go to the the event's edit page

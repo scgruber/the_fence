@@ -6,7 +6,6 @@ class Event
   field :start, :type => Time
   field :finish, :type => Time
   field :til_whenever, :type => Boolean
-  alias :til_whenever :til_whenever?
   field :cost
   
   field :featured, :type => Boolean
