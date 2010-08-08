@@ -13,11 +13,8 @@ describe EventsHelper do
     @crunk = mock_model(Category, :name => "Crunk", :kind => "adjective")
     adjectives = [@crunk, @serious]
     
-    # FIXME: Stub_chain is being a pain in the ass. de-dupe this.
-    @mock_categories = mock("Categories")
-    @mock_categories.stub!(:noun => nouns)
-    @mock_categories.stub!(:adjective => adjectives)
-    @event.stub!(:categories => @mock_categories)
+    @event.stub_chain(:categories, :noun => nouns)
+    @event.stub_chain(:categories, :adjective => adjectives)
   end
   
   describe "#short_description" do
@@ -57,8 +54,8 @@ describe EventsHelper do
       end
       
       it "should be 'an' when it matches the first adjective" do
-        @awesome = mock_model(Category, :name => "Awesome", :kind => "adjective")
-        @mock_categories.stub!(:adjective => [@awesome])
+        awesome = mock_model(Category, :name => "Awesome", :kind => "adjective")
+        event.stub_chain(:categories, :adjective => [awesome])
 
         subject.should contain(/^An awesome/)
       end
@@ -68,7 +65,7 @@ describe EventsHelper do
     context "when no nouns are given" do
     
       before do
-        @mock_categories.stub!(:noun => [])
+        event.stub_chain(:categories, :noun => [])
       end
     
       it "should use 'event' for the noun" do
@@ -80,7 +77,7 @@ describe EventsHelper do
     context "when no adjectives are given" do
       
       before do
-        @mock_categories.stub!(:adjective => [])
+        @event.stub_chain(:categories, :adjective => [])
       end
       
       describe "indefinite article" do
@@ -90,8 +87,8 @@ describe EventsHelper do
         end
       
         it "should be 'an' when it matches the first noun" do
-          @lecture = mock_model(Category, :name => "Event", :kind => "noun")
-          @mock_categories.stub!(:noun => [])
+          intervention = mock_model(Category, :name => "Intervention", :kind => "noun")
+          @event.stub_chain(:categories, :noun => [intervention])
         
           subject.should contain(/^An event/)
         end

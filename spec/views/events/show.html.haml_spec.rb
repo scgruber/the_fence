@@ -67,8 +67,8 @@ describe "events/show.html.haml" do
     @categories.stub(:adjective).and_return([])
     @categories.stub(:noun).and_return([@category])
     
-    # FIXME: why can't I stub_chain both of these?
-    @event.stub(:categories).and_return(@categories)
+    @event.stub_chain(:categories, :adjective => [])
+    @event.stub_chain(:categories, :noun => [category])
     
     render
     rendered.should have_selector(".vevent .category.noun", :content => "my category")
@@ -82,18 +82,16 @@ describe "events/show.html.haml" do
     @categories.stub(:adjective).and_return([@category])
     @categories.stub(:noun).and_return([])
     
-    # FIXME: why can't I stub_chain both of these?
-    @event.stub(:categories).and_return(@categories)
+    @event.stub_chain(:categories, :adjective => [category])
+    @event.stub_chain(:categories, :noun => [])
     
     render
     rendered.should have_selector(".vevent .category.adjective", :content => "my category")
   end
   
   it "should display a poster" do
-    mock_image = mock("Image") # FIXME: necessary because stub_chain won't work when called twice. File bug.
-    mock_image.stub!(:url => "poster/url")
-    mock_image.stub_chain(:medium, :url => "poster/url")
-    @event.stub!(:image).and_return(mock_image)
+    @event.stub_chain(:image, :url => "poster/url")
+    @event.stub_chain(:image, :medium, :url => "poster/url")
 
     render
     rendered.should have_selector(".vevent .attach", :href => "poster/url")
