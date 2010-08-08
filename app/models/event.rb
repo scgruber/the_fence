@@ -14,7 +14,7 @@ class Event
   
   before_validation :blank_out_finish, :if => :til_whenever
   
-  references_many :categories, :stored_as => :array
+  references_many :categories, :stored_as => :array, :inverse_of => :events
   
   belongs_to_related :creator, :class_name => "User"
   

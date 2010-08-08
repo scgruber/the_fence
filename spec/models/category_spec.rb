@@ -1,13 +1,29 @@
 require 'spec_helper'
 
 describe Category do
+  
+  subject { Factory(:category, :name => "myname") }
+  
+  describe "events" do
+    
+    it "should be buildable" do
+      valid_event_attributes = Factory.attributes_for(:event)
+      event = subject.events.create!(valid_event_attributes)
+      event.categories.should include(subject)
+    end
+    
+    it "should be accessible" do
+      valid_event_attributes = Factory.attributes_for(:event)
+      event = subject.events.create!(valid_event_attributes)
+      subject.events.should include(event)
+    end
+    
+  end
 
   describe "name" do
     
     it "should be id" do
-      category = Factory(:category, :name => "myname")
-      
-      category.id.should == "myname"
+      subject.id.should == "myname"
     end
     
   end

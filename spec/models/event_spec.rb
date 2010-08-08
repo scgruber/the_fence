@@ -178,29 +178,25 @@ describe Event do
   describe "categories" do
     
     it "should be assignable" do
-      pending("this would be nice...")
       category1 = Factory(:category, :name => 'party')
       category2 = Factory(:category, :name => 'lecture')
       
       event.categories << category1
       event.categories << category2
+      event.save
       
       event.categories.should include(category1)
       event.categories.should include(category2)
     end
     
-    it "should be assignable by id" do
-      category1 = Factory(:category, :name => 'party')
-      category2 = Factory(:category, :name => 'lecture')
+    it "should have a reference to the event" do
+      category = Factory(:category, :name => 'party')
       
-      event.category_ids << category1.id
-      event.category_ids << category2.id
+      event.categories << category
+      event.save
       
-      event.categories.should include(category1)
-      event.categories.should include(category2)
+      category.events.should include(event)
     end
-    
-    # TODO: look into possible security issue where users can send arbitrary categories
     
   end
   
@@ -216,8 +212,14 @@ describe Event do
     
     it "should be assignable" do
       user = Factory(:user)
-      event.creator = user
+      event.update_attributes!(:creator => user)
       event.creator.should == user
+    end
+    
+    it "should have a reference to the event" do
+      user = Factory(:user)
+      event.update_attributes!(:creator => user)
+      user.events.should include(event)
     end
     
   end
@@ -254,7 +256,6 @@ describe Event do
     
   end
   
-  pending "habtm on users"
   pending "habtm on locations"
   
 end

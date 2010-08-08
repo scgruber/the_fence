@@ -2,19 +2,28 @@ require 'spec_helper'
 
 describe User do
 
-  it "should allow the building of events" do
-    pending("mongoid does belongs_to builds correctly")
-    user = Factory(:user)
-    valid_event_attributes = Factory.attributes_for(:event)
-    event = user.events.build(valid_event_attributes)
-    event.creator.should == user
+  subject { Factory(:user) }
+
+  describe "events" do
+    
+    it "should be buildable" do
+      valid_event_attributes = Factory.attributes_for(:event)
+      event = subject.events.create!(valid_event_attributes)
+      event.creator.should == subject
+    end
+
+    it "should be accessible" do
+      valid_event_attributes = Factory.attributes_for(:event)
+      event = subject.events.create!(valid_event_attributes)
+      subject.events.should include(event)
+    end
+    
   end
   
   describe "admin?" do
     
     it "should default to false" do
-      user = Factory(:user)
-      user.admin?.should == false
+      should_not be_admin
     end
     
   end
