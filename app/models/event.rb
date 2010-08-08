@@ -9,7 +9,7 @@ class Event
   alias :til_whenever :til_whenever?
   field :cost
   
-  field :featured, :type => Boolean, :default => true # TODO: remove default after demo
+  field :featured, :type => Boolean
   field :page_rank, :type => Integer, :default => 0
   
   before_validation :blank_out_finish, :if => :til_whenever

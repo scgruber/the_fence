@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     can :read, :all
     
-    unless user.nil? # TODO: could use more controller-level testing
+    unless user.nil?
       can :create, Event
       can :edit, Event, :creator => user
       
