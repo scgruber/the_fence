@@ -30,8 +30,8 @@ class Event
   validates_presence_of :finish, :unless => :til_whenever
   validates_uniqueness_of :name
 
-  named_scope :happening_now, where(:start.lt => Time.now, :finish.gt => Time.now)
-  named_scope :featured, where(:featured => true).descending(:page_rank)
+  scope :happening_now, where(:start.lt => Time.now, :finish.gt => Time.now)
+  scope :featured, where(:featured => true).descending(:page_rank)
   scope :upcoming, where(:start.gt => Time.now)
   
   def to_param
