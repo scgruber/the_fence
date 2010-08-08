@@ -4,6 +4,7 @@ Factory.define :event do |e|
   e.location "Location"
   e.start "9/9/09"
   e.finish "10/10/10"
+  e.cost "$50"
   e.image Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/fixtures/poster.gif', 'image/gif')
 end
 

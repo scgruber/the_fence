@@ -14,7 +14,7 @@
       %dd.dtend{:title => @event.finish.to_formatted_s(:iso8601)}= @event.finish
     - else
       %dd Til' Whenever
-    - unless @event.cost.blank?
+    - if !@event.cost.blank? || @event.free?
       %dt Cost
       - if @event.free?
         %dd Free

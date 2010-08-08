@@ -12,7 +12,8 @@ class Event
   field :featured, :type => Boolean
   field :page_rank, :type => Integer, :default => 0
   
-  before_validation :blank_out_finish, :if => :til_whenever
+  before_validation :blank_out_finish, :if => :til_whenever?
+  before_validation :blank_out_cost, :if => :free?
   
   references_many :categories, :stored_as => :array, :inverse_of => :events
   
@@ -55,5 +56,9 @@ class Event
   
   def blank_out_finish
     self.finish = nil
+  end
+  
+  def blank_out_cost
+    self.cost = nil
   end
 end
