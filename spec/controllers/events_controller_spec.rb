@@ -44,6 +44,18 @@ describe EventsController do
       assigns[:categories].should == categories
     end
     
+    context "when not logged in" do
+      
+      before do
+        controller.stub(:current_user => nil, :user_signed_in? => false)
+        get :new
+      end
+      
+      specify { response.should redirect_to(new_user_session_path) }
+      specify { flash[:alert].should == I18n.t('events.create.authorize_message') }
+      
+    end
+    
   end
   
   describe "show" do
@@ -230,6 +242,18 @@ describe EventsController do
       it "should show the re-render 'new' template" do
         response.should render_template("new")
       end
+      
+    end
+    
+    context "when not logged in" do
+      
+      before do
+        controller.stub(:current_user => nil, :user_signed_in? => false)
+        post :create, :event => {}
+      end
+      
+      specify { response.should redirect_to(new_user_session_path) }
+      specify { flash[:alert].should == I18n.t('events.create.authorize_message') }
       
     end
     

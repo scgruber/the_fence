@@ -21,17 +21,18 @@ class EventsController < ApplicationController
   end
 
   def new
+    authorize! :create, Event, :message => I18n.t('events.create.authorize_message')
+    
     @categories = Category.find(:all)
     @event = Event.new
-    authorize! :create, @event, :message => I18n.t('events.create.authorize_message')
     respond_with(@event)
   end
   
-  def create    
+  def create
+    authorize! :create, Event, :message => I18n.t('events.create.authorize_message')
+    
     @categories = Category.find(:all)
     @event = current_user.events.build(params[:event])
-    
-    authorize! :create, @event, :message => I18n.t('events.create.authorize_message') # TODO: test me
     
     if @event.save
       flash[:notice] = "The event was saved successfully."
