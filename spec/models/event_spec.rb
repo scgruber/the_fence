@@ -160,6 +160,36 @@ describe Event do
       end
     
     end
+    
+    describe "#upcoming" do
+      
+      subject { Event.upcoming }
+      
+      it "should not include past events" do
+        event.start = 1.year.ago
+        event.save
+        
+        subject.should_not include(event)
+      end
+      
+      it "should include future events" do
+        event.start = 1.year.from_now
+        event.finish = 2.years.from_now
+        event.save
+        
+        subject.should include(event)
+      end
+      
+      it "should sort events ascending" do
+        sooner_event = Factory(:event, :start => 1.year.from_now, :finish => 2.years.from_now)
+        later_event = Factory(:event, :start => 9.years.from_now, :finish => 10.years.from_now)
+      
+        events = subject.to_a
+        
+        events.index(sooner_event).should be < events.index(later_event)
+      end
+      
+    end
   
     describe "#featured" do
     

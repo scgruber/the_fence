@@ -280,13 +280,39 @@ describe EventsController do
     
     context "when a search query is provided" do
       
-      it "should filter by name" do
-        events.should_receive(:where).
-                with(:name => /Fiesta/i).
+      it "should filter by name and descripton" do # TODO: extract to two specs somehow
+        events.should_receive(:any_of).
+                with({:name => /Fiesta/i}, {:description => /Fiesta/i}).
                 and_return(events)
         get :index, :query => "Fiesta"
       end
       
+      it "should assign filtered events to view" do
+        filtered_events = ["filtered", "events"] # FIXME: replace dummy values
+        events.stub(:any_of).
+               with({:name => /Fiesta/i}, {:description => /Fiesta/i}).
+               and_return(filtered_events)
+        get :index, :query => "Fiesta"
+        assigns[:events].should == filtered_events
+      end
+      
+    end
+    
+    context "when sorted 'upcoming'" do
+
+      it "should use the upcoming scope" do
+        events.should_receive(:upcoming).
+               and_return(events)
+        get :index, :sort => "upcoming"
+      end
+      
+      it "should assign sorted events to view" do
+        sorted_events = ["sorted", "events"] # FIXME: replace dummy values
+        events.stub(:upcoming => sorted_events)
+        get :index, :sort => "upcoming"
+        assigns[:events].should == sorted_events
+      end
+
     end
     
     context "when category ids are provided" do
@@ -298,11 +324,13 @@ describe EventsController do
         get :index, :category_ids => ["party", "lecture"]
       end
       
-      it "should assign filtered contents to view" do
-        events.should_receive(:any_in).
-                and_return(events)
-        get :index, :category_ids => []
-        assigns[:events].should == events
+      it "should assign filtered events to view" do
+        filtered_events = ["filtered", "events"] # FIXME: replace dummy values
+        events.stub(:any_in).
+               with(:category_ids => ["party", "lecture"]).
+               and_return(filtered_events)
+        get :index, :category_ids => ["party", "lecture"]
+        assigns[:events].should == filtered_events
       end
       
     end

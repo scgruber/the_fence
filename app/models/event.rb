@@ -32,6 +32,7 @@ class Event
 
   named_scope :happening_now, where(:start.lt => Time.now, :finish.gt => Time.now)
   named_scope :featured, where(:featured => true).descending(:page_rank)
+  scope :upcoming, where(:start.gt => Time.now)
   
   def to_param
     self.id

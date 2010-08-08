@@ -29,6 +29,24 @@ Feature: Event searching
 	Scenario: Title search with no matching events
 		Given an existing event named "Event Extravaganza"
 		When I go to the home page
-		And I fill in "Not My Event" for "query" within ".search-field"
+		And I fill in "Not My Thang" for "query" within ".search-field"
 		And I press "Search"
 		Then I should not see "Event Extravaganza"
+	
+	Scenario: Description search
+		Given an existing event named "Event Extravaganza" with description "It's great"
+		When I go to the home page
+		And I fill in "great" for "query" within ".search-field"
+		And I press "Search"
+		Then I should see "Event Extravaganza"
+	
+	Scenario: Description search with no matching events
+		Given an existing event named "Event Extravaganza" with description "It's great"
+		When I go to the home page
+		And I fill in "Not My Thang" for "query" within ".search-field"
+		And I press "Search"
+		Then I should not see "Event Extravaganza"
+	
+	# TODO: full-text search with sub-string matches
+	
+	# TODO: cuke upcoming events
