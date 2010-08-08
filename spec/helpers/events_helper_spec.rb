@@ -21,7 +21,9 @@ describe EventsHelper do
     
     subject { helper.short_description(event) }
     
-    # it "should be wrapped in a .short-description tag" do
+    it "should be wrapped in a .short-description tag" do
+      subject.should have_selector(".short-description")
+    end
       
     describe "nouns" do
       

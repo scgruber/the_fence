@@ -18,7 +18,7 @@ module EventsHelper
     phrase.squish!
     phrase.capitalize!
   
-    content_tag :span, phrase.html_safe
+    content_tag :span, phrase.html_safe, :class => "short-description"
   end
   
   private
