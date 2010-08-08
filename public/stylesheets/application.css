@@ -240,8 +240,7 @@ h3 {
 .inputs li {
   display: block;
   clear: both;
-  margin-top: 15px;
-  overflow: auto; }
+  padding-top: 15px; }
 .inputs .error label {
   color: red;
   line-height: 34px; }
@@ -275,7 +274,7 @@ h3 {
   .inputs .underneath-input li {
     float: left;
     clear: none;
-    margin-top: 0; }
+    padding-top: 0; }
   .inputs .underneath-input label {
     padding: 0;
     width: auto; }
@@ -294,13 +293,15 @@ h3 {
 .inputs input {
   overflow: hidden;
   height: 32px;
-  margin: 0;
+  margin: 0; }
+.inputs li {
   position: relative; }
+  .inputs li .inline-hints {
+    position: absolute;
+    left: 450px; }
 .inputs .inline-hints {
-  position: absolute;
-  left: 510px;
   margin-top: -10px;
-  width: 250px;
+  width: 225px;
   padding: 6px;
   padding-left: 12px;
   color: #447799; }
