@@ -2,24 +2,24 @@ require 'spec_helper'
 
 describe EventsHelper do
   
+  let(:event) { mock_model(Event) }
+  
   before do # TODO: code smell. way too complicated. simplify.
-    @event = mock_model(Event)
+    party = mock_model(Category, :name => "Party", :kind => "noun")
+    lecture = mock_model(Category, :name => "Lecture", :kind => "noun")
+    nouns = [lecture, party]
     
-    @party = mock_model(Category, :name => "Party", :kind => "noun")
-    @lecture = mock_model(Category, :name => "Lecture", :kind => "noun")
-    nouns = [@lecture, @party]
+    serious = mock_model(Category, :name => "Serious", :kind => "adjective")
+    crunk = mock_model(Category, :name => "Crunk", :kind => "adjective")
+    adjectives = [crunk, serious]
     
-    @serious = mock_model(Category, :name => "Serious", :kind => "adjective")
-    @crunk = mock_model(Category, :name => "Crunk", :kind => "adjective")
-    adjectives = [@crunk, @serious]
-    
-    @event.stub_chain(:categories, :noun => nouns)
-    @event.stub_chain(:categories, :adjective => adjectives)
+    event.stub_chain(:categories, :noun => nouns)
+    event.stub_chain(:categories, :adjective => adjectives)
   end
   
   describe "#short_description" do
     
-    subject { helper.short_description(@event) }
+    subject { helper.short_description(event) }
     
     # it "should be wrapped in a .short-description tag" do
       
@@ -77,20 +77,20 @@ describe EventsHelper do
     context "when no adjectives are given" do
       
       before do
-        @event.stub_chain(:categories, :adjective => [])
+        event.stub_chain(:categories, :adjective => [])
       end
       
       describe "indefinite article" do
         
         it "should be 'a' when it matches the first noun" do
-          subject.should contain(/^A lecture/)
+          subject.should contain(/^A/)
         end
       
         it "should be 'an' when it matches the first noun" do
           intervention = mock_model(Category, :name => "Intervention", :kind => "noun")
-          @event.stub_chain(:categories, :noun => [intervention])
+          event.stub_chain(:categories, :noun => [intervention])
         
-          subject.should contain(/^An event/)
+          subject.should contain(/^An/)
         end
         
       end
