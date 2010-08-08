@@ -1,5 +1,7 @@
 Rspec.configure do |config|
-  config.before(:each) do
-      Mongoid.master.collections.reject { |c| c.name == 'system.indexes' }.each(&:drop)
+  config.after :suite do
+    Mongoid.master.collections.select do |collection|
+      collection.name !~ /system/
+    end.each(&:drop)
   end
 end

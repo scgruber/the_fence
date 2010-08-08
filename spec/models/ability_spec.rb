@@ -3,7 +3,7 @@ require 'cancan/matchers'
 
 describe Ability do
   
-  let(:user) { Factory(:user) }
+  let(:user) { mock_model(User, :admin? => false) }
   let(:event) { mock_model(Event).as_null_object }
   
   describe "of an anonymous user" do

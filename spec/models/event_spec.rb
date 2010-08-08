@@ -2,207 +2,218 @@ require 'spec_helper'
 
 describe Event do
   
-  subject { Factory(:event) }
-  let(:event) { Factory(:event) }
+  subject { Factory.build(:event) }
   
   it { should be_valid }
   
   describe "name" do
-    it "should be invalid if blank" do
-      event.name = ''
-      event.should_not be_valid
-    end
     
-    it "should add error if blank" do
-      event.name = ''
-      event.save
-      event.errors[:name].should include("can't be blank")
-    end
-    
-    it "should be invalid if already taken" do
-      duplicate_name_event = Factory(:event)
+    context "when blank" do
       
-      event.name = duplicate_name_event.name
-      event.should_not be_valid
+      before { subject.name = '' }
       
-      event.name = 'Other random name'
-      event.should be_valid
+      it { should_not be_valid }
+    
+      it "should add an error" do
+        subject.save
+        subject.errors[:name].should include("can't be blank")
+      end
+    
     end
     
-    it "should add error if already taken" do
-      duplicate_name_event = Factory(:event)
-      duplicate_name_event.save
-      event.name = duplicate_name_event.name
-      event.save
-      event.errors[:name].should include("is already taken")
-    end
+    context "when already taken"
+    
+      before do
+        duplicate_name_event = Factory(:event)
+        subject.name = duplicate_name_event.name
+      end
+    
+      it { should_not be_valid }
+    
+      it "should add an error" do
+        subject.save
+      
+        subject.errors[:name].should include("is already taken")
+      end
+      
   end
   
   describe "start" do
-    it "should be invalid if blank" do
-      event.start = nil
-      event.should_not be_valid
+    
+    context "when blank" do
+      
+      before { subject.start = nil }
+      
+      it { should_not be_valid }
+    
+      it "should add an error" do
+        subject.start = nil
+        subject.save
+        subject.errors[:start].should include("can't be blank")
+      end
+      
     end
     
-    it "should add error if blank" do
-      event.start = nil
-      event.save
-      event.errors[:start].should include("can't be blank")
-    end
   end
   
   describe "location" do
-    it "should be invalid if blank" do
-      event = Factory.build(:event, :location => nil)
-      event.should_not be_valid
-    end
     
-    it "should add error if blank" do
-      event = Factory.build(:event, :location => nil)
-      event.save
-      event.errors[:location].should include("can't be blank")
+    context "when blank" do
+      
+      before { subject.location = nil }
+      
+      it { should_not be_valid }
+      
+      it "should add an error" do
+        subject.save
+        subject.errors[:location].should include("can't be blank")
+      end
+      
     end
+
   end
   
   describe "description" do
-    it "should be invalid if blank" do
-      event.description = ""
-      event.should_not be_valid
-    end
     
-    it "should add error if blank" do
-      event.description = "" 
-      event.save
-      event.errors[:description].should include("can't be blank")
+    context "when blank" do
+    
+      before { subject.description = "" }
+
+      it { should_not be_valid }
+    
+      it "should add an error" do
+        subject.save
+        subject.errors[:description].should include("can't be blank")
+      end
+      
     end
+      
   end
   
   describe "finish time" do
-    it "should be invalid if after start time" do
-      event.finish = event.start - 1.year
-      event.should_not be_valid
+    
+    context "when after start time" do
       
-      event.finish = event.start + 1.hour
-      event.should be_valid
+      before { subject.finish = subject.start - 1.year }
+      
+      it { should_not be_valid }
+    
+      it "should add an error" do
+        subject.save
+        subject.errors[:finish].should include("should be after start time")
+      end
+      
     end
     
-    it "should add error if after start time" do
-      event.finish = event.start - 1.year
-            
-      event.save
-      event.errors[:finish].should include("should be after start time")
-    end
+    context "when blank" do
+      
+      before { subject.finish = nil }
     
-    it "should add error if blank and til_whenever not checked" do
-      event.finish = nil
-      event.til_whenever = false
-      event.should_not be_valid
-    end
+      it "should add error if til_whenever not checked" do
+        subject.til_whenever = false
+        subject.should_not be_valid
+      end
     
-    it "shouldn't add error if blank and til_whenever checked" do
-      event.finish = nil
-      event.til_whenever = true
-      event.should be_valid
+      it "shouldn't add error if til_whenever checked" do
+        subject.til_whenever = true
+        subject.should be_valid
+      end
+      
+      it "should make the duration 0" do
+        subject.duration.should == 0
+      end
+      
     end
-    
-    it "should blank out if til_whenever checked" do
-      event.til_whenever = true
-      event.save
-      event.finish.should be_nil
-    end
+
   end
   
-  describe "happening_now scope" do
-    
-    it "should include events happening now" do
-      event.start = 1.year.ago
-      event.finish = 1.year.from_now
-      event.save
-      
-      Event.happening_now.should include(event)
-    end
-    
-    it "should not include future events" do
-      event.start = 1.year.from_now
-      event.finish = 2.years.from_now
-      event.save
-      
-      Event.happening_now.should_not include(event)
-    end
-    
-    it "should not include past events" do
-      event.start = 2.years.ago
-      event.finish = 1.year.ago
-      event.save
-      
-      Event.happening_now.should_not include(event)
-    end
-    
-  end
+  describe "scope" do
   
-  describe "featured scope" do
+    let(:event) { Factory(:event) }
+  
+    describe "#happening_now" do
     
-    subject { Event.featured }
+      subject { Event.happening_now }
     
-    it "should contain featured events" do
-      event.update_attributes!(:featured => true)
+      it "should include events happening now" do
+        event.start = 1.year.ago
+        event.finish = 1.year.from_now
+        event.save
+      
+        subject.should include(event)
+      end
     
-      subject.should include(event)
+      it "should not include future events" do
+        event.start = 1.year.from_now
+        event.finish = 2.years.from_now
+        event.save
+      
+        subject.should_not include(event)
+      end
+    
+      it "should not include past events" do
+        event.start = 2.years.ago
+        event.finish = 1.year.ago
+        event.save
+      
+        subject.should_not include(event)
+      end
+    
     end
   
-    it "should not contain unfeatured events" do
-      event.update_attributes!(:featured => false)
+    describe "#featured" do
     
-      subject.should_not include(event)
-    end
+      subject { Event.featured }
     
-    it "should be sorted by page_rank descending" do
-      low_rank = Factory(:event, :featured => true, :page_rank => 1)
-      high_rank = Factory(:event, :featured => true, :page_rank => 99)
+      it "should contain featured events" do
+        event.update_attributes!(:featured => true)
+    
+        subject.should include(event)
+      end
+  
+      it "should not contain unfeatured events" do
+        event.update_attributes!(:featured => false)
+    
+        subject.should_not include(event)
+      end
+    
+      it "should be sorted by page_rank descending" do
+        low_rank = Factory(:event, :featured => true, :page_rank => 1)
+        high_rank = Factory(:event, :featured => true, :page_rank => 99)
       
-      subject.to_a.index(low_rank).should be > subject.to_a.index(high_rank)
+        subject.to_a.index(low_rank).should be > subject.to_a.index(high_rank)
+      end
+    
     end
     
   end
   
   describe "duration" do
     
-    it "should be zero if finish is nil" do
-      event.finish = nil
-      
-      event.duration.should == 0
-    end
-    
     it "should calculate the minutes from start to finish" do
-      event.start = Time.parse("4:30")
-      event.finish = Time.parse("4:31")
+      subject.start = Time.parse("4:30")
+      subject.finish = Time.parse("4:31")
       
-      event.duration.should == 60
+      subject.duration.should == 60
     end
     
   end
   
   describe "categories" do
     
+    let(:category) { Factory(:category) }
+    
+    before do
+      subject.categories << category
+      subject.save
+    end
+    
     it "should be assignable" do
-      category1 = Factory(:category, :name => 'party')
-      category2 = Factory(:category, :name => 'lecture')
-      
-      event.categories << category1
-      event.categories << category2
-      event.save
-      
-      event.categories.should include(category1)
-      event.categories.should include(category2)
+      subject.categories.should include(category)
     end
     
     it "should have a reference to the event" do
-      category = Factory(:category, :name => 'party')
-      
-      event.categories << category
-      event.save
-      
-      category.events.should include(event)
+      category.events.should include(subject)
     end
     
   end
@@ -210,23 +221,26 @@ describe Event do
   describe "page_rank" do
     
     it "should default to zero" do
-      event.page_rank.should == 0
+      subject.page_rank.should == 0
     end
     
   end
   
   describe "creator" do
     
+    let(:user) { Factory(:user) }
+    
+    before do
+      subject.creator = user
+      subject.save
+    end
+    
     it "should be assignable" do
-      user = Factory(:user)
-      event.update_attributes!(:creator => user)
-      event.creator.should == user
+      subject.creator.should == user
     end
     
     it "should have a reference to the event" do
-      user = Factory(:user)
-      event.update_attributes!(:creator => user)
-      user.events.should include(event)
+      user.events.should include(subject)
     end
     
   end
@@ -241,14 +255,27 @@ describe Event do
   
   describe "til_whenever?" do
     
-    it "should be true if til_whenever is checked" do
-      event.til_whenever = true
-      event.til_whenever?.should == true
+    context "til_whenever checked" do 
+    
+      before { subject.til_whenever = true }
+    
+      it "should blank out finish" do
+        subject.save
+        subject.finish.should be_nil
+      end
+    
+      it "should be true" do
+        subject.til_whenever?.should == true
+      end
+      
     end
     
-    it "should be false if til_whenever is not checkd" do
-      event.til_whenever = false
-      event.til_whenever?.should == false
+    context "til_whenever not checked" do
+    
+      it "should be false" do
+        subject.til_whenever?.should == false
+      end
+      
     end
     
   end
@@ -256,9 +283,9 @@ describe Event do
   describe "images" do
     
     it "should not accept invalid attachment types" do
-      event.update_attributes(:image => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../fixtures/not_an_image.txt', 'text/plain'))
+      subject.update_attributes(:image => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../fixtures/not_an_image.txt', 'text/plain'))
       
-      event.errors[:image].should include("uploads must be a .jpg, .gif, or .png file.")
+      subject.errors[:image].should include("uploads must be a .jpg, .gif, or .png file.")
     end
     
   end
