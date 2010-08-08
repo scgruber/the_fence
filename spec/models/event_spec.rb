@@ -277,8 +277,27 @@ describe Event do
   
   describe "free?" do
     
-    it "should be true when free is checked" do
-      pending "I add a free field to the form"
+    context "free checked" do
+      
+      before { subject.free = true }
+      
+      it "should blank out cost" do
+        subject.save
+        subject.cost.should be_nil
+      end
+      
+      it "should be true" do
+        subject.free?.should == true
+      end
+      
+    end
+    
+    context "free not checked" do
+      
+      it "should be false" do        
+        subject.free?.should == false
+      end
+      
     end
     
   end

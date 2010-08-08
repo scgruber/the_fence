@@ -97,8 +97,21 @@ Feature: Event editing
     And I check "'Til Whenever"
     And I press "Update Event"
     Then I should see "Whenever"
+		And I should not see "10/10/10"
 		When I go to the the event's edit page
 		Then the "'Til Whenever" checkbox should be checked
+	
+  Scenario: Free events
+    Given I am logged in
+    And an existing event created by me
+    And I am on the event's edit page
+		When I fill in "a ton" for "Cost"
+    And I check "Free"
+    And I press "Update Event"
+    Then I should see "Free"
+		And I should not see "a ton"
+		When I go to the the event's edit page
+		Then the "Free" checkbox should be checked
 	
 	@allow-rescue
 	Scenario: Editing someone else's event

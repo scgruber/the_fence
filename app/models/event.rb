@@ -7,6 +7,7 @@ class Event
   field :finish, :type => Time
   field :til_whenever, :type => Boolean
   field :cost
+  field :free, :type => Boolean
   
   field :featured, :type => Boolean
   field :page_rank, :type => Integer, :default => 0
@@ -39,11 +40,6 @@ class Event
   
   def duration
     finish ? finish - start : 0
-  end
-  
-  def free?
-    # TODO: This is ugly so I'm not testing it yet. Soon it'll have its own field / attribute
-    cost =~ /\$0/ || cost =~ /free/i
   end
   
   private

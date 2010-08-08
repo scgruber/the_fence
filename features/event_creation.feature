@@ -94,3 +94,14 @@ Feature: Event creation
     And I check "'Til Whenever"
     And I press "Create Event"
     Then I should see "Whenever"
+		And I should not see "10/10/10"
+
+	Scenario: Free events
+		Given I am logged in
+    And I am on the new event page
+    And I enter valid event input
+		When I fill in "a lot" for "Cost"
+    And I check "Free"
+    And I press "Create Event"
+    Then I should see "Free"
+		And I should not see "a lot"

@@ -9,6 +9,9 @@
     = f.input :categories, :as => :check_boxes, :label => "Categories", :wrapper_html => {:class => "category-select"}, :collection => Category.all
     = f.input :description, :hint => "Tell us what to expect, what to bring, and where to go for more information.", :as => :text
     = f.input :cost, :hint => "e.g. $5, a dozen donuts, 1 CulinArt meal. Be sure to mention if it's free."
+    .underneath-input
+      %span.or or
+      = f.input :free?, :as => :boolean, :label => "Free"
     = f.input :location, :label => "Where?", :hint => "e.g. Wean 7500, The Fence, 1000 Morewood Ave."
     = f.inputs :name => "Time" do
       = f.input :start, :label => "From", :input_html => {:class => "datetime"}
