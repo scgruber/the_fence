@@ -56,6 +56,7 @@ Fence::Application.routes.draw do
   root :to => "homepage#index"
   
   get 'beta' => "beta#info"
+  get 'events?sort=upcoming' => 'events#index', :as => 'upcoming_events'
   
   devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
   get 'login' => 'devise/sessions#new', :as => "new_user_session"

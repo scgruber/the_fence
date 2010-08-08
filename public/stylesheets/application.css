@@ -403,9 +403,6 @@ h3 {
     color: #6b4900;
     font-weight: bold; }
 
-.search-field input[type=submit] {
-  display: none; }
-
 .mapviewer {
   width: 200px;
   margin: 10px 0; }

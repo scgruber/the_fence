@@ -10,8 +10,7 @@
 = content_for :subnav do
   %ul#quick-links
     %li.upcoming-events
-      / TODO: Replace with more rails-y path soon
-      = link_to "View upcoming events", "/events?sort=upcoming", :class => "quick-link"
+      = link_to "View upcoming events", upcoming_events_path, :class => "quick-link"
     %li.tartan-faves
       = link_to "See Tartan picks", beta_path, :class => "quick-link"
     %li.night-out
