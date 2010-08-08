@@ -102,7 +102,7 @@ describe EventsController do
         response.should redirect_to(root_path)
       end
       
-      specify { flash[:alert].should == "You must be logged in as the event's owner to edit it." }
+      specify { flash[:alert].should == I18n.t('events.edit.authorize_message') }
       
     end
     
@@ -147,7 +147,7 @@ describe EventsController do
         response.should redirect_to(root_path)
       end
       
-      specify { flash[:alert].should == "You must be logged in as the event's owner to edit it." }
+      specify { flash[:alert].should == I18n.t('events.edit.authorize_message') }
       
     end
     
