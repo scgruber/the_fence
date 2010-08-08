@@ -2,14 +2,18 @@ require 'spec_helper'
 
 describe EventsController do
   
+  before :all do
+    @current_user = Factory(:user)
+  end
   
-  before(:each) do
-    @current_user = Factory(:user)     # TODO: Factory for now, but it might be really slow
+  before do
+    @event = mock_model(Event, :update_attributes => true, :save => true, :creator => @current_user)
+    Event.stub(:find => @event)
+
+    controller.stub!(:current_user => @current_user, :user_signed_in? => true)
     # sign_in :user, @current_user # TODO figure out why this doesn't work
-    controller.stub!(:current_user => @current_user)
-    controller.stub!(:user_signed_in? => true)
-    @event = Factory.build(:event)
-    @category = Factory(:category)
+    
+    @categories = [mock_model(Category)]
   end
 
   describe "new" do
@@ -29,15 +33,14 @@ describe EventsController do
     
     it "should retrieve all categories to select from" do
       Category.should_receive(:find).
-               and_return([@category])
+               and_return(@categories)
       get :new
     end
     
     it "should assign all categories to the view" do
-      Category.stub!(:find).
-               and_return([@category])
+      Category.stub(:find => @categories)
       get :new
-      assigns[:categories].should include(@category)
+      assigns[:categories].should == @categories
     end
     
   end
@@ -51,9 +54,6 @@ describe EventsController do
     end
     
     it "should assign the requested event to view" do
-      Event.stub!(:find).
-           with("my-event").
-           and_return(@event)
       get :show, :id => "my-event"
       assigns[:event].should == @event
     end
@@ -62,10 +62,6 @@ describe EventsController do
   
   describe "edit" do
     
-    before do
-      @event.stub!(:creator_id => @current_user.id)
-    end
-    
     it "should find the requested event" do
       Event.should_receive(:find).
            with("my-event")
@@ -73,15 +69,11 @@ describe EventsController do
     end
     
     it "should assign the requested event to view" do
-      Event.stub!(:find).
-           and_return(@event)
       get :edit, :id => "my-event"
       assigns[:event].should == @event
     end
     
     it "should render the edit template" do
-      Event.stub!(:find).
-           and_return(@event)
       get :edit, :id => "my-event"
       response.should render_template("edit")
     end
@@ -89,9 +81,7 @@ describe EventsController do
     context "when not creator" do
       
       before(:each) do
-        Event.stub!(:find).
-              and_return(@event)
-        @event.stub!(:creator_id => nil)
+        @event.stub(:creator => nil)
         get :edit, :id => "my-event"
       end
       
@@ -106,30 +96,22 @@ describe EventsController do
   end
   
   describe "update" do
-
-    before do
-      @event.stub!(:creator_id => @current_user.id)
-    end
     
     it "should find the requested event" do
       Event.should_receive(:find).
             with("my-event").
             and_return(@event)
-      post :update, :id => "my-event", :event => {}
+      put :update, :id => "my-event", :event => {}
     end
     
     it "should update attributes of the requested event" do
-      Event.stub!(:find).
-            and_return(@event)
       @event.should_receive(:update_attributes).
              with(hash_including("foo" => "bar"))
-      post :update, :id => 1, :event => {"foo" => "bar"}
+      put :update, :id => 1, :event => {"foo" => "bar"}
     end
     
     it "should assign the requested event to view" do
-      Event.stub!(:find).
-            and_return(@event)
-      post :update, :id => 1, :event => {}
+      put :update, :id => 1, :event => {}
       assigns[:event].should == @event
     end
     
@@ -138,16 +120,14 @@ describe EventsController do
       Location.should_receive(:find_or_create_by).
                with(:name => "someplace")
       Location.stub!(:find)
-      post :update, :id => 1, :event => { "location" => "someplace" }
+      put :update, :id => 1, :event => { "location" => "someplace" }
     end
     
     context "when not creator" do
       
       before(:each) do
-        Event.stub!(:find).
-              and_return(@event)
-        @event.stub!(:creator_id => nil)
-        post :update, :id => 1, :event => {}
+        @event.stub(:creator => nil)
+        put :update, :id => 1, :event => {}
       end
       
       it "should redirect to homepage" do
@@ -160,34 +140,29 @@ describe EventsController do
     
     context "when successful" do
       
-      before(:each) do
-        Event.stub!(:find).
-              and_return(@event)
-        @event.stub!(:save).
-               and_return(true)
-        post :update, :id => 1, :event => {}
+      before do
+        @event.stub(:update_attributes => true)
+        put :update, :id => 1, :event => {}
       end
       
       specify { flash[:notice].should == "The event was successfully updated." }
       
       it "should redirect to the event" do
-        pending("i can figure rspec out")
+        response.should redirect_to(event_path(@event))
       end
       
     end
     
     context "when unsuccessful" do
       
-      before(:each) do
-        Event.stub!(:find).
-              and_return(@event)
-        @event.stub!(:save).
-               and_return(false)
-        post :update, :id => 1, :event => {}
+      before do
+        @event.stub(:update_attributes => false)
+        @event.errors.stub(:empty? => false)  # TODO: check to see if RSpec does this yet
+        put :update, :id => 1, :event => {}
       end
       
-      it "should redirect to the edit page" do
-        pending("i can figure rspec out")
+      it "should re-render the 'edit' template" do
+        response.should render_template('edit')
       end
       
     end
@@ -195,6 +170,11 @@ describe EventsController do
   end
   
   describe "create" do
+  
+    before do
+      Event.stub(:new => @event)
+      @event.stub(:creator => nil, :creator= => nil)
+    end
   
     it "should create a new event with parameters" do
       Event.should_receive(:new).
@@ -204,8 +184,6 @@ describe EventsController do
     end
     
     it "should assign the created event to view" do
-      Event.stub!(:new).
-            and_return(@event)
       post :create, :event => {}
       assigns[:event].should == @event
     end
@@ -219,43 +197,38 @@ describe EventsController do
     end
     
     it "should assign the current user to creator" do
-      Event.stub(:new).
-            and_return(@event)
+      @event.should_receive(:creator=).
+             with(@current_user)
+
       post :create, :event => {}
-      
-      @event.creator.should == @current_user
     end
     
     context "when successful" do
     
-      before(:each) do
-        Event.stub!(:new).
-              and_return(@event)
-        @event.should_receive(:save).
-              and_return(true)
+      before do
+        @event.stub(:save => true)
         post :create, :event => {}
       end
 
       specify { flash[:notice].should == "The event was saved successfully." }
 
       it "should redirect to the event" do
-        pending("i can figure rspec out")
-        response.should render_template( 'show' )
+        response.should redirect_to(event_path(@event))
       end
     
     end
     
     context "when unsuccessful" do
       
-      before(:each) do
-        Event.stub!(:new).
-              and_return(@event)
-        @event.should_receive(:save).
-              and_return(false)
+      before do
+        @event.stub(:save => false)
+        @event.errors.stub(:empty? => false) # TODO: check to see if RSpec does this yet
         post :create, :event => {}
       end
       
-      specify { pending("i can figure rspec out"); response.should render_template( 'new' ) }
+      it "should show the re-render 'new' template" do
+        response.should render_template("new")
+      end
       
     end
     
@@ -263,26 +236,28 @@ describe EventsController do
   
   describe "index" do
     
+    before do
+      @events = [@event]
+      Event.stub(:all => @events)
+    end
+    
     it "should find all events" do
-      Event.should_receive(:find).
-            and_return([@event])
+      Event.should_receive(:all).
+            and_return(@events)
       get :index
     end
     
     it "should assign found events to view" do
-      Event.stub!(:find).
-            and_return([@event])
       get :index
-      assigns[:events].should == [@event]
+      assigns[:events].should == @events
     end
     
     context "when a search query is provided" do
       
       it "should filter by name" do
-        Event.stub!(:all).and_return(@event)
-        @event.should_receive(:where).
-               with(:name => /Fiesta/i).
-               and_return([@event])
+        @events.should_receive(:where).
+                with(:name => /Fiesta/i).
+                and_return(@events)
         get :index, :query => "Fiesta"
       end
       
@@ -291,19 +266,17 @@ describe EventsController do
     context "when category ids are provided" do
       
       it "should filter by the provided category ids" do
-        Event.stub!(:all).and_return(@event)
-        @event.should_receive(:any_in).
-               with(:category_ids => ["party", "lecture"]).
-               and_return([@event])
+        @events.should_receive(:any_in).
+                with(:category_ids => ["party", "lecture"]).
+                and_return(@events)
         get :index, :category_ids => ["party", "lecture"]
       end
       
       it "should assign filtered contents to view" do
-        Event.stub!(:all).and_return(@event) # TODO: this is awkward. fix it up
-        @event.should_receive(:any_in).
-               and_return([@event, @event]) # To differentiate it from the above, return two
+        @events.should_receive(:any_in).
+                and_return(@events)
         get :index, :category_ids => []
-        assigns[:events].should == [@event, @event]
+        assigns[:events].should == @events
       end
       
     end

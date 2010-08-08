@@ -6,7 +6,7 @@ class Ability
     
     unless user.nil? # TODO: could use more controller-level testing
       can :create, Event
-      can :edit, Event, :creator_id => user.id
+      can :edit, Event, :creator => user
       
       if user.admin?
         can :manage, Event
