@@ -142,18 +142,25 @@ describe Event do
   
   describe "featured scope" do
     
-    it "should contain featured events" do
-      event.featured = true
-      event.save
+    subject { Event.featured }
     
-      Event.featured.should include(event)
+    it "should contain featured events" do
+      event.update_attributes!(:featured => true)
+    
+      subject.should include(event)
     end
   
     it "should not contain unfeatured events" do
-      event.featured = false
-      event.save
+      event.update_attributes!(:featured => false)
     
-      Event.featured.should_not include(event)
+      subject.should_not include(event)
+    end
+    
+    it "should be sorted by page_rank descending" do
+      low_rank = Factory(:event, :featured => true, :page_rank => 1)
+      high_rank = Factory(:event, :featured => true, :page_rank => 99)
+      
+      subject.to_a.index(low_rank).should be > subject.to_a.index(high_rank)
     end
     
   end

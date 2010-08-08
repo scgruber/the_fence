@@ -31,7 +31,7 @@ class Event
   validates_uniqueness_of :name
 
   named_scope :happening_now, where(:start.lt => Time.now, :finish.gt => Time.now)
-  named_scope :featured, where(:featured => true)
+  named_scope :featured, where(:featured => true).descending(:page_rank)
   
   def to_param
     self.id

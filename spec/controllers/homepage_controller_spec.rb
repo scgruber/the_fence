@@ -2,20 +2,18 @@ require 'spec_helper'
 
 describe HomepageController do
 
+  let(:events) { [mock_model(Event)] }
+
   it "should find the featured events" do
-    # TODO: clean up mess. Maybe another scope?
-    criteria = mock('Criteria')
-    Event.stub_chain(:featured, :desc => criteria)
-    criteria.should_receive(:all).
-             and_return([@event])
+    Event.should_receive(:featured).
+          and_return(events)
     get :index
   end
   
   it "should assign the featured events to the view" do
-    Event.stub_chain(:featured, :desc, :all).
-          and_return([@event])
+    Event.stub(:featured => events)
     get :index
-    assigns[:featured].should == [@event]
+    assigns[:featured].should == events
   end
 
 end
