@@ -44,11 +44,11 @@ class Event
   
   private
   def start_before_finish
-    errors.add(:finish, "should be after start time") if finish && start && finish <= start
+    errors.add(:finish, I18n.t('events.validations.finish_after_start')) if finish && start && finish <= start
   end
   
   def image_upload
-    errors.add(:image, "uploads must be a .jpg, .gif, or .png file.") if image_integrity_error
+    errors.add(:image, I18n.t('events.validations.image_file_type')) if image_integrity_error
     # TODO: test and add processing errors
     # errors.add(:image, "failed to be processed") if image_processing_error
   end

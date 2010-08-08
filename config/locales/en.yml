@@ -5,5 +5,10 @@ en:
   events:
     edit:
       authorize_message: "You must be logged in as the event's owner to edit it."
+      successful: "The event was successfully updated."
     create:
       authorize_message: "You must be logged in to create a new event."
+      successful: "The event was saved successfully."
+    validations:
+      finish_after_start: "should be after start time"
+      image_file_type: "uploads must be a .jpg, .gif, or .png file."

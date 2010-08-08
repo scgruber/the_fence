@@ -35,7 +35,7 @@ class EventsController < ApplicationController
     @event = current_user.events.build(params[:event])
     
     if @event.save
-      flash[:notice] = "The event was saved successfully."
+      flash[:notice] = I18n.t('events.create.successful')
     else
       flash[:alert] = @event.errors.full_messages
     end
@@ -49,7 +49,7 @@ class EventsController < ApplicationController
     authorize! :edit, @event, :message => I18n.t('events.edit.authorize_message')
     
     if @event.update_attributes(params[:event])
-      flash[:notice] = "The event was successfully updated."
+      flash[:notice] = I18n.t('events.edit.successful')
     else
       # TODO this should be replaced with formtastic methods but I need to Cucumber it
       flash[:alert] = @event.errors.full_messages
