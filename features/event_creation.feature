@@ -20,8 +20,8 @@ Feature: Event creation
     When I fill in the following:
       | Name        | First Team Captain Meeting                                                  |
       | Where?      | Doherty Hall 1212                                                           |
-      | From        | 9/17/09 at 4:30 PM                                                          |
-      | To          | 9/17/09 at 5:30 PM                                                          |
+      | From        | September 17 2009 4:30 PM                                                   |
+      | To          | September 17 2009 5:30 PM                                                   |
       | Description | Come sign up for the limited tents and food tables! Snacks will be provided |
       | Cost        | $5                                                                          |
     And I attach the file "spec/fixtures/poster.gif" to "Poster"
@@ -46,8 +46,8 @@ Feature: Event creation
   Scenario: Creating event with start time after end time
     Given I am logged in
     And I am on the new event page
-    When I fill in "12/12/12" for "From"
-    And I fill in "10/10/10" for "To"
+    When I fill in "December 12 2012" for "From"
+    And I fill in "October 10 2010" for "To"
     And I press "Create Event"
     Then I should see "Finish should be after start time"
 
@@ -90,7 +90,7 @@ Feature: Event creation
     Given I am logged in
     And I am on the new event page
     And I enter valid event input
-		When I fill in "10/10/10" for "To"
+		When I fill in "October 10 2010" for "To"
     And I check "'Til Whenever"
     And I press "Create Event"
     Then I should see "Whenever"

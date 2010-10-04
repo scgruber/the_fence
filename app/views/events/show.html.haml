@@ -8,10 +8,10 @@
   %p.description= preserve @event.description
   %dl.info
     %dt Start Time
-    %dd.dtstart{:title => @event.start.to_formatted_s(:iso8601)}= @event.start
+    %dd.dtstart{:title => @event.start.to_formatted_s(:iso8601)}= @event.start.to_formatted_s(:fence_standard)
     %dt End Time
     - if @event.finish
-      %dd.dtend{:title => @event.finish.to_formatted_s(:iso8601)}= @event.finish
+      %dd.dtend{:title => @event.finish.to_formatted_s(:iso8601)}= @event.finish.to_formatted_s(:fence_standard)
     - else
       %dd Til' Whenever
     - if !@event.cost.blank? || @event.free?
