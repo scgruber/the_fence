@@ -8,13 +8,13 @@ describe Category do
   
   describe "events" do
     
-    it "should be buildable" do
+    it "are buildable" do
       valid_event_attributes = Factory.attributes_for(:event)
       event = subject.events.create!(valid_event_attributes)
       event.categories.should include(subject)
     end
     
-    it "should be accessible" do
+    it "are accessible" do
       valid_event_attributes = Factory.attributes_for(:event)
       event = subject.events.create!(valid_event_attributes)
       subject.events.should include(event)
@@ -32,7 +32,7 @@ describe Category do
     
     it { should_not include(adjective) }
     
-    it "should be sorted by name ascending" do
+    it "is sorted by name ascending" do
       higher_noun = Factory(:category, :kind => "noun", :name => "zzz-noun")
       lower_noun = Factory(:category, :kind => "noun", :name => "aaa-noun")
       
@@ -51,7 +51,7 @@ describe Category do
     
     it { should include(adjective) }
     
-    it "should be sorted by name ascending" do
+    it "sorts by name ascending" do
       higher_adjective = Factory(:category, :kind => "adjective", :name => "zzz-adj")
       lower_adjective = Factory(:category, :kind => "adjective", :name => "aaa-adj")
       

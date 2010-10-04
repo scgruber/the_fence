@@ -6,13 +6,13 @@ describe User do
 
   describe "events" do
     
-    it "should be buildable" do
+    it "are buildable" do
       valid_event_attributes = Factory.attributes_for(:event)
       event = subject.events.create!(valid_event_attributes)
       event.creator.should == subject
     end
 
-    it "should be accessible" do
+    it "are accessible" do
       valid_event_attributes = Factory.attributes_for(:event)
       event = subject.events.create!(valid_event_attributes)
       subject.events.should include(event)
@@ -22,7 +22,7 @@ describe User do
   
   describe "admin?" do
     
-    it "should default to false" do
+    it "defaults to false" do
       should_not be_admin
     end
     

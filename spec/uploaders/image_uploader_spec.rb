@@ -17,12 +17,12 @@ describe ImageUploader do
   
   context "thumb version" do
     
-    it "should be 50 by 50" do
+    it "is 50x50" do
       pending("carrierwave matchers work")
       @uploader.thumb.should have_dimensions(50,50)
     end
     
-    it "should test upscaling" do
+    it "upscales" do
       pending("carrierwave matchers work")
     end
     

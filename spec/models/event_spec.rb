@@ -14,7 +14,7 @@ describe Event do
       
       it { should_not be_valid }
     
-      it "should add an error" do
+      it "adds an error" do
         subject.save
         subject.errors[:name].should include("can't be blank")
       end
@@ -30,7 +30,7 @@ describe Event do
     
       it { should_not be_valid }
     
-      it "should add an error" do
+      it "adds an error" do
         subject.save
       
         subject.errors[:name].should include("is already taken")
@@ -46,7 +46,7 @@ describe Event do
       
       it { should_not be_valid }
     
-      it "should add an error" do
+      it "adds an error" do
         subject.start = nil
         subject.save
         subject.errors[:start].should include("can't be blank")
@@ -64,7 +64,7 @@ describe Event do
       
       it { should_not be_valid }
       
-      it "should add an error" do
+      it "adds an error" do
         subject.save
         subject.errors[:location].should include("can't be blank")
       end
@@ -81,7 +81,7 @@ describe Event do
 
       it { should_not be_valid }
     
-      it "should add an error" do
+      it "adds an error" do
         subject.save
         subject.errors[:description].should include("can't be blank")
       end
@@ -98,7 +98,7 @@ describe Event do
       
       it { should_not be_valid }
     
-      it "should add an error" do
+      it "adds an error" do
         subject.save
         subject.errors[:finish].should include("should be after start time")
       end
@@ -109,17 +109,17 @@ describe Event do
       
       before { subject.finish = nil }
     
-      it "should add error if til_whenever not checked" do
+      it "adds error if til_whenever not checked" do
         subject.til_whenever = false
         subject.should_not be_valid
       end
     
-      it "shouldn't add error if til_whenever checked" do
+      it "doesn't add error if til_whenever checked" do
         subject.til_whenever = true
         subject.should be_valid
       end
       
-      it "should make the duration 0" do
+      it "makes the duration 0" do
         subject.duration.should == 0
       end
       
@@ -135,7 +135,7 @@ describe Event do
     
       subject { Event.happening_now }
     
-      it "should include events happening now" do
+      it "includes events happening now" do
         event.start = 1.year.ago
         event.finish = 1.year.from_now
         event.save
@@ -143,7 +143,7 @@ describe Event do
         subject.should include(event)
       end
     
-      it "should not include future events" do
+      it "doesn't include future events" do
         event.start = 1.year.from_now
         event.finish = 2.years.from_now
         event.save
@@ -151,7 +151,7 @@ describe Event do
         subject.should_not include(event)
       end
     
-      it "should not include past events" do
+      it "doesn't include past events" do
         event.start = 2.years.ago
         event.finish = 1.year.ago
         event.save
@@ -165,14 +165,14 @@ describe Event do
       
       subject { Event.upcoming }
       
-      it "should not include past events" do
+      it "doesn't include past events" do
         event.start = 1.year.ago
         event.save
         
         subject.should_not include(event)
       end
       
-      it "should include future events" do
+      it "includes future events" do
         event.start = 1.year.from_now
         event.finish = 2.years.from_now
         event.save
@@ -180,7 +180,7 @@ describe Event do
         subject.should include(event)
       end
       
-      it "should sort events ascending" do
+      it "sorts events ascending" do
         sooner_event = Factory(:event, :start => 1.year.from_now, :finish => 2.years.from_now)
         later_event = Factory(:event, :start => 9.years.from_now, :finish => 10.years.from_now)
       
@@ -195,19 +195,19 @@ describe Event do
     
       subject { Event.featured }
     
-      it "should contain featured events" do
+      it "contains featured events" do
         event.update_attributes!(:featured => true)
     
         subject.should include(event)
       end
   
-      it "should not contain unfeatured events" do
+      it "doesn't contain unfeatured events" do
         event.update_attributes!(:featured => false)
     
         subject.should_not include(event)
       end
     
-      it "should be sorted by page_rank descending" do
+      it "sorts by page_rank descending" do
         low_rank = Factory(:event, :featured => true, :page_rank => 1)
         high_rank = Factory(:event, :featured => true, :page_rank => 99)
       
@@ -220,7 +220,7 @@ describe Event do
   
   describe "duration" do
     
-    it "should calculate the minutes from start to finish" do
+    it "calculates the minutes from start to finish" do
       subject.start = Time.parse("4:30")
       subject.finish = Time.parse("4:31")
       
@@ -238,11 +238,11 @@ describe Event do
       subject.save
     end
     
-    it "should be assignable" do
+    it "are assignable" do
       subject.categories.should include(category)
     end
     
-    it "should have a reference to the event" do
+    it "have a reference to the event" do
       category.events.should include(subject)
     end
     
@@ -250,7 +250,7 @@ describe Event do
   
   describe "page_rank" do
     
-    it "should default to zero" do
+    it "defaults to zero" do
       subject.page_rank.should == 0
     end
     
@@ -265,11 +265,11 @@ describe Event do
       subject.save
     end
     
-    it "should be assignable" do
+    it "is assignable" do
       subject.creator.should == user
     end
     
-    it "should have a reference to the event" do
+    it "has a reference to the event" do
       user.events.should include(subject)
     end
     
@@ -277,24 +277,24 @@ describe Event do
   
   describe "free?" do
     
-    context "free checked" do
+    context "when free checked" do
       
       before { subject.free = true }
       
-      it "should blank out cost" do
+      it "blanks out cost" do
         subject.save
         subject.cost.should be_nil
       end
       
-      it "should be true" do
+      it "is true" do
         subject.free?.should == true
       end
       
     end
     
-    context "free not checked" do
+    context "when free not checked" do
       
-      it "should be false" do        
+      it "is false" do        
         subject.free?.should == false
       end
       
@@ -304,24 +304,24 @@ describe Event do
   
   describe "til_whenever?" do
     
-    context "til_whenever checked" do 
+    context "when til_whenever checked" do 
     
       before { subject.til_whenever = true }
     
-      it "should blank out finish" do
+      it "blanks out finish" do
         subject.save
         subject.finish.should be_nil
       end
     
-      it "should be true" do
+      it "is true" do
         subject.til_whenever?.should == true
       end
       
     end
     
-    context "til_whenever not checked" do
+    context "when til_whenever not checked" do
     
-      it "should be false" do
+      it "is false" do
         subject.til_whenever?.should == false
       end
       
@@ -331,7 +331,7 @@ describe Event do
   
   describe "images" do
     
-    it "should not accept invalid attachment types" do
+    it "don't accept invalid attachment types" do
       subject.update_attributes(:image => Rack::Test::UploadedFile.new(File.dirname(__FILE__) + '/../fixtures/not_an_image.txt', 'text/plain'))
       
       subject.errors[:image].should include("uploads must be a .jpg, .gif, or .png file.")

@@ -11,113 +11,165 @@ describe "events/show.html.haml" do
     view.stub!(:can?).with(:edit, event).and_return(false)
   end
   
-  it "should put events in an hEvent tag" do
-    render
-    rendered.should have_selector(".vevent")
+  describe ".vevent" do
+    
+    it "contains events" do
+      render
+      rendered.should have_selector(".vevent")
+    end
+    
   end
   
-  it "should list event name in summary tag" do
-    event.stub!(:name).and_return "My Event"
+  describe ".summary" do
     
-    render
-    rendered.should have_selector(".vevent .summary", :content => "My Event")
-  end
-  
-  it "should list an event location in location tag" do
-    event.stub!(:location).and_return "My Location"
-    
-    render
-    rendered.should have_selector(".vevent .location", :content => "My Location")
-  end
-  
-  it "should list a start time in dtstart tag" do
-    event.stub!(:start).and_return Time.parse("10/5/09 00:00:00 UTC")
-    
-    render
-    rendered.should have_selector(".vevent .dtstart", :title => "2009-10-05T00:00:00Z")
-    # TODO: Decide on sane date format. Add content matcher for selector.
-  end
-  
-  it "should list a finish time" do
-    event.stub!(:finish).and_return Time.parse("10/5/09 00:00:00 UTC")
-    
-    render
-    rendered.should have_selector(".vevent .dtend", :title => "2009-10-05T00:00:00Z")
-  end
-  
-  it "should support indeterminate finish times" do
-    event.stub!(:finish).and_return nil
-    
-    render
-    rendered.should_not have_selector(".vevent .dtend")
-    rendered.should contain(/Whenever/i)
-  end
-  
-  it "should list a description" do
-    event.stub!(:description).and_return "Description"
-    
-    render
-    rendered.should have_selector(".vevent .description", :content => "Description")
-  end
-  
-  it "should list noun categories" do
-    category = mock_model(Category)
-    category.should_receive(:name).and_return "My Category"
-    
-    event.stub_chain(:categories, :adjective => [])
-    event.stub_chain(:categories, :noun => [category])
-    
-    render
-    rendered.should have_selector(".vevent .category.noun", :content => "my category")
-  end
-  
-  it "should list adjective categories" do
-    category = mock_model(Category)
-    category.should_receive(:name).and_return "My Category"
-    
-    event.stub_chain(:categories, :adjective => [category])
-    event.stub_chain(:categories, :noun => [])
-    
-    render
-    rendered.should have_selector(".vevent .category.adjective", :content => "my category")
-  end
-  
-  it "should display a poster" do
-    event.stub_chain(:image, :url => "poster/url")
-    event.stub_chain(:image, :medium, :url => "poster/url")
+    it "contains name" do
+      event.stub!(:name).and_return "My Event"
 
-    render
-    rendered.should have_selector(".vevent .attach", :href => "poster/url")
+      render
+      rendered.should have_selector(".vevent .summary", :content => "My Event")
+    end
+    
   end
   
-  it "should display a cost if one exists" do
-    event.stub!(:free?).and_return false
-    event.stub!(:cost).and_return "$5"
+  describe ".location" do
     
-    render
-    rendered.should contain("$5")
+    it "contains location" do
+      event.stub!(:location).and_return "My Location"
+
+      render
+      rendered.should have_selector(".vevent .location", :content => "My Location")
+    end
+    
   end
   
-  it "should say free if the event is free" do
-    event.stub!(:free?).and_return true
-    event.stub!(:cost).and_return 0
+  describe ".dtstart" do
     
-    render
-    rendered.should contain(/Free/)
+    it "contains start time" do
+      event.stub!(:start).and_return Time.utc(2009, 10, 5)
+
+      render
+      rendered.should have_selector(".vevent .dtstart", :title => "2009-10-05T00:00:00Z")
+      # TODO: Decide on sane date format. Add content matcher for selector.
+    end
+    
   end
   
-   describe 'links' do
+  describe ".dtend" do
     
-    it "should include iCal export" do
+    context "when event has finish time" do
+      
+      it "contains finish time" do
+        event.stub!(:finish).and_return Time.utc(2009, 10, 5)
+
+        render
+        rendered.should have_selector(".vevent .dtend", :title => "2009-10-05T00:00:00Z")
+      end
+      
+    end
+    
+    context "when event has no finish time" do
+      
+      it "contains 'Whenever'" do
+        event.stub!(:finish).and_return nil
+
+        render
+        rendered.should_not have_selector(".vevent .dtend")
+        rendered.should contain(/Whenever/i)
+      end
+      
+    end
+    
+  end
+  
+  describe ".description" do
+    
+    it "contains description" do
+      event.stub!(:description).and_return "Description"
+
+      render
+      rendered.should have_selector(".vevent .description", :content => "Description")
+    end
+    
+  end
+  
+  describe ".category" do
+    
+    let(:category) { mock_model(Category, :name => "My Category") }
+    
+    describe ".noun" do
+      
+      it "contains noun categories" do
+        event.stub_chain(:categories, :adjective => [])
+        event.stub_chain(:categories, :noun => [category])
+
+        render
+        rendered.should have_selector(".vevent .category.noun", :content => "my category")
+      end
+      
+    end
+    
+    describe ".adjective" do
+      
+      it "contains adjective categories" do
+        event.stub_chain(:categories, :adjective => [category])
+        event.stub_chain(:categories, :noun => [])
+
+        render
+        rendered.should have_selector(".vevent .category.adjective", :content => "my category")
+      end
+      
+    end
+    
+  end
+  
+  describe ".attach" do
+    
+    it "contains poster image" do
+      event.stub_chain(:image, :url => "poster/url")
+      event.stub_chain(:image, :medium, :url => "poster/url")
+
+      render
+      rendered.should have_selector(".vevent .attach", :href => "poster/url")
+    end
+    
+  end
+  
+  context "when events is free" do
+    
+    it "says 'Free'" do
+      event.stub!(:free?).and_return true
+      event.stub!(:cost).and_return 0
+
+      render
+      rendered.should contain(/Free/)
+    end
+    
+  end
+  
+  context "when event is not free" do
+    
+    it "displays a cost" do
+      event.stub!(:free?).and_return false
+      event.stub!(:cost).and_return "$5"
+
+      render
+      rendered.should contain("$5")
+    end
+    
+  end
+  
+  describe "links" do
+    
+    it "include iCal export" do
       pending("we add iCal export")
       render
-      
+  
       rendered.should have_selector("a", :href => event_path(event, :format=> :ics))
     end
     
     context "when user has edit privileges" do
       
-      before(:each) do
+      before do
         view.should_receive(:can?).with(:edit, event).and_return(true)
       end
       

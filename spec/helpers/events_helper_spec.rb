@@ -21,17 +21,17 @@ describe EventsHelper do
     
     subject { helper.short_description(event) }
     
-    it "should be wrapped in a .short-description tag" do
+    it "wraps in a .short-description tag" do
       subject.should have_selector(".short-description")
     end
       
     describe "nouns" do
       
-      it "should be sorted and separated by a slash" do
+      it "are sorted and separated by a slash" do
         subject.should contain("lecture/party")
       end
       
-      it "should be wrapped in .category.noun tags" do
+      it "are wrapped in .category.noun tags" do
         subject.should have_selector(".category.noun", :content => "lecture")
       end
       
@@ -39,11 +39,11 @@ describe EventsHelper do
     
     describe "adjectives" do
       
-      it "should be sorted and separated by a comma" do
+      it "are sorted and separated by a comma" do
         subject.should contain("crunk, serious")
       end
       
-      it "should be wrapped in .category.adjective tags" do
+      it "are wrapped in .category.adjective tags" do
         subject.should have_selector(".category.adjective", :content => "crunk")
       end
       
@@ -51,11 +51,11 @@ describe EventsHelper do
     
     describe "indefinite article" do
       
-      it "should be 'a' when it matches the first adjective" do
+      it "is 'a' when it matches the first adjective" do
         subject.should contain(/^A crunk/)
       end
       
-      it "should be 'an' when it matches the first adjective" do
+      it "is 'an' when it matches the first adjective" do
         awesome = mock_model(Category, :name => "Awesome", :kind => "adjective")
         event.stub_chain(:categories, :adjective => [awesome])
 
@@ -70,7 +70,7 @@ describe EventsHelper do
         event.stub_chain(:categories, :noun => [])
       end
     
-      it "should use 'event' for the noun" do
+      it "uses 'event' for the noun" do
         subject.should contain("event")
       end
       
@@ -84,11 +84,11 @@ describe EventsHelper do
       
       describe "indefinite article" do
         
-        it "should be 'a' when it matches the first noun" do
+        it "is 'a' when it matches the first noun" do
           subject.should contain(/^A/)
         end
       
-        it "should be 'an' when it matches the first noun" do
+        it "is 'an' when it matches the first noun" do
           intervention = mock_model(Category, :name => "Intervention", :kind => "noun")
           event.stub_chain(:categories, :noun => [intervention])
         
@@ -103,7 +103,7 @@ describe EventsHelper do
   
   describe "#indefiniteize" do
   
-    it "should know exceptions for indefinite articles"
+    it "knows exceptions for indefinite articles"
     
   end
   

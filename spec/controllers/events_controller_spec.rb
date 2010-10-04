@@ -25,20 +25,20 @@ describe EventsController do
       get :new
     end
     
-    it "should assign a new event to view" do
+    it "assigns a new event to view" do
       Event.stub!(:new).
             and_return(event)
       get :new
       assigns[:event].should == event
     end
     
-    it "should retrieve all categories to select from" do
+    it "retrieves all categories to select from" do
       Category.should_receive(:find).
                and_return(categories)
       get :new
     end
     
-    it "should assign all categories to the view" do
+    it "assigns all categories to the view" do
       Category.stub(:find => categories)
       get :new
       assigns[:categories].should == categories
@@ -60,13 +60,13 @@ describe EventsController do
   
   describe "show" do
     
-    it "should find the requested event" do
+    it "finds the requested event" do
       Event.should_receive(:find).
            with("my-event")
       get :show, :id => "my-event"
     end
     
-    it "should assign the requested event to view" do
+    it "assigns the requested event to view" do
       get :show, :id => "my-event"
       assigns[:event].should == event
     end
@@ -75,18 +75,18 @@ describe EventsController do
   
   describe "edit" do
     
-    it "should find the requested event" do
+    it "finds the requested event" do
       Event.should_receive(:find).
            with("my-event")
       get :edit, :id => "my-event"
     end
     
-    it "should assign the requested event to view" do
+    it "assigns the requested event to view" do
       get :edit, :id => "my-event"
       assigns[:event].should == event
     end
     
-    it "should render the edit template" do
+    it "renders the edit template" do
       get :edit, :id => "my-event"
       response.should render_template("edit")
     end
@@ -98,7 +98,7 @@ describe EventsController do
         get :edit, :id => "my-event"
       end
       
-      it "should redirect to homepage" do
+      it "redirects to homepage" do
         response.should redirect_to(root_path)
       end
       
@@ -110,25 +110,25 @@ describe EventsController do
   
   describe "update" do
     
-    it "should find the requested event" do
+    it "finds the requested event" do
       Event.should_receive(:find).
             with("my-event").
             and_return(event)
       put :update, :id => "my-event", :event => {}
     end
     
-    it "should update attributes of the requested event" do
+    it "updates attributes of the requested event" do
       event.should_receive(:update_attributes).
              with(hash_including("foo" => "bar"))
       put :update, :id => 1, :event => {"foo" => "bar"}
     end
     
-    it "should assign the requested event to view" do
+    it "assigns the requested event to view" do
       put :update, :id => 1, :event => {}
       assigns[:event].should == event
     end
     
-    it "should locate the related location" do
+    it "locates the related location" do
       pending("habtm support in mongoid")
       Location.should_receive(:find_or_create_by).
                with(:name => "someplace")
@@ -143,7 +143,7 @@ describe EventsController do
         put :update, :id => 1, :event => {}
       end
       
-      it "should redirect to homepage" do
+      it "redirects to homepage" do
         response.should redirect_to(root_path)
       end
       
@@ -160,7 +160,7 @@ describe EventsController do
       
       specify { flash[:notice].should == "The event was successfully updated." }
       
-      it "should redirect to the event" do
+      it "redirects to the event" do
         response.should redirect_to(event_path(event))
       end
       
@@ -174,7 +174,7 @@ describe EventsController do
         put :update, :id => 1, :event => {}
       end
       
-      it "should re-render the 'edit' template" do
+      it "re-renders the 'edit' template" do
         response.should render_template('edit')
       end
       
@@ -189,19 +189,19 @@ describe EventsController do
       event.stub(:creator => nil, :creator= => nil)
     end
   
-    it "should create a new event with parameters" do
+    it "creates a new event with parameters" do
       Event.should_receive(:new).
             with(hash_including("name" => "event")).
             and_return(event)
       post :create, :event => { "name" => "event" }
     end
     
-    it "should assign the created event to view" do
+    it "assigns the created event to view" do
       post :create, :event => {}
       assigns[:event].should == event
     end
     
-    it "should locate the related location" do
+    it "locates the related location" do
       pending("habtm support in mongoid")
       Location.should_receive(:find_or_create_by).
                with(:name => "someplace")
@@ -209,7 +209,7 @@ describe EventsController do
       post :create, :event => { "location" => "someplace" }
     end
     
-    it "should assign the current user to creator" do
+    it "assigns the current user to creator" do
       event.should_receive(:creator=).
              with(@current_user)
 
@@ -225,7 +225,7 @@ describe EventsController do
 
       specify { flash[:notice].should == "The event was saved successfully." }
 
-      it "should redirect to the event" do
+      it "redirects to the event" do
         response.should redirect_to(event_path(event))
       end
     
@@ -239,7 +239,7 @@ describe EventsController do
         post :create, :event => {}
       end
       
-      it "should show the re-render 'new' template" do
+      it "shows the re-render 'new' template" do
         response.should render_template("new")
       end
       
@@ -267,27 +267,27 @@ describe EventsController do
       Event.stub(:all => events)
     end
     
-    it "should find all events" do
+    it "finds all events" do
       Event.should_receive(:all).
             and_return(events)
       get :index
     end
     
-    it "should assign found events to view" do
+    it "assigns found events to view" do
       get :index
       assigns[:events].should == events
     end
     
     context "when a search query is provided" do
       
-      it "should filter by name and descripton" do # TODO: extract to two specs somehow
+      it "filters by name and descripton" do # TODO: extract to two specs somehow
         events.should_receive(:any_of).
                 with({:name => /Fiesta/i}, {:description => /Fiesta/i}).
                 and_return(events)
         get :index, :query => "Fiesta"
       end
       
-      it "should assign filtered events to view" do
+      it "assigns filtered events to view" do
         filtered_events = ["filtered", "events"] # FIXME: replace dummy values
         events.stub(:any_of).
                with({:name => /Fiesta/i}, {:description => /Fiesta/i}).
@@ -300,13 +300,13 @@ describe EventsController do
     
     context "when sorted 'upcoming'" do
 
-      it "should use the upcoming scope" do
+      it "uses the upcoming scope" do
         events.should_receive(:upcoming).
                and_return(events)
         get :index, :sort => "upcoming"
       end
       
-      it "should assign sorted events to view" do
+      it "assigns sorted events to view" do
         sorted_events = ["sorted", "events"] # FIXME: replace dummy values
         events.stub(:upcoming => sorted_events)
         get :index, :sort => "upcoming"
@@ -317,14 +317,14 @@ describe EventsController do
     
     context "when category ids are provided" do
       
-      it "should filter by the provided category ids" do
+      it "filters by the provided category ids" do
         events.should_receive(:any_in).
                 with(:category_ids => ["party", "lecture"]).
                 and_return(events)
         get :index, :category_ids => ["party", "lecture"]
       end
       
-      it "should assign filtered events to view" do
+      it "assigns filtered events to view" do
         filtered_events = ["filtered", "events"] # FIXME: replace dummy values
         events.stub(:any_in).
                with(:category_ids => ["party", "lecture"]).
