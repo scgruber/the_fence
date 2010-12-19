@@ -12,6 +12,7 @@ gem 'rmagick'
 gem 'right-rails'
 gem 'haml'
 gem 'formtastic',    :path => File.join(File.dirname(__FILE__), '/vendor/gems/formtastic')
+gem 'rack-pubcookie',    :path => File.join(File.dirname(__FILE__), '/vendor/gems/rack-pubcookie')
 
 # Controller
 gem 'devise', '1.1.rc2'
