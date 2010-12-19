@@ -2,7 +2,7 @@ require 'bundler/capistrano'
 
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require "rvm/capistrano"
-set :rvm_ruby_string, "ruby-1.9.2-p0"
+set :rvm_ruby_string, "ruby-1.8.7-p302"
 
 # Server Settings
 # Comment this out if you're using Multistage support.
