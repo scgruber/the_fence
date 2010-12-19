@@ -11,7 +11,8 @@ gem 'rmagick'
 # View
 gem 'right-rails'
 gem 'haml'
-gem 'formtastic',    :path => File.join(File.dirname(__FILE__), '/vendor/gems/formtastic')
+
+gem 'formtastic',    :path => 'vendor/gems/formtastic'
 
 # Controller
 gem 'devise', '1.1.rc2'
