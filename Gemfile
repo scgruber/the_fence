@@ -35,9 +35,4 @@ group :test do
   gem 'cucumber', '0.9.1'
   gem 'spork'
   gem 'launchy'
-	
-	if RUBY_PLATFORM =~ /darwin/
-  	gem 'autotest-fsevent'
-  	gem 'autotest-growl'
-  end
 end
