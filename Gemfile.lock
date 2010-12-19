@@ -6,6 +6,12 @@ PATH
       activesupport (>= 2.3.0)
       i18n (>= 0.4.0)
 
+PATH
+  remote: vendor/gems/rack-pubcookie
+  specs:
+    rack-pubcookie (0.0.2)
+      rack
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -110,8 +116,6 @@ GEM
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
-    rack-pubcookie (0.0.2)
-      rack
     rack-test (0.5.6)
       rack (>= 1.0)
     rails (3.0.0)
@@ -181,7 +185,7 @@ DEPENDENCIES
   haml
   launchy
   mongoid (= 2.0.0.beta.19)
-  rack-pubcookie (= 0.0.2)
+  rack-pubcookie!
   rails (= 3.0.0)
   right-rails
   rmagick

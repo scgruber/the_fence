@@ -12,7 +12,7 @@ gem 'rmagick'
 gem 'right-rails'
 gem 'haml'
 gem 'formtastic',    :path => 'vendor/gems/formtastic'
-gem 'rack-pubcookie', '0.0.2'
+gem 'rack-pubcookie', :path => 'vendor/gems/rack-pubcookie'
 
 # Controller
 gem 'devise', '1.1.rc2'
