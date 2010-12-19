@@ -6,6 +6,12 @@ PATH
       activesupport (>= 2.3.0)
       i18n (>= 0.4.0)
 
+PATH
+  remote: vendor/gems/rack-pubcookie
+  specs:
+    rack-pubcookie (0.0.2)
+      rack
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -106,6 +112,7 @@ DEPENDENCIES
   formtastic!
   haml
   mongoid (= 2.0.0.beta.19)
+  rack-pubcookie!
   rails (= 3.0.0)
   right-rails
   rmagick
