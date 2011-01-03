@@ -15,7 +15,7 @@ gem 'haml'
 gem 'formtastic', '~> 1.1.0'
 
 # Controller
-gem 'devise', '1.1.rc2'
+gem 'devise', '~> 1.1.5'
 gem 'cancan'
 
 group :development, :test do

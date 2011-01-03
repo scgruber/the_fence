@@ -58,10 +58,11 @@ Fence::Application.routes.draw do
   get 'beta' => "beta#info"
   get 'events?sort=upcoming' => 'events#index', :as => 'upcoming_events'
   
-  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout' }
-  get 'login' => 'devise/sessions#new', :as => "new_user_session"
-  get 'logout' => 'devise/sessions#destroy', :as => "destroy_user_session"
-  get 'signup' => 'devise/registrations#new', :as => "new_user_registration"
+  devise_for :users, :skip => [:sessions] do
+    get 'login' => 'devise/sessions#new', :as => :new_user_session
+    post 'login' => 'devise/sessions#create', :as => :user_session
+    get 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
 
   # See how all your routes lay out with "rake routes"
 
