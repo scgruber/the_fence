@@ -6,3 +6,4 @@ tmp/**/*
 public/uploads
 public/stylesheets/application.css
 .redcar
+tmp/*
