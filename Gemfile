@@ -15,7 +15,7 @@ gem 'formtastic', '~> 1.1.0'
 gem 'rack-pubcookie', :path => 'vendor/gems/rack-pubcookie'
 
 # Controller
-gem 'devise', '1.1.rc2'
+gem 'devise', '~> 1.1.5'
 gem 'cancan'
 
 group :test do
