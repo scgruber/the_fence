@@ -25,6 +25,8 @@ end
 group :test do
 	gem 'autotest'
   
+  gem 'metric_fu'
+  
   gem 'rspec', '2.0.0.beta.22'
 	gem 'rspec-rails', '2.0.0.beta.22'
 	gem 'webrat'
