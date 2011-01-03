@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '~>3.0.0'
 
 # Model
 gem 'mongoid', '2.0.0.beta.19'
 gem 'bson_ext'
-gem 'carrierwave', '0.5.0.beta2'
+gem 'carrierwave', '~>0.5.1'
 gem 'rmagick'
 
 # View
@@ -23,14 +23,14 @@ group :test do
   
   gem 'metric_fu'
   
-  gem 'rspec', '2.0.0.beta.22'
-  gem 'rspec-rails', '2.0.0.beta.22'
+  gem 'rspec', '~>2.4.0'
+  gem 'rspec-rails', '~>2.4.0'
   gem 'webrat'
-  gem 'factory_girl_rails', '1.0.0'
+  gem 'factory_girl_rails', '~>1.0.0'
 
   gem 'capybara'
   gem 'cucumber-rails'
-  gem 'cucumber', '0.9.1'
+  gem 'cucumber', '~>0.10.0'
   gem 'spork'
   gem 'launchy'
 end
