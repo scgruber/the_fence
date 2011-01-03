@@ -11,7 +11,7 @@ gem 'rmagick'
 # View
 gem 'right-rails'
 gem 'haml'
-gem 'formtastic',    :path => 'vendor/gems/formtastic'
+gem 'formtastic', '~> 1.1.0'
 gem 'rack-pubcookie', :path => 'vendor/gems/rack-pubcookie'
 
 # Controller

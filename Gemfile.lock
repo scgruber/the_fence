@@ -1,12 +1,4 @@
 PATH
-  remote: vendor/gems/formtastic
-  specs:
-    formtastic (1.0.0.rc)
-      actionpack (>= 2.3.0)
-      activesupport (>= 2.3.0)
-      i18n (>= 0.4.0)
-
-PATH
   remote: vendor/gems/rack-pubcookie
   specs:
     rack-pubcookie (0.0.2)
@@ -107,6 +99,10 @@ GEM
     flog (2.5.0)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    formtastic (1.1.0)
+      actionpack (>= 2.3.0)
+      activesupport (>= 2.3.0)
+      i18n (>= 0.4.0)
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
@@ -239,7 +235,7 @@ DEPENDENCIES
   cucumber-rails
   devise (= 1.1.rc2)
   factory_girl_rails (= 1.0.0)
-  formtastic!
+  formtastic (~> 1.1.0)
   haml
   launchy
   metric_fu
