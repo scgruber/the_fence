@@ -1,3 +1,0 @@
-[submodule "vendor/gems/rack-pubcookie"]
-	path = vendor/gems/rack-pubcookie
-	url = https://github.com/alexcrichton/rack-pubcookie.git
