@@ -170,7 +170,7 @@ describe EventsController do
       
       before do
         event.stub(:update_attributes => false)
-        event.errors.stub(:empty? => false)  # TODO: check to see if RSpec does this yet
+        event.errors.stub(:empty? => false)
         put :update, :id => 1, :event => {}
       end
       
@@ -235,7 +235,7 @@ describe EventsController do
       
       before do
         event.stub(:save => false)
-        event.errors.stub(:empty? => false) # TODO: check to see if RSpec does this yet
+        event.errors.stub(:empty? => false)
         post :create, :event => {}
       end
       
