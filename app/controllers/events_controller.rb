@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     
     if params[:query]
       @events = @events.any_of({:name => /#{params[:query]}/i},
-                        {:description => /#{params[:query]}/i}) # TODO: find out...could this be dangerous?
+                        {:description => /#{params[:query]}/i})
     end
     
     if params[:sort] == "upcoming"
