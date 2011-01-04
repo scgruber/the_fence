@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   layout 'application'
   
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = exception.message
+    flash[:notice] = exception.message
     if user_signed_in?
       redirect_to(root_path)
     else
