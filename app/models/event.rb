@@ -49,9 +49,7 @@ class Event
   end
   
   def image_upload
-    errors.add(:image, I18n.t('events.validations.image_file_type')) if image_integrity_error
-    # TODO: test and add processing errors
-    # errors.add(:image, "failed to be processed") if image_processing_error
+    errors.add(:image, I18n.t('events.validations.image_file_type')) if image_integrity_error    
   end
   
   def blank_out_finish
