@@ -52,7 +52,7 @@ describe EventsController do
       end
       
       specify { response.should redirect_to(new_user_session_path) }
-      specify { flash[:alert].should == I18n.t('events.create.authorize_message') }
+      specify { flash[:notice].should == I18n.t('events.create.authorize_message') }
       
     end
     
@@ -102,7 +102,7 @@ describe EventsController do
         response.should redirect_to(root_path)
       end
       
-      specify { flash[:alert].should == I18n.t('events.edit.authorize_message') }
+      specify { flash[:notice].should == I18n.t('events.edit.authorize_message') }
       
     end
     
@@ -147,7 +147,7 @@ describe EventsController do
         response.should redirect_to(root_path)
       end
       
-      specify { flash[:alert].should == I18n.t('events.edit.authorize_message') }
+      specify { flash[:notice].should == I18n.t('events.edit.authorize_message') }
       
     end
     
@@ -253,7 +253,7 @@ describe EventsController do
       end
       
       specify { response.should redirect_to(new_user_session_path) }
-      specify { flash[:alert].should == I18n.t('events.create.authorize_message') }
+      specify { flash[:notice].should == I18n.t('events.create.authorize_message') }
       
     end
     
