@@ -62,6 +62,19 @@ describe EventsHelper do
         subject.should contain(/^An awesome/)
       end
       
+      context "when an exception to the rule" do
+        
+        it "is the correct article" do
+          pending("Indefinitizer gets support for exceptions")
+          
+          intervention = mock_model(Category, :name => "Honor", :kind => "noun")
+          event.stub_chain(:categories, :noun => [intervention])
+          
+          subject.should contain(/^An/)  
+        end
+        
+      end
+      
     end
     
     context "when no nouns are given" do
@@ -93,6 +106,19 @@ describe EventsHelper do
           event.stub_chain(:categories, :noun => [intervention])
         
           subject.should contain(/^An/)
+        end
+        
+        context "when an exception to the rule" do
+          
+          it "is the correct article" do
+            pending("Indefinitizer gets support for exceptions")
+          
+            intervention = mock_model(Category, :name => "Honor", :kind => "noun")
+            event.stub_chain(:categories, :noun => [intervention])
+            
+            subject.should contain(/^An/)  
+          end
+          
         end
         
       end
