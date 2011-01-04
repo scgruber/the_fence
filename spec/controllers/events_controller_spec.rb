@@ -280,7 +280,7 @@ describe EventsController do
     
     context "when a search query is provided" do
       
-      it "filters by name and descripton" do # TODO: extract to two specs somehow
+      it "filters by name and descripton" do
         events.should_receive(:any_of).
                 with({:name => /Fiesta/i}, {:description => /Fiesta/i}).
                 and_return(events)
