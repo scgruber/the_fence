@@ -288,7 +288,7 @@ describe EventsController do
       end
       
       it "assigns filtered events to view" do
-        filtered_events = ["filtered", "events"] # FIXME: replace dummy values
+        filtered_events = ["filtered", "events"]
         events.stub(:any_of).
                with({:name => /Fiesta/i}, {:description => /Fiesta/i}).
                and_return(filtered_events)
@@ -307,7 +307,7 @@ describe EventsController do
       end
       
       it "assigns sorted events to view" do
-        sorted_events = ["sorted", "events"] # FIXME: replace dummy values
+        sorted_events = ["sorted", "events"]
         events.stub(:upcoming => sorted_events)
         get :index, :sort => "upcoming"
         assigns[:events].should == sorted_events
@@ -325,7 +325,7 @@ describe EventsController do
       end
       
       it "assigns filtered events to view" do
-        filtered_events = ["filtered", "events"] # FIXME: replace dummy values
+        filtered_events = ["filtered", "events"]
         events.stub(:any_in).
                with(:category_ids => ["party", "lecture"]).
                and_return(filtered_events)
