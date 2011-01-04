@@ -28,8 +28,7 @@ module EventsHelper
       content_tag :span, category, :class => ['category'] + [options[:class]].flatten.compact
     end
   end
-  
-  # TODO: replace with something that deals wih exceptions
+    
   def indefinite_article_for(word, consonant = 'a', vowel = 'an')
     result = word.to_s.dup
     result.match(/^\W*([aeiou])/i) ? vowel : consonant
