@@ -337,6 +337,11 @@ describe Event do
       subject.errors[:image].should include("uploads must be a .jpg, .gif, or .png file.")
     end
     
+    it "throw an error when they can't be processed" do
+      pending "carrierwave github issue #191"
+      # TODO: check to see if github issue has been resolved
+    end
+    
   end
   
   pending "habtm on locations"
