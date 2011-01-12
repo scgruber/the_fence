@@ -19,6 +19,7 @@ set :deploy_to, "/var/apps/#{application}"
 # Repo Settings
 set :repository,  "#{user}@#{server_name}:#{application}.git"
 set :scm, "git"
+set :branch, "master"
 set :checkout, 'export'
 
 # General Settings
