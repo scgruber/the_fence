@@ -19,7 +19,9 @@ set :deploy_to, "/var/apps/#{application}"
 # Repo Settings
 set :repository,  "#{user}@#{server_name}:#{application}.git"
 set :scm, "git"
+set :branch, "master"
 set :checkout, 'export'
+set :git_enable_submodules, 1
 
 # General Settings
 default_run_options[:pty] = true
