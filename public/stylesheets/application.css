@@ -27,6 +27,22 @@ a {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px; }
 
+#login-link {
+  padding: 0 2em;
+  float: right; }
+  #login-link input {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 2.5em;
+    text-align: right;
+    color: white;
+    text-decoration: none;
+    background: #8ade5d;
+    padding: 0 15px 0 15px;
+    border: solid #54be13 1px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px; }
+
 #tagline {
   width: 587px;
   margin-bottom: 5px;

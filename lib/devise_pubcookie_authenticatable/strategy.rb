@@ -16,7 +16,6 @@ class Devise::Strategies::PubcookieAuthenticatable < base_class
 
   def authenticate!
     if pubcookie_response
-      puts "handle response"
       handle_response!
     else
       opts = { :return_to => "https://secure.takethefence.com/" }
@@ -27,6 +26,7 @@ class Devise::Strategies::PubcookieAuthenticatable < base_class
   protected
   
   def handle_response!
+
     case pubcookie_response.status
     when :success
       resource = find_resource || build_resource
@@ -39,6 +39,8 @@ class Devise::Strategies::PubcookieAuthenticatable < base_class
       
     when :failure
       fail! "Pubcookie authentication failed"
+    else
+      puts "nonna dese"
     end
   end
   
@@ -63,7 +65,9 @@ class Devise::Strategies::PubcookieAuthenticatable < base_class
   end
   
   def build_resource
+puts "try build"
     if mapping.to.respond_to?(:build_from_pubcookie_username)
+puts "can build"
       mapping.to.build_from_pubcookie_username(pubcookie_response.pubcookie_username)
     end
   end

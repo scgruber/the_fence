@@ -1,6 +1,7 @@
 require 'rack/utils'
 require 'openssl'
 require 'base64'
+require 'ostruct'
 
 module Rack
   module Pubcookie
@@ -56,17 +57,36 @@ module Rack
       def call env
         request = Rack::Request.new(env)
 
+        puts "herro"
+
         if request.params[GRANTING_REPLY]
-           env[RESPONSE] = extract_username(request)
+
+          puts "got a reply"
+
+          username = extract_username(request)
+
+          if username
+            puts "got a user"
+            env[RESPONSE] = OpenStruct.new(:pubcookie_username => username, :status => :success)
+          else
+puts "no got a user"
+            env[RESPONSE] = OpenStruct.new(:status => :failure)
+          end
+
         end
 
+        puts "activate the app!"
+
         status, headers, body = @app.call(env)
+
 
         qs = headers[AUTHENTICATE_HEADER]
         if status.to_i == 401 && qs && qs.match(AUTHENTICATE_REGEXP)
           params = self.class.parse_header(qs)
+          puts "redirect to the thing"
           [200, {"Content-Type" => "text/html"}, [login_page_html(params)]] # FIXME: bad vibes
         else
+          puts "regular"
           [status, headers, body]
         end
       end
@@ -77,7 +97,7 @@ module Rack
       def extract_username request
         # If coments below refer to a URL, they mean this one:
         # http://svn.cac.washington.edu/viewvc/pubcookie/trunk/src/pubcookie.h?view=markup
-        cookie = pubcookie_server_response
+        cookie = request.params[GRANTING_REPLY]
 
         return nil if cookie.nil?
 

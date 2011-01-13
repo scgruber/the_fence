@@ -1,9 +1,11 @@
 %h2 Sign in
 = form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
-  - if devise_mapping.rememberable?
-    %p
-      = f.check_box :remember_me
-      = f.label :remember_me
-  = f.submit "Log in with WebISO"
+  #login-link
+    = f.submit "Log in with WebISO"
+    - if devise_mapping.rememberable?
+      %p
+        = f.check_box :remember_me
+        = f.label :remember_me
+  %p The Fence is a community for Carnegie Mellon students and can only be accessed with a CMU AndrewID. Click the button on the right to log in with your AndrewID.
   
 = render :partial => "devise/shared/links"

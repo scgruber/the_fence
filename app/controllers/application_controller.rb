@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       redirect_to(root_path)
     else
-      authenticate_user!
+      redirect_to(new_user_session_path)
     end
   end
 end

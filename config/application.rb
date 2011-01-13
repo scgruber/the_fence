@@ -42,6 +42,8 @@ module Fence
       g.test_framework  :rspec, :fixture => true
       g.integration_tool :rspec
     end
+    
+    config.action_controller.allow_forgery_protection = false
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

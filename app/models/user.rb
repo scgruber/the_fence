@@ -9,7 +9,7 @@ class User
   
   field :admin, :type => Boolean, :default => false
   
-  def build_from_pubcookie_username(username)
+  def self.build_from_pubcookie_username(username)
     new(:pubcookie_username => username)
   end
 
