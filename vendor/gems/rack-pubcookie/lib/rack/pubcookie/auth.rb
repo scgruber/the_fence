@@ -8,7 +8,37 @@ module Rack
 
       include AES
       include DES
+      
+      def self.build_header(params = {})
+        'Pubcookie ' + params.map { |key, value|
+          if value.is_a?(Array)
+            "#{key}=\"#{value.join(',')}\""
+          else
+            "#{key}=\"#{value}\""
+          end
+        }.join(', ')
+      end
+      
+      def self.parse_header(str)
+        params = {}
+        if str =~ AUTHENTICATE_REGEXP
+          str = str.gsub(/#{AUTHENTICATE_REGEXP}\s+/, '')
+          str.split(', ').each { |pair|
+            key, *value = pair.split('=')
+            value = value.join('=')
+            value.gsub!(/^\"/, '').gsub!(/\"$/, "")
+            value = value.split(',')
+            params[key] = value.length > 1 ? value : value.first
+          }
+        end
+        params
+      end
 
+      GRANTING_REPLY = "pubcookie_g"
+      RESPONSE = "rack.pubcookie.response"
+      AUTHENTICATE_HEADER = "WWW-Authenticate"
+      AUTHENTICATE_REGEXP = /^Pubcookie/
+      
       def initialize app, login_server, host, appid, keyfile, granting_cert,
           opts = {}
         @app          = app
@@ -24,31 +54,30 @@ module Rack
       end
 
       def call env
-        request = Rack::Request.new env
+        request = Rack::Request.new(env)
 
-        if request.path == '/auth/pubcookie'
-          response = Rack::Response.new login_page_html
-        else
-          request.env['REMOTE_USER'] = extract_username request
-          status, headers, body = @app.call(request.env)
-          response = Rack::Response.new body, status, headers
-
-          if !request.params['pubcookie_g'].nil? &&
-              request.params['pubcookie_g'] != request.cookies['pubcookie_g']
-            response.set_cookie 'pubcookie_g', :path => '/', :secure => true,
-              :value => request.params['pubcookie_g']
-          end
+        if request.params[GRANTING_REPLY]
+           env[RESPONSE] = extract_username(request)
         end
 
-        response.finish
+        status, headers, body = @app.call(env)
+
+        qs = headers[AUTHENTICATE_HEADER]
+        if status.to_i == 401 && qs && qs.match(AUTHENTICATE_REGEXP)
+          params = self.class.parse_header(qs)
+          [200, {"Content-Type" => "text/html"}, [login_page_html(params)]] # FIXME: bad vibes
+        else
+          [status, headers, body]
+        end
       end
 
       protected
+      
 
       def extract_username request
         # If coments below refer to a URL, they mean this one:
         # http://svn.cac.washington.edu/viewvc/pubcookie/trunk/src/pubcookie.h?view=markup
-        cookie = request.params['pubcookie_g'] || request.cookies['pubcookie_g']
+        cookie = pubcookie_server_response
 
         return nil if cookie.nil?
 
@@ -82,7 +111,8 @@ module Rack
 
       # For a better description on what each of these values are, go to
       # https://wiki.doit.wisc.edu/confluence/display/WEBISO/Pubcookie+Granting+Request+Interface
-      def request_login_arguments
+      def request_login_arguments(params)
+        puts params
         args = {
           :one          => @host,     # FQDN of our host
           :two          => @appid,    # Our AppID for pubcookie
@@ -90,7 +120,7 @@ module Rack
           :four         => 'a5',      # Version/encryption?
           :five         => 'GET',     # method, even though we lie?
           :six          => @host,     # our host domain name
-          :seven        => '/auth/pubcookie/callback', # Where to return
+          :seven        => params["return_to"], # Where to return
           :eight        => '',        # ?
           :nine         => 1,         # Probably should be different...
           :hostname     => @host,     # Pubcookie needs it 3 times...
@@ -105,8 +135,8 @@ module Rack
         args
       end
 
-      def login_page_html
-        query = request_login_arguments.to_a.map{ |k, v|
+      def login_page_html(params)
+        query = request_login_arguments(params).to_a.map{ |k, v|
           "#{k}=#{Rack::Utils.escape v}"
         }.join '&'
         input_val = Base64.encode64 query
@@ -121,7 +151,7 @@ module Rack
   <form method='post' action="https://#{@login_server}" name='relay'>
     <input type='hidden' name='pubcookie_g_req' value="#{input_val}">
     <input type='hidden' name='post_stuff' value="">
-    <input type='hidden' name='relay_url' value="https://#{@host}/auth/pubcookie/callback">
+    <input type='hidden' name='relay_url' value="#{params["return_to"]}">
     <noscript>
       <p align='center'>You do not have Javascript turned on,   please click the button to continue.
       <p align='center'>

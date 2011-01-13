@@ -1,3 +1,9 @@
 %h2 Sign in
-= link_to "Log in with WebISO", session_path(resource_name)
+= form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
+  - if devise_mapping.rememberable?
+    %p
+      = f.check_box :remember_me
+      = f.label :remember_me
+  = f.submit "Log in with WebISO"
+  
 = render :partial => "devise/shared/links"
