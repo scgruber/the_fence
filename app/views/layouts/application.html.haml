@@ -12,7 +12,7 @@
         - if current_user
           Welcome, #{current_user.pubcookie_username} | #{link_to "Log Out", destroy_user_session_path}
         - else
-          #{link_to "Log in", new_user_session_path} | #{link_to "Sign Up", new_user_registration_path}
+          #{link_to "Log in", new_user_session_path}
     
       #header
         = link_to image_tag("logo.png", :alt => "The Fence (beta)"), root_path, :id => 'logo'
