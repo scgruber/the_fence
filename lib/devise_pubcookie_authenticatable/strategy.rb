@@ -40,7 +40,6 @@ class Devise::Strategies::PubcookieAuthenticatable < base_class
     when :failure
       fail! "Pubcookie authentication failed"
     else
-      puts "nonna dese"
     end
   end
   
@@ -65,9 +64,7 @@ class Devise::Strategies::PubcookieAuthenticatable < base_class
   end
   
   def build_resource
-puts "try build"
     if mapping.to.respond_to?(:build_from_pubcookie_username)
-puts "can build"
       mapping.to.build_from_pubcookie_username(pubcookie_response.pubcookie_username)
     end
   end
@@ -79,6 +76,7 @@ puts "can build"
       return_params["#{scope}[#{param}]"] = value
       return_params
     end
+    puts scope_params
     return_to.query = Rack::Utils.build_query(scope_params)
     return_to.to_s
   end

@@ -57,25 +57,17 @@ module Rack
       def call env
         request = Rack::Request.new(env)
 
-        puts "herro"
-
         if request.params[GRANTING_REPLY]
-
-          puts "got a reply"
 
           username = extract_username(request)
 
           if username
-            puts "got a user"
             env[RESPONSE] = OpenStruct.new(:pubcookie_username => username, :status => :success)
           else
-puts "no got a user"
             env[RESPONSE] = OpenStruct.new(:status => :failure)
           end
 
         end
-
-        puts "activate the app!"
 
         status, headers, body = @app.call(env)
 
@@ -83,10 +75,8 @@ puts "no got a user"
         qs = headers[AUTHENTICATE_HEADER]
         if status.to_i == 401 && qs && qs.match(AUTHENTICATE_REGEXP)
           params = self.class.parse_header(qs)
-          puts "redirect to the thing"
           [200, {"Content-Type" => "text/html"}, [login_page_html(params)]] # FIXME: bad vibes
         else
-          puts "regular"
           [status, headers, body]
         end
       end
@@ -132,7 +122,6 @@ puts "no got a user"
       # For a better description on what each of these values are, go to
       # https://wiki.doit.wisc.edu/confluence/display/WEBISO/Pubcookie+Granting+Request+Interface
       def request_login_arguments(params)
-        puts params
         args = {
           :one          => @host,     # FQDN of our host
           :two          => @appid,    # Our AppID for pubcookie

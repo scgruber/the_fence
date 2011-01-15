@@ -43,6 +43,8 @@ module Fence
       g.integration_tool :rspec
     end
     
+    config.action_controller.session = {:domain => 'takethefence.com'}
+    
     config.action_controller.allow_forgery_protection = false
 
     # Configure the default encoding used in templates for Ruby 1.9.
