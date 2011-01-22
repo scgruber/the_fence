@@ -37,6 +37,12 @@ namespace :deploy do
   task :secondary_symlink, :except => { :no_release => true } do
     run "rm -f #{release_path}/config/database.yml"
     run "ln -s #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+    
+    run "rm -f #{release_path}/config/mongoid.yml"
+    run "ln -s #{deploy_to}/shared/config/mongoid.yml #{release_path}/config/mongoid.yml"
+    
+    run "rm -rf #{release_path}/etc/"
+    run "ln -s #{deploy_to}/shared/etc #{release_path}/etc"
   end
 
   task :restart, :except => { :no_release => true } do
