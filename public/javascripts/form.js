@@ -24,8 +24,7 @@ document.onReady(function(){
       format: "%l:%M%p %m/%d/%Y",
       minDate: new Date(),
       showTime: true,
-      twentyFourHour: false,
-      hideOnPick: true
+      twentyFourHour: false
     });
     calendar.assignTo(datetime);
   });
