@@ -12,10 +12,12 @@ gem 'rmagick'
 gem 'right-rails'
 gem 'haml'
 gem 'formtastic', '~> 1.1.0'
-gem 'rack-pubcookie', :path => 'vendor/gems/rack-pubcookie'
+gem 'rack-pubcookie'
+gem 'oa-pubcookie'
 
 # Controller
-gem 'devise', '~> 1.1.5'
+gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
+gem 'omniauth', '~> 0.1.6'
 gem 'cancan'
 
 group :test do
