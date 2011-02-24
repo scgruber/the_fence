@@ -7,3 +7,4 @@ public/uploads
 public/stylesheets/application.css
 .redcar
 tmp/*
+etc/pubcookie
