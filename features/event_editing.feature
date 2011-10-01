@@ -57,6 +57,7 @@ Feature: Event editing
     And I press "Update Event"
     Then I should see "Image uploads must be a .jpg, .gif, or .png file."
 
+  @wip
   Scenario: Selecting categories
     Given I am logged in
     And there is a noun category called "Cookout"

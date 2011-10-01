@@ -59,6 +59,7 @@ Feature: Event creation
     Then I should see "Image uploads must be a .jpg, .gif, or .png file."
 		And I should not see "not_an_image.txt"
   
+  @wip
   Scenario: Selecting categories
     Given I am logged in
     And there is a noun category called "Fiesta"
